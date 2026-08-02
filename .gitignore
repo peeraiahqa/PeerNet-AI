@@ -1,5 +1,5 @@
 .env
+users.json
 __pycache__/
 *.pyc
-.venv/
-venv/
+.streamlit/secrets.toml
