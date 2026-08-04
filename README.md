@@ -287,3 +287,11 @@ https://github.com/peeraiahqa
 Made with ❤️ for the Networking & Automation Community.
 
 </div>
+
+## 📸 Login Page
+
+![Login](screenshots/login.png)
+
+## 📸 Dashboard
+
+![Dashboard](screenshots/dashboard.png)
