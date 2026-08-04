@@ -1,39 +1,26 @@
-import os
-
-import streamlit as st
 from openai import OpenAI
-
-from config import DEFAULT_MODEL, MODE_INSTRUCTIONS
-
-
-def get_api_key() -> str | None:
-    key = os.getenv("OPENAI_API_KEY")
-    if key:
-        return key
-
-    try:
-        value = st.secrets.get("OPENAI_API_KEY")
-        return str(value) if value else None
-    except Exception:
-        return None
+from config import MODE_INSTRUCTIONS
+from peernet_secrets import get_secret
 
 
 def generate_answer(
-    api_key: str,
     mode: str,
     messages: list[dict[str, str]],
+    model: str,
 ) -> str:
-    client = OpenAI(api_key=api_key)
+    api_key = get_secret("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is not configured.")
 
+    client = OpenAI(api_key=api_key)
     conversation = "\n".join(
         f"{message['role'].upper()}: {message['content']}"
-        for message in messages[-12:]
+        for message in messages[-16:]
     )
 
     response = client.responses.create(
-        model=DEFAULT_MODEL,
+        model=model,
         instructions=MODE_INSTRUCTIONS[mode],
         input=conversation,
     )
-
     return response.output_text

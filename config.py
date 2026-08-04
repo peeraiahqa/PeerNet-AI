@@ -4,79 +4,76 @@ from typing import Final
 APP_TITLE: Final = "PeerNet AI"
 LOGO_PATH: Final = "images/PeerNet Solutions.png"
 FAVICON_PATH: Final = "images/favicon.png"
+AI_LOGIN_IMAGE_PATH: Final = "images/Ai_think.png"
 DEFAULT_MODEL: Final = os.getenv("OPENAI_MODEL", "gpt-5-mini")
+
+_configured_models = [
+    item.strip()
+    for item in os.getenv(
+        "OPENAI_MODELS",
+        "gpt-5-mini,gpt-5,gpt-4.1,gpt-4o-mini",
+    ).split(",")
+    if item.strip()
+]
+
+MODEL_OPTIONS: Final = list(
+    dict.fromkeys([DEFAULT_MODEL, *_configured_models])
+)
+SUPABASE_REDIRECT_URL: Final = os.getenv("SUPABASE_REDIRECT_URL", "http://localhost:8501")
 
 MODE_INSTRUCTIONS = {
     "Networking Trainer": """
 You are PeerNet AI, an expert networking trainer.
-
 Structure answers as:
 1. Simple explanation
 2. Practical example
 3. Useful show/debug commands
 4. Troubleshooting notes
 5. Interview-ready answer
-
 Focus on Cisco SD-WAN, Meraki, routing, switching, wireless,
 network security, Linux, REST APIs, Python, pyATS, and pytest.
 """,
     "Troubleshooting": """
 You are a senior network troubleshooting engineer.
-
-Use this flow:
-1. Understand the symptom
-2. Check scope and recent changes
-3. Validate underlay
-4. Validate control plane
-5. Validate data plane
-6. Check policy and application behavior
-7. Provide commands or API checks
-8. Explain likely causes and corrective actions
-
-Avoid destructive commands unless explicitly requested.
+Use a structured flow covering symptom, scope, recent changes, underlay,
+control plane, data plane, policy, application behavior, commands, causes,
+and corrective actions. Avoid destructive commands unless requested.
 """,
     "Python / pyATS": """
 You are a senior Python network automation engineer.
-
-Provide safe, readable, executable code.
-Prefer functions, type hints, input validation, clear variable names,
-comments, and error handling.
-
-Use pyATS, pytest, requests, regex, REST APIs, or SSH where appropriate.
-Clearly mark sample data and never invent successful device output.
+Provide safe, readable, executable code with functions, type hints,
+validation, comments, and error handling. Clearly mark sample data.
 """,
     "Interview Prep": """
 You are a technical interviewer for networking and Python automation roles.
-
-For every answer include:
-- Direct interview answer
-- Real-time project example
-- Common follow-up question
-- Common mistake to avoid
-
-Keep the wording easy to speak in an interview.
+Include a direct answer, project example, follow-up question, and mistake to avoid.
 """,
     "Test Planning": """
 You are a senior QA architect for networking products.
-
-Convert requirements into traceable test scenarios.
-Include positive, negative, resiliency, scale, rollback,
-cleanup, and automation coverage.
-
-For every testcase provide:
-- ID
-- Objective
-- Preconditions
-- Steps
-- Expected result
-- Automation possibility
+Create traceable positive, negative, resiliency, scale, rollback,
+cleanup, and automation test coverage.
 """,
 }
 
 QUICK_PROMPTS = [
-    ("How does SD-WAN Auto VPN work?", "🌐", "#EEF6FF"),
-    ("Generate pyATS test cases for WAN failover", "🐍", "#FFF6DF"),
-    ("Troubleshoot vEdge not joining vManage", "🛠️", "#FCECFB"),
-    ("Explain Meraki Wireless overview", "📶", "#EAFBF4"),
-    ("Create a detailed test plan from PRD", "📋", "#F2EEFF"),
+    ("How does SD-WAN Auto VPN work?", "🌐", "card-blue"),
+    ("Generate pyATS test cases for WAN failover", "🐍", "card-yellow"),
+    ("Troubleshoot vEdge not joining vManage", "🛠️", "card-pink"),
+    ("Explain Meraki Wireless overview", "📶", "card-green"),
+    ("Create a detailed test plan from PRD", "📋", "card-purple"),
+]
+
+
+DAILY_FREE_LIMIT = int(os.getenv("DAILY_FREE_LIMIT", "25"))
+MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "8"))
+
+NETWORK_TOOLS = [
+    "CLI Output Analyzer",
+    "Configuration Validator",
+    "Route Table Analyzer",
+    "SD-WAN Troubleshooter",
+    "pyATS Test Generator",
+    "REST API Generator",
+    "PRD to Test Cases",
+    "Interview Practice",
 ]
