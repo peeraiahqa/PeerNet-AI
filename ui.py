@@ -1,3 +1,4 @@
+from datetime import datetime
 import html
 import textwrap
 
@@ -42,7 +43,32 @@ def _user_initial(profile: dict) -> str:
 
     return "P"
 
+def get_greeting_and_message():
+    hour = datetime.now().hour
 
+    if 5 <= hour < 12:
+        return (
+            "☀️ Good Morning",
+            "Ready to build something amazing today?"
+        )
+
+    elif 12 <= hour < 17:
+        return (
+            "🌤 Good Afternoon",
+            "Keep your momentum going!"
+        )
+
+    elif 17 <= hour < 21:
+        return (
+            "🌇 Good Evening",
+            "Let's solve some networking challenges."
+        )
+
+    else:
+        return (
+            "🌙 Good Night",
+            "Don't forget to save your work before you rest."
+        )
 
 def render_sidebar_profile(profile: dict) -> None:
     name = html.escape(
@@ -71,11 +97,6 @@ def render_sidebar_profile(profile: dict) -> None:
     )
 
 
-
-
-
-
-
 def render_topbar(profile: dict, model: str) -> None:
     initial = _user_initial(profile)
 
@@ -101,26 +122,35 @@ def render_topbar(profile: dict, model: str) -> None:
         )
     )
 
-def render_hero() -> None:
-    st.html(textwrap.dedent("""
-        <section class="pn-dashboard-hero">
-            <div class="pn-hero-copy">
-                <h1>Good morning, <span>PeerNet User!</span> 👋</h1>
-                <p>How can I help you with networking today?</p>
-            </div>
-            <div class="pn-hero-art" aria-hidden="true">
-                <div class="pn-core-cube">⌘</div>
-                <span class="cube c1"></span>
-                <span class="cube c2"></span>
-                <span class="cube c3"></span>
-                <span class="cube c4"></span>
-                <i class="line l1"></i>
-                <i class="line l2"></i>
-                <i class="line l3"></i>
-                <i class="line l4"></i>
-            </div>
-        </section>
-    """))
+def render_hero(user_name: str) -> None:
+    greeting, message = get_greeting_and_message()
+
+    st.html(
+        textwrap.dedent(
+            f"""
+            <section class="pn-dashboard-hero">
+                <div class="pn-hero-copy">
+                    <h1>{greeting}, {user_name}! 👋</h1>
+                    <p>{message}</p>
+                </div>
+
+                <div class="pn-hero-art" aria-hidden="true">
+                    <div class="pn-core-cube">⌘</div>
+
+                    <span class="cube c1"></span>
+                    <span class="cube c2"></span>
+                    <span class="cube c3"></span>
+                    <span class="cube c4"></span>
+
+                    <i class="line l1"></i>
+                    <i class="line l2"></i>
+                    <i class="line l3"></i>
+                    <i class="line l4"></i>
+                </div>
+            </section>
+            """
+        )
+    )
 
 
 def render_quick_prompts() -> None:
@@ -128,7 +158,7 @@ def render_quick_prompts() -> None:
         ("Networking", "Design, configure and troubleshoot network architectures", "🌐", "card-blue", "Explain a networking concept with examples."),
         ("SD-WAN", "SD-WAN design, troubleshooting and best practices", "🛡️", "card-green", "Help me troubleshoot Cisco SD-WAN."),
         ("Meraki", "Meraki solutions, API, automation and monitoring", "M", "card-teal", "Help me with Cisco Meraki."),
-        ("Python / pyATS", "Python automation, pyATS testing and network scripts", "</>", "card-purple", "Generate a Python or pyATS automation."),
+        ("Python / pyATS", "Python automation, pyATS testing and network scripts", "🐍", "card-purple", "Generate a Python or pyATS automation."),
         ("Interview Prep", "Prepare for networking interviews with Q&A and scenarios", "◉", "card-orange", "Start a networking interview practice session."),
         ("Test Planning", "Test plans, test cases and automation strategies", "✓", "card-pink", "Create a test plan from my requirements."),
     ]

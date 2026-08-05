@@ -328,12 +328,15 @@ selected_page = st.session_state.get("active_page", "Home")
 
 render_topbar(profile, st.session_state.selected_model)
 
-
 if selected_page == "Home":
-    render_hero()
-
-    if not st.session_state.messages:
-        render_quick_prompts()
+    user_name = (
+        profile.get("name")
+        or profile.get("full_name")
+        or profile.get("username")
+        or "PeerNet User"
+    )
+    render_hero(user_name)
+    render_quick_prompts()
 
     # Existing messages
     for index, message in enumerate(st.session_state.messages):
