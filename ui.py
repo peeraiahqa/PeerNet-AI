@@ -62,7 +62,7 @@ def render_sidebar_profile(profile: dict) -> None:
                 <div class="pn-sidebar-user-avatar">{initial}<span></span></div>
                 <div class="pn-sidebar-user-copy">
                     <strong>{name}</strong>
-                    <small>{role} Member</small>
+                    <small>{role}</small>
                 </div>
                 <div class="pn-sidebar-user-status">●</div>
             </div>
