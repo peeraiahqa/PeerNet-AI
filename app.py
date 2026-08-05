@@ -313,7 +313,7 @@ with st.sidebar:
         """
         <div class="pn-side-footer">
             <strong>PeerNet AI</strong>
-            <span>Powered by OpenAI</span>
+            <span>🚀 Powered by PeerNet Solutions</span>
             <small>© 2026 PeerNet Solutions</small>
         </div>
         """,
