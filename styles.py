@@ -3894,7 +3894,169 @@ div:has(.pn-user-profile-bubble) {
         min-height:10px !important;
     }
 }
+/* FINAL MOBILE COMPOSER FIX */
+@media screen and (max-width: 700px) {
 
+    .block-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 0.55rem !important;
+        padding-right: 0.55rem !important;
+        padding-bottom: 7rem !important;
+        overflow-x: hidden !important;
+    }
+
+    .st-key-composer_tools {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0.55rem !important;
+        margin: 0.6rem 0 !important;
+        border-radius: 20px !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"] {
+        width: 100% !important;
+        display: grid !important;
+
+        /* Search takes complete first row */
+        grid-template-columns:
+            44px
+            minmax(0, 1fr)
+            44px
+            44px
+            minmax(90px, 1.3fr)
+            46px !important;
+
+        grid-template-rows: 52px 48px !important;
+        column-gap: 7px !important;
+        row-gap: 8px !important;
+        align-items: center !important;
+    }
+
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"]
+    > [data-testid="column"] {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        flex: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Search field */
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"]
+    > [data-testid="column"]:nth-child(2) {
+        grid-column: 1 / -1 !important;
+        grid-row: 1 !important;
+    }
+
+    /* Plus */
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"]
+    > [data-testid="column"]:nth-child(1) {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+    }
+
+    /* Dictate */
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"]
+    > [data-testid="column"]:nth-child(3) {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+    }
+
+    /* Start Voice */
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"]
+    > [data-testid="column"]:nth-child(4) {
+        grid-column: 3 !important;
+        grid-row: 2 !important;
+    }
+
+    /* Model */
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"]
+    > [data-testid="column"]:nth-child(5) {
+        grid-column: 4 / 6 !important;
+        grid-row: 2 !important;
+    }
+
+    /* Send */
+    .st-key-composer_tools
+    > div
+    > [data-testid="stHorizontalBlock"]
+    > [data-testid="column"]:nth-child(6) {
+        grid-column: 6 !important;
+        grid-row: 2 !important;
+    }
+
+    /* Search input */
+    .st-key-composer_tools div[data-testid="stTextInput"],
+    .st-key-composer_tools div[data-testid="stTextInput"] > div,
+    .st-key-composer_tools [data-baseweb="input"] {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .st-key-composer_tools div[data-testid="stTextInput"] input {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        height: 48px !important;
+        font-size: 0.82rem !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Model selector */
+    .st-key-composer_tools
+    div[data-testid="stSelectbox"] {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .st-key-composer_tools
+    div[data-testid="stSelectbox"] > div > div {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: 44px !important;
+        font-size: 0.62rem !important;
+        padding-left: 0.35rem !important;
+        padding-right: 0.2rem !important;
+    }
+
+    /* Voice components */
+    .st-key-composer_tools iframe {
+        width: 44px !important;
+        min-width: 44px !important;
+        max-width: 44px !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        max-height: 44px !important;
+    }
+
+    /* Upload and send */
+    .st-key-composer_tools div[data-testid="stPopover"] > button,
+    .st-key-composer_tools .st-key-composer_send button {
+        width: 44px !important;
+        min-width: 44px !important;
+        height: 44px !important;
+        min-height: 44px !important;
+    }
+}
 </style>
 """,
     }
