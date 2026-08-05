@@ -3211,6 +3211,214 @@ div:has(.pn-v8-profile-bubble) {
     }
 }
 
+
+/* =========================================================
+   DEDICATED PHONE COMPOSER
+   Desktop and tablet remain on the existing composer.
+   ========================================================= */
+.st-key-composer_tools {
+    display:block !important;
+}
+
+.st-key-mobile_composer {
+    display:none !important;
+}
+
+@media screen and (max-width:700px) {
+    /* Hide only the desktop composer on phones. */
+    .st-key-composer_tools {
+        display:none !important;
+    }
+
+    .st-key-mobile_composer {
+        display:block !important;
+        width:100% !important;
+        max-width:100% !important;
+        margin:.75rem auto 1rem !important;
+        padding:.7rem !important;
+        border:none !important;
+        outline:none !important;
+        border-radius:22px !important;
+        background:rgba(255,255,255,.96) !important;
+        box-shadow:0 14px 34px rgba(39,81,145,.13) !important;
+        box-sizing:border-box !important;
+        overflow:visible !important;
+    }
+
+    /* First row: full-width prompt. */
+    .st-key-mobile_composer div[data-testid="stTextInput"],
+    .st-key-mobile_composer div[data-testid="stTextInput"] > div,
+    .st-key-mobile_composer [data-baseweb="input"] {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        margin:0 !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stTextInput"] input,
+    .st-key-mobile_composer [data-baseweb="input"] input {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        height:50px !important;
+        min-height:50px !important;
+        margin:0 !important;
+        padding:0 .95rem !important;
+        border:none !important;
+        outline:none !important;
+        border-radius:15px !important;
+        color:#10244a !important;
+        -webkit-text-fill-color:#10244a !important;
+        caret-color:#2563eb !important;
+        background:#f4f8ff !important;
+        box-shadow:inset 0 1px 2px rgba(21,64,125,.05) !important;
+        font-size:.86rem !important;
+        opacity:1 !important;
+        box-sizing:border-box !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stTextInput"] input::placeholder {
+        color:#7786a0 !important;
+        -webkit-text-fill-color:#7786a0 !important;
+        opacity:1 !important;
+    }
+
+    /* Second row: +, dictate, voice, model and send. */
+    .st-key-mobile_composer [data-testid="stHorizontalBlock"] {
+        width:100% !important;
+        max-width:100% !important;
+        display:grid !important;
+        grid-template-columns:44px 44px 44px minmax(104px,1fr) 48px !important;
+        gap:8px !important;
+        align-items:center !important;
+        margin-top:.6rem !important;
+        box-sizing:border-box !important;
+    }
+
+    .st-key-mobile_composer
+    [data-testid="stHorizontalBlock"]
+    > [data-testid="column"] {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:none !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        flex:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        overflow:visible !important;
+    }
+
+    /* Attachment button. */
+    .st-key-mobile_composer div[data-testid="stPopover"],
+    .st-key-mobile_composer div[data-testid="stPopover"] > button {
+        width:44px !important;
+        min-width:44px !important;
+        max-width:44px !important;
+        height:44px !important;
+        min-height:44px !important;
+        max-height:44px !important;
+        margin:0 !important;
+        padding:0 !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stPopover"] > button {
+        border:none !important;
+        outline:none !important;
+        border-radius:50% !important;
+        color:#17406f !important;
+        background:#edf5ff !important;
+        box-shadow:0 7px 18px rgba(37,99,235,.12) !important;
+        font-size:1.15rem !important;
+    }
+
+    /* Voice components. */
+    .st-key-mobile_composer iframe {
+        display:block !important;
+        width:44px !important;
+        min-width:44px !important;
+        max-width:44px !important;
+        height:44px !important;
+        min-height:44px !important;
+        max-height:44px !important;
+        margin:0 !important;
+        padding:0 !important;
+        border:none !important;
+        outline:none !important;
+        border-radius:50% !important;
+        clip-path:circle(49% at 50% 50%) !important;
+        background:transparent !important;
+        box-shadow:0 7px 18px rgba(37,99,235,.12) !important;
+        overflow:hidden !important;
+    }
+
+    /* Model selector. */
+    .st-key-mobile_composer div[data-testid="stSelectbox"],
+    .st-key-mobile_composer div[data-testid="stSelectbox"] > div {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        margin:0 !important;
+    }
+
+    .st-key-mobile_composer
+    div[data-testid="stSelectbox"] > div > div {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        height:44px !important;
+        min-height:44px !important;
+        padding-left:.55rem !important;
+        padding-right:.25rem !important;
+        border:none !important;
+        outline:none !important;
+        border-radius:14px !important;
+        color:#17335f !important;
+        background:#eef4ff !important;
+        box-shadow:0 7px 18px rgba(54,94,170,.10) !important;
+        font-size:.66rem !important;
+        font-weight:800 !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stSelectbox"] svg {
+        color:#654ee7 !important;
+    }
+
+    /* Send button. */
+    .st-key-mobile_composer .st-key-mobile_composer_send,
+    .st-key-mobile_composer .st-key-mobile_composer_send button {
+        width:48px !important;
+        min-width:48px !important;
+        max-width:48px !important;
+        height:48px !important;
+        min-height:48px !important;
+        max-height:48px !important;
+        margin:0 !important;
+        padding:0 !important;
+    }
+
+    .st-key-mobile_composer .st-key-mobile_composer_send button {
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        border:none !important;
+        outline:none !important;
+        border-radius:50% !important;
+        color:#fff !important;
+        background:linear-gradient(145deg,#2563eb,#7c3aed) !important;
+        box-shadow:0 10px 24px rgba(76,74,230,.30) !important;
+        font-size:1rem !important;
+        font-weight:900 !important;
+    }
+
+    .st-key-mobile_composer [data-testid="stCaptionContainer"] {
+        margin:.35rem .25rem 0 !important;
+        color:#667495 !important;
+        font-size:.66rem !important;
+    }
+}
+
 </style>
         """,
         unsafe_allow_html=True,
@@ -3271,6 +3479,14 @@ def apply_styles(theme: str = "Light") -> None:
         radial-gradient(circle at 96% 0%,rgba(19,185,255,.11),transparent 24%),
         linear-gradient(180deg,#fbfdff 0%,#eef7ff 100%) !important;
 }
+
+@media screen and (max-width:700px) {
+    .st-key-mobile_composer {
+        color:#0b1e49 !important;
+        background:rgba(255,255,255,.97) !important;
+    }
+}
+
 </style>
 """,
         "dark": """
@@ -3494,6 +3710,29 @@ div[data-testid="stChatMessage"]
 div[data-testid="stChatMessage"]
 [data-testid="stChatMessageAvatarAssistant"] {
     background:#1c3150 !important;
+}
+
+
+@media screen and (max-width:700px) {
+    .st-key-mobile_composer {
+        color:#f3f7ff !important;
+        background:#101c2f !important;
+        box-shadow:0 16px 36px rgba(0,0,0,.30) !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stTextInput"] input,
+    .st-key-mobile_composer [data-baseweb="input"] input,
+    .st-key-mobile_composer div[data-testid="stSelectbox"] > div > div,
+    .st-key-mobile_composer div[data-testid="stPopover"] > button {
+        color:#f3f7ff !important;
+        -webkit-text-fill-color:#f3f7ff !important;
+        background:#13233b !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stTextInput"] input::placeholder {
+        color:#91a0ba !important;
+        -webkit-text-fill-color:#91a0ba !important;
+    }
 }
 
 </style>
@@ -3894,52 +4133,66 @@ div:has(.pn-user-profile-bubble) {
         min-height:10px !important;
     }
 }
-/* FINAL MOBILE COMPOSER FIX */
+/* =========================================================
+   MOBILE COMPOSER — CLEAN TWO-ROW LAYOUT
+   ========================================================= */
 @media screen and (max-width: 700px) {
+
+    html,
+    body,
+    .stApp {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
 
     .block-container {
         width: 100% !important;
         max-width: 100% !important;
-        padding-left: 0.55rem !important;
-        padding-right: 0.55rem !important;
-        padding-bottom: 7rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        padding-bottom: 6.5rem !important;
         overflow-x: hidden !important;
     }
 
+    /* Composer outer card */
     .st-key-composer_tools {
-        width: 100% !important;
-        max-width: 100% !important;
+        width: calc(100% - 0.2rem) !important;
+        max-width: calc(100% - 0.2rem) !important;
+        margin: 0.55rem auto !important;
         padding: 0.55rem !important;
-        margin: 0.6rem 0 !important;
-        border-radius: 20px !important;
+        border-radius: 18px !important;
         box-sizing: border-box !important;
         overflow: visible !important;
     }
 
+    /* Convert Streamlit columns into a mobile grid */
     .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"] {
+    [data-testid="stHorizontalBlock"] {
         width: 100% !important;
-        display: grid !important;
+        max-width: 100% !important;
 
-        /* Search takes complete first row */
+        display: grid !important;
         grid-template-columns:
             44px
-            minmax(0, 1fr)
             44px
-            44px
-            minmax(90px, 1.3fr)
+            minmax(95px, 1fr)
+            48px !important;
+
+        grid-template-rows:
+            50px
             46px !important;
 
-        grid-template-rows: 52px 48px !important;
-        column-gap: 7px !important;
-        row-gap: 8px !important;
+        column-gap: 8px !important;
+        row-gap: 9px !important;
+
         align-items: center !important;
+        box-sizing: border-box !important;
     }
 
+    /* Reset desktop column sizing */
     .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"]
+    [data-testid="stHorizontalBlock"]
     > [data-testid="column"] {
         width: 100% !important;
         min-width: 0 !important;
@@ -3949,19 +4202,17 @@ div:has(.pn-user-profile-bubble) {
         margin: 0 !important;
     }
 
-    /* Search field */
+    /* Search field: complete first row */
     .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"]
+    [data-testid="stHorizontalBlock"]
     > [data-testid="column"]:nth-child(2) {
         grid-column: 1 / -1 !important;
         grid-row: 1 !important;
     }
 
-    /* Plus */
+    /* Plus / attachment */
     .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"]
+    [data-testid="stHorizontalBlock"]
     > [data-testid="column"]:nth-child(1) {
         grid-column: 1 !important;
         grid-row: 2 !important;
@@ -3969,41 +4220,36 @@ div:has(.pn-user-profile-bubble) {
 
     /* Dictate */
     .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"]
+    [data-testid="stHorizontalBlock"]
     > [data-testid="column"]:nth-child(3) {
         grid-column: 2 !important;
         grid-row: 2 !important;
     }
 
-    /* Start Voice */
+    /* Start voice */
     .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"]
+    [data-testid="stHorizontalBlock"]
     > [data-testid="column"]:nth-child(4) {
+        display: none !important;
+    }
+
+    /* Model dropdown */
+    .st-key-composer_tools
+    [data-testid="stHorizontalBlock"]
+    > [data-testid="column"]:nth-child(5) {
         grid-column: 3 !important;
         grid-row: 2 !important;
     }
 
-    /* Model */
+    /* Send button */
     .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"]
-    > [data-testid="column"]:nth-child(5) {
-        grid-column: 4 / 6 !important;
-        grid-row: 2 !important;
-    }
-
-    /* Send */
-    .st-key-composer_tools
-    > div
-    > [data-testid="stHorizontalBlock"]
+    [data-testid="stHorizontalBlock"]
     > [data-testid="column"]:nth-child(6) {
-        grid-column: 6 !important;
+        grid-column: 4 !important;
         grid-row: 2 !important;
     }
 
-    /* Search input */
+    /* Search input width */
     .st-key-composer_tools div[data-testid="stTextInput"],
     .st-key-composer_tools div[data-testid="stTextInput"] > div,
     .st-key-composer_tools [data-baseweb="input"] {
@@ -4012,20 +4258,50 @@ div:has(.pn-user-profile-bubble) {
         max-width: 100% !important;
     }
 
-    .st-key-composer_tools div[data-testid="stTextInput"] input {
+    .st-key-composer_tools
+    div[data-testid="stTextInput"] input {
         width: 100% !important;
         min-width: 0 !important;
         max-width: 100% !important;
         height: 48px !important;
+
+        padding: 0 0.9rem !important;
         font-size: 0.82rem !important;
+
+        border-radius: 14px !important;
         box-sizing: border-box !important;
     }
 
-    /* Model selector */
+    /* Plus button */
     .st-key-composer_tools
-    div[data-testid="stSelectbox"] {
+    div[data-testid="stPopover"] > button {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+    }
+
+    /* Dictate / microphone */
+    .st-key-composer_tools iframe {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        max-width: 44px !important;
+        max-height: 44px !important;
+        border: none !important;
+    }
+
+    /* Model dropdown */
+    .st-key-composer_tools
+    div[data-testid="stSelectbox"],
+    .st-key-composer_tools
+    div[data-testid="stSelectbox"] > div {
         width: 100% !important;
         min-width: 0 !important;
+        max-width: 100% !important;
     }
 
     .st-key-composer_tools
@@ -4033,30 +4309,125 @@ div:has(.pn-user-profile-bubble) {
         width: 100% !important;
         min-width: 0 !important;
         height: 44px !important;
-        font-size: 0.62rem !important;
-        padding-left: 0.35rem !important;
-        padding-right: 0.2rem !important;
+
+        padding-left: 0.45rem !important;
+        padding-right: 0.3rem !important;
+
+        border-radius: 14px !important;
+        font-size: 0.66rem !important;
     }
 
-    /* Voice components */
-    .st-key-composer_tools iframe {
-        width: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
-        height: 44px !important;
-        min-height: 44px !important;
-        max-height: 44px !important;
+    /* Send */
+    .st-key-composer_tools
+    .st-key-composer_send button {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px !important;
+        min-height: 46px !important;
+
+        padding: 0 !important;
+        border-radius: 50% !important;
     }
 
-    /* Upload and send */
-    .st-key-composer_tools div[data-testid="stPopover"] > button,
-    .st-key-composer_tools .st-key-composer_send button {
-        width: 44px !important;
-        min-width: 44px !important;
-        height: 44px !important;
-        min-height: 44px !important;
+    /* Prevent mobile bottom navigation overlap */
+    .pn-mobile-nav {
+        z-index: 1000 !important;
     }
 }
+
+@media screen and (max-width:700px) {
+    .st-key-mobile_composer {
+        color:#0b2f63 !important;
+        background:rgba(247,252,255,.98) !important;
+        box-shadow:0 15px 34px rgba(25,94,170,.14) !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stTextInput"] input,
+    .st-key-mobile_composer [data-baseweb="input"] input,
+    .st-key-mobile_composer div[data-testid="stSelectbox"] > div > div,
+    .st-key-mobile_composer div[data-testid="stPopover"] > button {
+        color:#0b2f63 !important;
+        -webkit-text-fill-color:#0b2f63 !important;
+        background:#eef7ff !important;
+    }
+}
+
+/* =========================================================
+   MOBILE CHAT RESPONSE ACTIONS
+   ========================================================= */
+@media screen and (max-width:700px) {
+
+    [class*="st-key-chat_actions_"] {
+        width:100% !important;
+        margin:.35rem 0 .2rem !important;
+        padding:0 !important;
+    }
+
+    [class*="st-key-chat_actions_"]
+    [data-testid="stHorizontalBlock"] {
+        width:100% !important;
+        display:grid !important;
+        grid-template-columns:
+            minmax(82px,auto)
+            46px
+            46px
+            1fr !important;
+        gap:7px !important;
+        align-items:center !important;
+    }
+
+    [class*="st-key-chat_actions_"]
+    [data-testid="column"] {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:none !important;
+        flex:none !important;
+        padding:0 !important;
+        margin:0 !important;
+    }
+
+    /* Hide unused spacer column */
+    [class*="st-key-chat_actions_"]
+    [data-testid="column"]:nth-child(4) {
+        display:none !important;
+    }
+
+    [class*="st-key-chat_actions_"]
+    div[data-testid="stButton"] {
+        width:100% !important;
+        margin:0 !important;
+    }
+
+    [class*="st-key-chat_actions_"]
+    div[data-testid="stButton"] > button {
+        width:100% !important;
+        height:40px !important;
+        min-height:40px !important;
+        margin:0 !important;
+        padding:0 .55rem !important;
+        border:1px solid rgba(37,99,235,.16) !important;
+        border-radius:12px !important;
+        background:#ffffff !important;
+        box-shadow:0 5px 14px rgba(35,75,140,.07) !important;
+        font-size:.72rem !important;
+        white-space:nowrap !important;
+    }
+
+    /* Like and dislike buttons */
+    [class*="st-key-chat_actions_"]
+    [data-testid="column"]:nth-child(2)
+    button,
+    [class*="st-key-chat_actions_"]
+    [data-testid="column"]:nth-child(3)
+    button {
+        width:42px !important;
+        min-width:42px !important;
+        padding:0 !important;
+        border-radius:50% !important;
+        font-size:.9rem !important;
+    }
+}
+
 </style>
 """,
     }

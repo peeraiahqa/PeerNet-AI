@@ -85,6 +85,16 @@ def submit_composer_prompt() -> None:
         st.session_state.composer_prompt = ""
 
 
+def submit_mobile_composer_prompt() -> None:
+    """Submit the dedicated mobile composer when Enter is pressed."""
+    prompt_value = st.session_state.get("mobile_composer_prompt", "").strip()
+
+    if prompt_value:
+        st.session_state.voice_transcript = ""
+        queue_prompt(prompt_value)
+        st.session_state.mobile_composer_prompt = ""
+
+
 def authentication_page() -> None:
     st.markdown(
         """<div class="pn-auth-title"><h1>Welcome to <span>PeerNet AI</span></h1><p>Secure networking, automation, troubleshooting, and interview preparation.</p></div>""",
@@ -343,13 +353,19 @@ if selected_page == "Home":
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-            if message["role"] == "assistant":
-                action_cols = st.columns([1, 1, 1, 5])
+        if message["role"] == "assistant":
+            with st.container(key=f"chat_actions_{index}"):
+                action_cols = st.columns(
+                    [1.5, 0.75, 0.75, 6],
+                    gap="small",
+                    vertical_alignment="center",
+                )
 
                 with action_cols[0]:
                     if st.button(
                         "⭐ Save",
                         key=f"favorite_{index}_{hash(message['content'])}",
+                        use_container_width=True,
                     ):
                         add_favorite("Saved AI response", message["content"])
                         st.success("Saved to Favorites.")
@@ -358,6 +374,7 @@ if selected_page == "Home":
                     if st.button(
                         "👍",
                         key=f"helpful_{index}_{hash(message['content'])}",
+                        use_container_width=True,
                     ):
                         save_feedback(
                             st.session_state.current_conversation_id,
@@ -370,6 +387,7 @@ if selected_page == "Home":
                     if st.button(
                         "👎",
                         key=f"not_helpful_{index}_{hash(message['content'])}",
+                        use_container_width=True,
                     ):
                         save_feedback(
                             st.session_state.current_conversation_id,
@@ -378,7 +396,7 @@ if selected_page == "Home":
                         )
                         st.success("Feedback saved.")
 
-    # Modern single-row PeerNet AI composer.
+    # Desktop/tablet composer. This remains unchanged above 700 px.
     with st.container(key="composer_tools"):
         (
             plus_col,
@@ -395,7 +413,7 @@ if selected_page == "Home":
 
         with plus_col:
             with st.popover("＋", use_container_width=True):
-                uploaded_file = st.file_uploader(
+                desktop_uploaded_file = st.file_uploader(
                     "📎 Upload file",
                     type=[
                         "txt", "log", "cfg", "conf", "json", "yaml", "yml",
@@ -404,19 +422,19 @@ if selected_page == "Home":
                     key="chat_attachment",
                 )
 
-                uploaded_image = st.file_uploader(
+                desktop_uploaded_image = st.file_uploader(
                     "🖼️ Upload image",
                     type=["png", "jpg", "jpeg", "webp"],
                     key="chat_image",
                 )
 
-                code_mode = st.checkbox(
+                desktop_code_mode = st.checkbox(
                     "</> Code-focused response",
                     key="chat_code_mode",
                 )
 
         with input_col:
-            prompt = st.text_input(
+            desktop_prompt = st.text_input(
                 "Message",
                 value=st.session_state.get("voice_transcript", ""),
                 placeholder="Ask PeerNet AI anything...",
@@ -427,7 +445,7 @@ if selected_page == "Home":
             )
 
         with dictate_col:
-            dictated_text = speech_to_text(
+            desktop_dictated_text = speech_to_text(
                 language="en",
                 start_prompt="🎙",
                 stop_prompt="■",
@@ -436,12 +454,12 @@ if selected_page == "Home":
                 key="dictate_once",
             )
 
-            if dictated_text:
-                st.session_state.voice_transcript = dictated_text
+            if desktop_dictated_text:
+                st.session_state.voice_transcript = desktop_dictated_text
                 st.rerun()
 
         with voice_col:
-            continuous_voice = speech_to_text(
+            desktop_continuous_voice = speech_to_text(
                 language="en",
                 start_prompt="▶",
                 stop_prompt="■",
@@ -450,13 +468,12 @@ if selected_page == "Home":
                 key="continuous_voice",
             )
 
-            if continuous_voice:
-                st.session_state.voice_transcript = continuous_voice
+            if desktop_continuous_voice:
+                st.session_state.voice_transcript = desktop_continuous_voice
                 st.rerun()
 
-
         with model_col:
-            selected_model = st.selectbox(
+            desktop_selected_model = st.selectbox(
                 "Model",
                 MODEL_OPTIONS,
                 index=MODEL_OPTIONS.index(
@@ -468,24 +485,136 @@ if selected_page == "Home":
                 key="composer_model_selector",
             )
 
-            if selected_model != st.session_state.selected_model:
-                st.session_state.selected_model = selected_model
+            if desktop_selected_model != st.session_state.selected_model:
+                st.session_state.selected_model = desktop_selected_model
 
         with send_col:
-            submitted = st.button(
+            desktop_submitted = st.button(
                 "➤",
                 key="composer_send",
                 use_container_width=True,
             )
 
-        if uploaded_file:
-            st.caption(f"📎 {uploaded_file.name}")
+        if desktop_uploaded_file:
+            st.caption(f"📎 {desktop_uploaded_file.name}")
 
-        if uploaded_image:
-            st.caption(f"🖼️ {uploaded_image.name}")
+        if desktop_uploaded_image:
+            st.caption(f"🖼️ {desktop_uploaded_image.name}")
 
-    if submitted:
-        cleaned_prompt = prompt.strip()
+    # Dedicated phone composer. CSS hides it on desktop and tablet.
+    with st.container(key="mobile_composer"):
+        mobile_prompt = st.text_input(
+            "Message",
+            value=st.session_state.get("voice_transcript", ""),
+            placeholder="Ask PeerNet AI anything...",
+            label_visibility="collapsed",
+            key="mobile_composer_prompt",
+            max_chars=4000,
+            on_change=submit_mobile_composer_prompt,
+        )
+
+        (
+            mobile_plus_col,
+            mobile_dictate_col,
+            mobile_voice_col,
+            mobile_model_col,
+            mobile_send_col,
+        ) = st.columns(
+            [0.55, 0.55, 0.55, 1.75, 0.62],
+            gap="small",
+            vertical_alignment="center",
+        )
+
+        with mobile_plus_col:
+            with st.popover("＋", use_container_width=True):
+                mobile_uploaded_file = st.file_uploader(
+                    "📎 Upload file",
+                    type=[
+                        "txt", "log", "cfg", "conf", "json", "yaml", "yml",
+                        "pdf", "py", "md", "csv", "xml",
+                    ],
+                    key="mobile_chat_attachment",
+                )
+
+                mobile_uploaded_image = st.file_uploader(
+                    "🖼️ Upload image",
+                    type=["png", "jpg", "jpeg", "webp"],
+                    key="mobile_chat_image",
+                )
+
+                mobile_code_mode = st.checkbox(
+                    "</> Code-focused response",
+                    key="mobile_chat_code_mode",
+                )
+
+        with mobile_dictate_col:
+            mobile_dictated_text = speech_to_text(
+                language="en",
+                start_prompt="🎙",
+                stop_prompt="■",
+                just_once=True,
+                use_container_width=True,
+                key="mobile_dictate_once",
+            )
+
+            if mobile_dictated_text:
+                st.session_state.voice_transcript = mobile_dictated_text
+                st.rerun()
+
+        with mobile_voice_col:
+            mobile_continuous_voice = speech_to_text(
+                language="en",
+                start_prompt="▶",
+                stop_prompt="■",
+                just_once=False,
+                use_container_width=True,
+                key="mobile_continuous_voice",
+            )
+
+            if mobile_continuous_voice:
+                st.session_state.voice_transcript = mobile_continuous_voice
+                st.rerun()
+
+        with mobile_model_col:
+            mobile_selected_model = st.selectbox(
+                "Model",
+                MODEL_OPTIONS,
+                index=MODEL_OPTIONS.index(
+                    st.session_state.selected_model
+                    if st.session_state.selected_model in MODEL_OPTIONS
+                    else DEFAULT_MODEL
+                ),
+                label_visibility="collapsed",
+                key="mobile_composer_model_selector",
+            )
+
+            if mobile_selected_model != st.session_state.selected_model:
+                st.session_state.selected_model = mobile_selected_model
+
+        with mobile_send_col:
+            mobile_submitted = st.button(
+                "➤",
+                key="mobile_composer_send",
+                use_container_width=True,
+            )
+
+        if mobile_uploaded_file:
+            st.caption(f"📎 {mobile_uploaded_file.name}")
+
+        if mobile_uploaded_image:
+            st.caption(f"🖼️ {mobile_uploaded_image.name}")
+
+    # Use whichever composer supplied an attachment or option.
+    uploaded_file = mobile_uploaded_file or desktop_uploaded_file
+    uploaded_image = mobile_uploaded_image or desktop_uploaded_image
+    code_mode = mobile_code_mode or desktop_code_mode
+
+    if desktop_submitted or mobile_submitted:
+        cleaned_prompt = (
+            mobile_prompt.strip()
+            if mobile_submitted
+            else desktop_prompt.strip()
+        )
 
         if cleaned_prompt:
             st.session_state.voice_transcript = ""
