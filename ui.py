@@ -1,4 +1,5 @@
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import html
 import textwrap
 
@@ -44,29 +45,30 @@ def _user_initial(profile: dict) -> str:
     return "P"
 
 def get_greeting_and_message():
-    hour = datetime.now().hour
+    india_time = datetime.now(ZoneInfo("Asia/Kolkata"))
+    hour = india_time.hour
 
     if 5 <= hour < 12:
         return (
-            "☀️ Good Morning",
+            "Good Morning",
             "Ready to build something amazing today?"
         )
 
     elif 12 <= hour < 17:
         return (
-            "🌤 Good Afternoon",
+            "Good Afternoon",
             "Keep your momentum going!"
         )
 
     elif 17 <= hour < 21:
         return (
-            "🌇 Good Evening",
+            "Good Evening",
             "Let's solve some networking challenges."
         )
 
     else:
         return (
-            "🌙 Good Night",
+            "Good Night",
             "Don't forget to save your work before you rest."
         )
 
