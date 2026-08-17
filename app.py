@@ -67,6 +67,75 @@ initialize_state()
 active_theme = st.session_state.get("sidebar_theme_selector", "Light")
 apply_styles(active_theme)
 
+# Remove Streamlit toolbar/header/top white space.
+st.markdown(
+    """
+    <style>
+    header[data-testid="stHeader"] {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    [data-testid="stToolbar"],
+    [data-testid="stDecoration"],
+    [data-testid="stStatusWidget"] {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stMainBlockContainer"],
+    .block-container,
+    .stApp,
+    section.main,
+    section.main > div,
+    div[data-testid="stAppViewBlockContainer"] {
+        margin-top: 0 !important;
+    }
+
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    .stApp,
+    section.main,
+    section.main > div,
+    div[data-testid="stAppViewBlockContainer"] {
+        padding-top: 0 !important;
+    }
+
+    [data-testid="stMainBlockContainer"],
+    .block-container {
+        padding-top: 0.25rem !important;
+    }
+
+    #MainMenu,
+    footer {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    @media (max-width: 900px) {
+        [data-testid="stMainBlockContainer"],
+        .block-container {
+            padding-top: 0.15rem !important;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 
 
 if "voice_transcript" not in st.session_state:
