@@ -1087,7 +1087,36 @@ div[data-testid="stChatMessage"] {
     }
 
     }
+    
+@media screen and (max-width: 700px) {
 
+    .st-key-settings_logout {
+        width: auto !important;
+        display: inline-block !important;
+    }
+
+    .st-key-settings_logout button {
+        width: auto !important;
+        min-width: 90px !important;
+        height: 36px !important;
+        min-height: 36px !important;
+
+        padding: 0 14px !important;
+
+        background: #dc2626 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px !important;
+
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+    }
+
+    .st-key-settings_logout button:hover {
+        background: #b91c1c !important;
+        color: white !important;
+    }
+}
 
 /* FINAL RENDERING SAFETY */
 .pn-topbar pre,
@@ -4434,5 +4463,224 @@ div:has(.pn-user-profile-bubble) {
 
     st.markdown(
         themes.get(theme_name, themes["light"]),
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+<style>
+@media screen and (max-width:700px) {
+    html, body, .stApp,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stMainBlockContainer"],
+    .block-container {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100vw !important;
+        box-sizing:border-box !important;
+        overflow-x:hidden !important;
+    }
+
+    [data-testid="stMainBlockContainer"],
+    .block-container {
+        padding-left:.45rem !important;
+        padding-right:.45rem !important;
+        padding-bottom:6.6rem !important;
+    }
+
+    [data-testid="stSidebar"],
+    [data-testid="collapsedControl"] {
+        display:none !important;
+    }
+
+    div[data-testid="stChatMessage"],
+    div[data-testid="stChatMessage"] *,
+    div[data-testid="stAlert"],
+    div[data-testid="stAlert"] *,
+    [data-testid="stException"],
+    [data-testid="stException"] * {
+        min-width:0 !important;
+        max-width:100% !important;
+        box-sizing:border-box !important;
+        overflow-wrap:anywhere !important;
+        word-break:break-word !important;
+    }
+
+    div[data-testid="stChatMessage"] pre,
+    div[data-testid="stChatMessage"] code,
+    div[data-testid="stAlert"] pre,
+    div[data-testid="stAlert"] code,
+    [data-testid="stException"] pre,
+    [data-testid="stException"] code {
+        white-space:pre-wrap !important;
+        overflow-wrap:anywhere !important;
+        word-break:break-word !important;
+        max-width:100% !important;
+        overflow-x:auto !important;
+    }
+
+    [class*="st-key-chat_actions_"] {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        overflow:hidden !important;
+    }
+
+    [class*="st-key-chat_actions_"] [data-testid="stHorizontalBlock"] {
+        width:100% !important;
+        display:grid !important;
+        grid-template-columns:minmax(78px,94px) 42px 42px !important;
+        gap:7px !important;
+        justify-content:start !important;
+        overflow:hidden !important;
+    }
+
+    [class*="st-key-chat_actions_"] [data-testid="column"] {
+        width:100% !important;
+        min-width:0 !important;
+        flex:none !important;
+        padding:0 !important;
+        margin:0 !important;
+    }
+
+    [class*="st-key-chat_actions_"] [data-testid="column"]:nth-child(4) {
+        display:none !important;
+    }
+
+    [class*="st-key-chat_actions_"] div[data-testid="stButton"] > button {
+        height:40px !important;
+        min-height:40px !important;
+        border-radius:12px !important;
+        font-size:.69rem !important;
+        white-space:nowrap !important;
+    }
+
+    [class*="st-key-chat_actions_"] [data-testid="column"]:nth-child(2) button,
+    [class*="st-key-chat_actions_"] [data-testid="column"]:nth-child(3) button {
+        width:40px !important;
+        min-width:40px !important;
+        max-width:40px !important;
+        padding:0 !important;
+        border-radius:50% !important;
+    }
+
+    .st-key-composer_tools {
+        display:none !important;
+    }
+
+    .st-key-mobile_composer {
+        display:block !important;
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        margin:.65rem 0 .8rem !important;
+        padding:.58rem !important;
+        border-radius:20px !important;
+        box-sizing:border-box !important;
+        overflow:hidden !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stTextInput"],
+    .st-key-mobile_composer div[data-testid="stTextInput"] > div,
+    .st-key-mobile_composer [data-baseweb="input"] {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        box-sizing:border-box !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stTextInput"] input,
+    .st-key-mobile_composer [data-baseweb="input"] input {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        height:48px !important;
+        padding:0 .85rem !important;
+        box-sizing:border-box !important;
+        font-size:.82rem !important;
+    }
+
+    .st-key-mobile_composer [data-testid="stHorizontalBlock"] {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        display:grid !important;
+        grid-template-columns:40px 40px 40px minmax(72px,1fr) 46px !important;
+        gap:6px !important;
+        align-items:center !important;
+        margin-top:.55rem !important;
+        box-sizing:border-box !important;
+        overflow:hidden !important;
+    }
+
+    .st-key-mobile_composer [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        flex:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        overflow:hidden !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stPopover"],
+    .st-key-mobile_composer div[data-testid="stPopover"] > button,
+    .st-key-mobile_composer iframe {
+        width:40px !important;
+        min-width:40px !important;
+        max-width:40px !important;
+        height:40px !important;
+        min-height:40px !important;
+        max-height:40px !important;
+        margin:0 !important;
+        padding:0 !important;
+        box-sizing:border-box !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stSelectbox"],
+    .st-key-mobile_composer div[data-testid="stSelectbox"] > div {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+    }
+
+    .st-key-mobile_composer div[data-testid="stSelectbox"] > div > div {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        height:42px !important;
+        min-height:42px !important;
+        font-size:.57rem !important;
+        white-space:nowrap !important;
+        overflow:hidden !important;
+        box-sizing:border-box !important;
+    }
+
+    .st-key-mobile_composer .st-key-mobile_composer_send,
+    .st-key-mobile_composer .st-key-mobile_composer_send button {
+        width:46px !important;
+        min-width:46px !important;
+        max-width:46px !important;
+        height:46px !important;
+        min-height:46px !important;
+        max-height:46px !important;
+        margin:0 !important;
+        padding:0 !important;
+        box-sizing:border-box !important;
+        transform:none !important;
+    }
+
+    .st-key-mobile_nav {
+        left:0 !important;
+        right:0 !important;
+        width:100vw !important;
+        max-width:100vw !important;
+        box-sizing:border-box !important;
+        overflow:hidden !important;
+    }
+}
+</style>
+        """,
         unsafe_allow_html=True,
     )

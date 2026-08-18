@@ -906,6 +906,16 @@ elif selected_page == "Settings":
     st.title("Settings")
     st.write(f"Current mode: `{selected_mode}`")
     st.write(f"Model: `{st.session_state.selected_model}`")
+    st.divider()
+
+    st.subheader("Account")
+
+    if st.button(
+        "🚪 Logout",
+        key="settings_logout",
+    ):
+        sign_out()
+        st.rerun()
 
     with st.form("profile_form"):
         full_name = st.text_input(
