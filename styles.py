@@ -2,7 +2,7 @@ import streamlit as st
 
 
 def _apply_base_styles() -> None:
-    st.markdown(
+    st.html(
         """
 <style>
 :root {
@@ -3449,8 +3449,7 @@ div:has(.pn-v8-profile-bubble) {
 }
 
 </style>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
@@ -4461,12 +4460,11 @@ div:has(.pn-user-profile-bubble) {
 """,
     }
 
-    st.markdown(
-        themes.get(theme_name, themes["light"]),
-        unsafe_allow_html=True,
+    st.html(
+        themes.get(theme_name, themes["light"])
     )
 
-    st.markdown(
+    st.html(
         """
 <style>
 @media screen and (max-width:700px) {
@@ -4681,12 +4679,11 @@ div:has(.pn-user-profile-bubble) {
     }
 }
 </style>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
-    st.markdown(
+    st.html(
         """
 <style>
 /* =========================================================
@@ -4737,6 +4734,564 @@ div:has(.pn-user-profile-bubble) {
     }
 }
 </style>
-        """,
-        unsafe_allow_html=True,
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* PHONE-ONLY SETTINGS THEME CONTROL */
+@media screen and (max-width:600px) {
+    .st-key-settings_theme_selector {
+        width:100% !important;
+        max-width:260px !important;
+        margin:.2rem 0 .8rem !important;
+    }
+
+    .st-key-settings_theme_selector div[data-testid="stSelectbox"],
+    .st-key-settings_theme_selector div[data-testid="stSelectbox"] > div {
+        width:100% !important;
+        max-width:260px !important;
+    }
+
+    .st-key-settings_theme_selector
+    div[data-testid="stSelectbox"] > div > div {
+        min-height:40px !important;
+        height:40px !important;
+        border:none !important;
+        border-radius:12px !important;
+        background:#eef4ff !important;
+        box-shadow:0 7px 18px rgba(54,94,170,.10) !important;
+        font-size:.75rem !important;
+        font-weight:750 !important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* =========================================================
+   SETTINGS THEME SELECTOR — DARK MODE READABILITY FIX
+   Scope is limited to the Settings theme selector only.
+   ========================================================= */
+
+.st-key-settings_theme_selector [data-baseweb="select"] > div,
+.st-key-settings_theme_selector [data-baseweb="select"] span,
+.st-key-settings_theme_selector [data-baseweb="select"] input,
+.st-key-settings_theme_selector [data-baseweb="select"] svg {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+}
+
+/* Keep the closed selector light so "Light / Dark / Blue" remains visible
+   even when the rest of the app uses the Dark theme. */
+.st-key-settings_theme_selector
+div[data-testid="stSelectbox"] > div > div {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    background:#f7fbff !important;
+    border:1px solid rgba(80,91,230,.18) !important;
+    box-shadow:0 7px 18px rgba(54,94,170,.10) !important;
+}
+
+/* Selected value text */
+.st-key-settings_theme_selector
+[data-baseweb="select"] div {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+}
+
+/* Dropdown arrow */
+.st-key-settings_theme_selector svg {
+    color:#5d4bdd !important;
+    fill:#5d4bdd !important;
+}
+
+/* Phone sizing stays compact. */
+@media screen and (max-width:600px) {
+    .st-key-settings_theme_selector
+    div[data-testid="stSelectbox"] > div > div {
+        min-height:40px !important;
+        height:40px !important;
+        border-radius:12px !important;
+        font-size:.75rem !important;
+        font-weight:750 !important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* Settings > Appearance > Theme: field-label contrast fix */
+.st-key-settings_theme_selector label,
+.st-key-settings_theme_selector label p,
+.st-key-settings_theme_selector [data-testid="stWidgetLabel"],
+.st-key-settings_theme_selector [data-testid="stWidgetLabel"] p {
+    color:#dce9ff !important;
+    -webkit-text-fill-color:#dce9ff !important;
+    opacity:1 !important;
+    font-weight:700 !important;
+}
+
+/* Do not disturb the already-readable selected value. */
+.st-key-settings_theme_selector [data-baseweb="select"] > div,
+.st-key-settings_theme_selector [data-baseweb="select"] span,
+.st-key-settings_theme_selector [data-baseweb="select"] div {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    opacity:1 !important;
+}
+
+@media screen and (max-width:600px) {
+    .st-key-settings_theme_selector label,
+    .st-key-settings_theme_selector label p,
+    .st-key-settings_theme_selector [data-testid="stWidgetLabel"],
+    .st-key-settings_theme_selector [data-testid="stWidgetLabel"] p {
+        color:#eef5ff !important;
+        -webkit-text-fill-color:#eef5ff !important;
+        opacity:1 !important;
+        font-size:.82rem !important;
+        font-weight:800 !important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* =========================================================
+   FINAL SETTINGS THEME LABEL CONTRAST
+   Custom label replaces Streamlit native widget label.
+   ========================================================= */
+
+.pn-settings-theme-label {
+    margin:.15rem 0 .35rem !important;
+    padding:0 !important;
+    opacity:1 !important;
+    font-size:.86rem !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+}
+
+/* Hide any residual native selectbox label area for this widget. */
+.st-key-settings_theme_selector
+[data-testid="stWidgetLabel"] {
+    display:none !important;
+}
+
+/* Keep the selected value readable on the light selector surface
+   in Light, Dark and Blue themes. */
+.st-key-settings_theme_selector
+div[data-testid="stSelectbox"] > div > div,
+.st-key-settings_theme_selector
+[data-baseweb="select"] > div {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    background:#f7fbff !important;
+    opacity:1 !important;
+}
+
+/* Selected value text */
+.st-key-settings_theme_selector
+[data-baseweb="select"] span,
+.st-key-settings_theme_selector
+[data-baseweb="select"] div {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    opacity:1 !important;
+}
+
+/* Dropdown arrow */
+.st-key-settings_theme_selector svg {
+    color:#5d4bdd !important;
+    fill:#5d4bdd !important;
+}
+
+/* Phone-only compact sizing */
+@media screen and (max-width:600px) {
+    .pn-settings-theme-label {
+        margin:.1rem 0 .3rem !important;
+        font-size:.82rem !important;
+        font-weight:850 !important;
+    }
+
+    .st-key-settings_theme_selector {
+        width:100% !important;
+        max-width:260px !important;
+        margin:0 0 .85rem !important;
+    }
+
+    .st-key-settings_theme_selector
+    div[data-testid="stSelectbox"] > div > div {
+        min-height:40px !important;
+        height:40px !important;
+        border-radius:12px !important;
+        font-size:.75rem !important;
+        font-weight:750 !important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* =========================================================
+   SETTINGS THEME LABEL — ALL SCREEN SIZES
+   Applies to mobile, tablet, laptop and desktop.
+   ========================================================= */
+
+.pn-settings-theme-label {
+    display:block !important;
+    margin:.15rem 0 .38rem !important;
+    padding:0 !important;
+    opacity:1 !important;
+    font-size:.9rem !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+}
+
+/* Completely suppress Streamlit's native selectbox label so it cannot
+   overlap or inherit the wrong theme color on any screen size. */
+.st-key-settings_theme_selector [data-testid="stWidgetLabel"],
+.st-key-settings_theme_selector label {
+    display:none !important;
+}
+
+/* Selector stays intentionally light in all themes for reliable contrast. */
+.st-key-settings_theme_selector {
+    width:100% !important;
+    max-width:340px !important;
+    margin:0 0 .9rem !important;
+}
+
+.st-key-settings_theme_selector div[data-testid="stSelectbox"],
+.st-key-settings_theme_selector div[data-testid="stSelectbox"] > div {
+    width:100% !important;
+    max-width:340px !important;
+}
+
+.st-key-settings_theme_selector
+div[data-testid="stSelectbox"] > div > div,
+.st-key-settings_theme_selector
+[data-baseweb="select"] > div {
+    min-height:44px !important;
+    height:44px !important;
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    background:#f7fbff !important;
+    border:1px solid rgba(80,91,230,.18) !important;
+    border-radius:12px !important;
+    box-shadow:0 7px 18px rgba(54,94,170,.10) !important;
+    opacity:1 !important;
+    font-size:.82rem !important;
+    font-weight:750 !important;
+}
+
+/* Selected value */
+.st-key-settings_theme_selector [data-baseweb="select"] span,
+.st-key-settings_theme_selector [data-baseweb="select"] div {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    opacity:1 !important;
+}
+
+/* Dropdown arrow */
+.st-key-settings_theme_selector svg {
+    color:#5d4bdd !important;
+    fill:#5d4bdd !important;
+}
+
+/* Tablet */
+@media screen and (min-width:601px) and (max-width:1100px) {
+    .pn-settings-theme-label {
+        font-size:.88rem !important;
+    }
+
+    .st-key-settings_theme_selector {
+        max-width:320px !important;
+    }
+
+    .st-key-settings_theme_selector
+    div[data-testid="stSelectbox"] > div > div {
+        min-height:42px !important;
+        height:42px !important;
+    }
+}
+
+/* Phone */
+@media screen and (max-width:600px) {
+    .pn-settings-theme-label {
+        margin:.1rem 0 .3rem !important;
+        font-size:.82rem !important;
+        font-weight:850 !important;
+    }
+
+    .st-key-settings_theme_selector {
+        max-width:260px !important;
+    }
+
+    .st-key-settings_theme_selector
+    div[data-testid="stSelectbox"] > div > div {
+        min-height:40px !important;
+        height:40px !important;
+        font-size:.75rem !important;
+    }
+}
+
+/* Laptop / desktop */
+@media screen and (min-width:1101px) {
+    .pn-settings-theme-label {
+        font-size:.9rem !important;
+    }
+
+    .st-key-settings_theme_selector {
+        max-width:340px !important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* =========================================================
+   FINAL THEME LABEL CONTRAST — ALL DEVICES
+   Mobile / Tablet / Laptop / Desktop
+   ========================================================= */
+
+.pn-settings-theme-label {
+    display:block !important;
+    margin:.15rem 0 .38rem !important;
+    padding:0 !important;
+    opacity:1 !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+    /* Do NOT set color here.
+       app.py provides the active-theme color inline:
+       Light -> navy, Dark -> white, Blue -> navy. */
+}
+
+/* Never show Streamlit's native label; it can inherit the wrong theme color. */
+.st-key-settings_theme_selector [data-testid="stWidgetLabel"],
+.st-key-settings_theme_selector label {
+    display:none !important;
+}
+
+/* Selected theme value remains readable in every app theme. */
+.st-key-settings_theme_selector
+div[data-testid="stSelectbox"] > div > div,
+.st-key-settings_theme_selector
+[data-baseweb="select"] > div,
+.st-key-settings_theme_selector
+[data-baseweb="select"] span {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    background:#f7fbff !important;
+    opacity:1 !important;
+}
+
+/* Mobile */
+@media screen and (max-width:600px) {
+    .pn-settings-theme-label {
+        font-size:.82rem !important;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width:601px) and (max-width:1100px) {
+    .pn-settings-theme-label {
+        font-size:.88rem !important;
+    }
+}
+
+/* Laptop + Desktop */
+@media screen and (min-width:1101px) {
+    .pn-settings-theme-label {
+        font-size:.90rem !important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* =========================================================
+   FINAL THEME LABEL CONTRAST
+   Applies to:
+   - Settings Theme selector
+   - Sidebar Theme selector
+   Across mobile / tablet / laptop / desktop
+   ========================================================= */
+
+/* SETTINGS custom label */
+.pn-settings-theme-label {
+    display:block !important;
+    margin:.15rem 0 .38rem !important;
+    padding:0 !important;
+    opacity:1 !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+}
+
+/* SIDEBAR custom label */
+.pn-sidebar-theme-label {
+    display:block !important;
+    margin:.55rem .15rem .28rem !important;
+    padding:0 !important;
+    opacity:1 !important;
+    font-size:.72rem !important;
+    font-weight:850 !important;
+    line-height:1.2 !important;
+}
+
+/* Hide Streamlit native labels in both locations so inherited theme
+   colors can never cause overlap or low contrast. */
+.st-key-settings_theme_selector [data-testid="stWidgetLabel"],
+.st-key-settings_theme_selector label,
+.st-key-sidebar_theme_selector [data-testid="stWidgetLabel"],
+.st-key-sidebar_theme_selector label {
+    display:none !important;
+}
+
+/* SETTINGS selector value */
+.st-key-settings_theme_selector
+div[data-testid="stSelectbox"] > div > div,
+.st-key-settings_theme_selector
+[data-baseweb="select"] > div,
+.st-key-settings_theme_selector
+[data-baseweb="select"] span {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    background:#f7fbff !important;
+    opacity:1 !important;
+}
+
+/* SIDEBAR selector value */
+.st-key-sidebar_theme_selector
+div[data-testid="stSelectbox"] > div > div,
+.st-key-sidebar_theme_selector
+[data-baseweb="select"] > div,
+.st-key-sidebar_theme_selector
+[data-baseweb="select"] span {
+    color:#17335f !important;
+    -webkit-text-fill-color:#17335f !important;
+    background:#f7fbff !important;
+    opacity:1 !important;
+}
+
+/* Dropdown arrows */
+.st-key-settings_theme_selector svg,
+.st-key-sidebar_theme_selector svg {
+    color:#5d4bdd !important;
+    fill:#5d4bdd !important;
+}
+
+/* Phone */
+@media screen and (max-width:600px) {
+    .pn-settings-theme-label {
+        font-size:.82rem !important;
+    }
+
+    /* Sidebar is hidden on phone, but keep this safe if shown later. */
+    .pn-sidebar-theme-label {
+        font-size:.72rem !important;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width:601px) and (max-width:1100px) {
+    .pn-settings-theme-label {
+        font-size:.88rem !important;
+    }
+
+    .pn-sidebar-theme-label {
+        font-size:.72rem !important;
+    }
+}
+
+/* Laptop + Desktop */
+@media screen and (min-width:1101px) {
+    .pn-settings-theme-label {
+        font-size:.90rem !important;
+    }
+
+    .pn-sidebar-theme-label {
+        font-size:.74rem !important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* =========================================================
+   GLOBAL TOP-SPACE FIX
+   Login + Dashboard | Phone + Tablet + Laptop + Desktop
+   ========================================================= */
+
+/* Style-only containers must never consume vertical layout space. */
+div[data-testid="stElementContainer"]:has(
+    div[data-testid="stMarkdownContainer"] > style
+) {
+    display:none !important;
+    height:0 !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+
+/* Keep the main content close to the top edge. */
+[data-testid="stMainBlockContainer"],
+.block-container {
+    margin-top:0 !important;
+}
+
+/* Desktop / laptop */
+@media screen and (min-width:1101px) {
+    [data-testid="stMainBlockContainer"],
+    .block-container {
+        padding-top:.35rem !important;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width:601px) and (max-width:1100px) {
+    [data-testid="stMainBlockContainer"],
+    .block-container {
+        padding-top:.25rem !important;
+    }
+}
+
+/* Phone */
+@media screen and (max-width:600px) {
+    [data-testid="stMainBlockContainer"],
+    .block-container {
+        padding-top:.18rem !important;
+    }
+}
+</style>
+        """
     )

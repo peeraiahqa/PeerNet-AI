@@ -67,11 +67,38 @@ st.set_page_config(
 load_dotenv()
 initialize_state()
 
-active_theme = st.session_state.get("sidebar_theme_selector", "Light")
+THEME_OPTIONS = ["Light", "Dark", "Blue"]
+
+if "app_theme" not in st.session_state:
+    st.session_state.app_theme = st.session_state.get(
+        "sidebar_theme_selector",
+        "Light",
+    )
+
+if "sidebar_theme_selector" not in st.session_state:
+    st.session_state.sidebar_theme_selector = st.session_state.app_theme
+
+if "settings_theme_selector" not in st.session_state:
+    st.session_state.settings_theme_selector = st.session_state.app_theme
+
+
+def _sync_theme_from_sidebar() -> None:
+    selected = st.session_state.get("sidebar_theme_selector", "Light")
+    st.session_state.app_theme = selected
+    st.session_state.settings_theme_selector = selected
+
+
+def _sync_theme_from_settings() -> None:
+    selected = st.session_state.get("settings_theme_selector", "Light")
+    st.session_state.app_theme = selected
+    st.session_state.sidebar_theme_selector = selected
+
+
+active_theme = st.session_state.get("app_theme", "Light")
 apply_styles(active_theme)
 
 # Remove Streamlit toolbar/header/top white space.
-st.markdown(
+st.html(
     """
     <style>
     header[data-testid="stHeader"] {
@@ -134,8 +161,7 @@ st.markdown(
         }
     }
     </style>
-    """,
-    unsafe_allow_html=True,
+    """
 )
 
 
@@ -400,11 +426,36 @@ with st.sidebar:
         """
     )
 
+    # Custom sidebar Theme label with explicit contrast by active theme.
+    sidebar_theme_name = st.session_state.get("app_theme", "Light")
+
+    sidebar_theme_label_colors = {
+        "Light": "#0b1e49",  # dark navy
+        "Dark": "#ffffff",   # white
+        "Blue": "#0b2f63",   # dark navy
+    }
+
+    sidebar_theme_label_color = sidebar_theme_label_colors.get(
+        sidebar_theme_name,
+        "#0b1e49",
+    )
+
+    st.markdown(
+        f"""
+        <div class="pn-sidebar-theme-label"
+             style="color:{sidebar_theme_label_color} !important;">
+            Theme
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     theme_choice = st.selectbox(
         "Theme",
-        ["Light", "Dark", "Blue"],
-        index=0,
+        THEME_OPTIONS,
         key="sidebar_theme_selector",
+        on_change=_sync_theme_from_sidebar,
+        label_visibility="collapsed",
     )
 
     if is_admin and st.button(
@@ -933,8 +984,44 @@ elif selected_page == "Settings":
     st.title("Settings")
     st.write(f"Current mode: `{selected_mode}`")
     st.write(f"Model: `{st.session_state.selected_model}`")
-    st.divider()
 
+    st.subheader("Appearance")
+
+    # Use our own label instead of Streamlit's native selectbox label.
+    # This guarantees readable contrast in Light, Dark, and Blue themes.
+    current_theme = st.session_state.get("app_theme", "Light")
+
+    theme_label_colors = {
+        # Applied identically on mobile, tablet, laptop and desktop.
+        "Light": "#0b1e49",  # dark navy
+        "Dark": "#ffffff",   # white / maximum contrast
+        "Blue": "#0b2f63",   # dark navy
+    }
+
+    theme_label_color = theme_label_colors.get(
+        current_theme,
+        "#0b1e49",
+    )
+
+    st.markdown(
+        f"""
+        <div class="pn-settings-theme-label"
+             style="color:{theme_label_color} !important;">
+            Theme
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.selectbox(
+        "Theme",
+        THEME_OPTIONS,
+        key="settings_theme_selector",
+        on_change=_sync_theme_from_settings,
+        label_visibility="collapsed",
+    )
+
+    st.divider()
     st.subheader("Account")
 
     if st.button(
