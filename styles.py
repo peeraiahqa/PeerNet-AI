@@ -4684,3 +4684,59 @@ div:has(.pn-user-profile-bubble) {
         """,
         unsafe_allow_html=True,
     )
+
+
+    st.markdown(
+        """
+<style>
+/* =========================================================
+   LOGIN LOGO — RELIABLE PHONE CENTERING
+   Desktop/laptop/tablet remain unchanged.
+   ========================================================= */
+
+.pn-mobile-login-logo {
+    display:none;
+}
+
+/* Phone only */
+@media screen and (max-width:600px) {
+    .st-key-login_logo_desktop {
+        display:none !important;
+    }
+
+    .pn-mobile-login-logo {
+        width:100% !important;
+        display:flex !important;
+        justify-content:center !important;
+        align-items:center !important;
+        margin:0 auto .7rem !important;
+        padding:.25rem 0 0 !important;
+        text-align:center !important;
+        box-sizing:border-box !important;
+    }
+
+    .pn-mobile-login-logo img {
+        display:block !important;
+        width:145px !important;
+        max-width:145px !important;
+        height:auto !important;
+        margin:0 auto !important;
+        padding:0 !important;
+        object-fit:contain !important;
+    }
+}
+
+/* Tablet/laptop/desktop */
+@media screen and (min-width:601px) {
+    .st-key-login_logo_desktop {
+        display:block !important;
+    }
+
+    .pn-mobile-login-logo {
+        display:none !important;
+    }
+}
+</style>
+        """,
+        unsafe_allow_html=True,
+    )

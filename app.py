@@ -1,4 +1,7 @@
 import streamlit as st
+import base64
+import mimetypes
+from pathlib import Path
 from streamlit_mic_recorder import speech_to_text
 from dotenv import load_dotenv
 
@@ -164,6 +167,15 @@ def submit_mobile_composer_prompt() -> None:
         st.session_state.mobile_composer_prompt = ""
 
 
+
+def _image_data_uri(path: str) -> str:
+    """Return a local image as a data URI for reliable mobile centering."""
+    image_path = Path(path)
+    mime_type = mimetypes.guess_type(image_path.name)[0] or "image/png"
+    encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
+    return f"data:{mime_type};base64,{encoded}"
+
+
 def authentication_page() -> None:
     st.markdown(
         """<div class="pn-auth-title"><h1>Welcome to <span>PeerNet AI</span></h1><p>Secure networking, automation, troubleshooting, and interview preparation.</p></div>""",
@@ -172,9 +184,24 @@ def authentication_page() -> None:
     form_col, visual_col = st.columns([1, 1.05], gap="large")
     with form_col:
         with st.container(border=True):
-            _, logo_center, _ = st.columns([1, 1.25, 1])
-            with logo_center:
-                st.image(LOGO_PATH, width=145)
+            # Desktop / laptop / tablet: preserve the current Streamlit logo layout.
+            with st.container(key="login_logo_desktop"):
+                _, logo_center, _ = st.columns([1, 1.25, 1])
+                with logo_center:
+                    st.image(LOGO_PATH, width=145)
+
+            # Phone only: raw HTML image so Streamlit column wrappers cannot
+            # pull the logo to the left.
+            mobile_logo_uri = _image_data_uri(LOGO_PATH)
+            st.markdown(
+                f"""
+                <div class="pn-mobile-login-logo">
+                    <img src="{mobile_logo_uri}" alt="PeerNet Solutions logo">
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
             login_tab, register_tab, reset_tab = st.tabs(["Login", "Register", "Forgot password"])
             with login_tab:
                 with st.form("login_form"):
