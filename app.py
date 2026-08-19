@@ -1,6 +1,7 @@
 import streamlit as st
 import base64
 import mimetypes
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from streamlit_mic_recorder import speech_to_text
 from dotenv import load_dotenv
@@ -172,6 +173,74 @@ if "voice_transcript" not in st.session_state:
 
 if "selected_model" not in st.session_state:
     st.session_state.selected_model = DEFAULT_MODEL
+
+if "generation_discard" not in st.session_state:
+    st.session_state.generation_discard = False
+
+
+@st.cache_resource
+def _generation_executor() -> ThreadPoolExecutor:
+    # One worker keeps one AI generation active per Streamlit process.
+    return ThreadPoolExecutor(max_workers=4, thread_name_prefix="peernet_ai")
+
+
+def _generation_active() -> bool:
+    future = st.session_state.get("generation_future")
+    return future is not None and not future.done()
+
+
+def _stop_generation() -> None:
+    """Request cancellation and discard a response if the HTTP call is already running."""
+    future = st.session_state.get("generation_future")
+    if future is not None and not future.done():
+        future.cancel()
+
+    # A running provider HTTP request may not be interruptible by Future.cancel().
+    # Mark it discarded so its result is never saved or rendered.
+    st.session_state.generation_discard = True
+    st.session_state.generation_future = None
+    st.session_state.generation_meta = None
+
+
+def _finish_generation_if_ready() -> bool:
+    """Persist a completed background answer. Returns True when state changed."""
+    future = st.session_state.get("generation_future")
+    meta = st.session_state.get("generation_meta")
+
+    if future is None or meta is None or not future.done():
+        return False
+
+    discard = st.session_state.get("generation_discard", False)
+    st.session_state.generation_future = None
+    st.session_state.generation_meta = None
+    st.session_state.generation_discard = False
+
+    if discard:
+        return True
+
+    try:
+        answer = future.result()
+        record_usage(meta["mode"], meta["model"])
+    except Exception as error:
+        answer = f"Unable to generate an answer: {error}"
+
+    save_message(meta["conversation_id"], "assistant", answer)
+    st.session_state.messages.append(
+        {"role": "assistant", "content": answer}
+    )
+    return True
+
+
+@st.fragment(run_every=0.5)
+def _render_generation_status() -> None:
+    """Poll the background request and keep its status above the composer."""
+    if _finish_generation_if_ready():
+        st.rerun()
+
+    if _generation_active():
+        with st.chat_message("assistant"):
+            with st.spinner("Generating answer..."):
+                st.markdown("Generating answer...")
 
 
 def submit_composer_prompt() -> None:
@@ -485,6 +554,46 @@ selected_page = st.session_state.get("active_page", "Home")
 
 render_topbar(profile, st.session_state.selected_model)
 
+
+# Make the active Stop button as prominent as Send in every PeerNet theme.
+# We target only the two Stop-button keys, so no other buttons are affected.
+st.html(
+    """
+    <style>
+    [class*="st-key-composer_stop"] button,
+    [class*="st-key-mobile_composer_stop"] button {
+        background: linear-gradient(135deg, #246BFD 0%, #6C3BFF 55%, #D934C8 100%) !important;
+        color: #FFFFFF !important;
+        border: 0 !important;
+        font-weight: 800 !important;
+        box-shadow: 0 8px 22px rgba(91, 70, 255, 0.28) !important;
+    }
+
+    [class*="st-key-composer_stop"] button:hover,
+    [class*="st-key-mobile_composer_stop"] button:hover {
+        color: #FFFFFF !important;
+        filter: brightness(1.06) !important;
+    }
+
+    [class*="st-key-composer_stop"] button:focus,
+    [class*="st-key-mobile_composer_stop"] button:focus,
+    [class*="st-key-composer_stop"] button:active,
+    [class*="st-key-mobile_composer_stop"] button:active {
+        color: #FFFFFF !important;
+        border: 0 !important;
+    }
+
+    /* Keep the square stop symbol clearly visible in Light, Dark and Blue. */
+    [class*="st-key-composer_stop"] button p,
+    [class*="st-key-mobile_composer_stop"] button p {
+        color: #FFFFFF !important;
+        font-size: 1.05rem !important;
+        font-weight: 900 !important;
+    }
+    </style>
+    """
+)
+
 if selected_page == "Home":
     user_name = (
         profile.get("name")
@@ -542,6 +651,100 @@ if selected_page == "Home":
                             "not_helpful",
                         )
                         st.success("Feedback saved.")
+
+    # Start queued generation before rendering the composer so the user
+    # question and "Generating answer..." always appear ABOVE the search bar.
+    if st.session_state.pending_prompt and not _generation_active():
+        pending = st.session_state.pending_prompt
+        st.session_state.pending_prompt = None
+        attachment_note = ""
+
+        # Attachments are read from the previous composer run when available.
+        queued_file = st.session_state.pop("queued_uploaded_file", None)
+        queued_image_name = st.session_state.pop("queued_uploaded_image_name", None)
+        queued_code_mode = st.session_state.pop("queued_code_mode", False)
+
+        if queued_file is not None:
+            try:
+                raw = queued_file["bytes"]
+                file_size_mb = len(raw) / (1024 * 1024)
+                if file_size_mb > MAX_UPLOAD_MB:
+                    raise ValueError(
+                        f"File exceeds the {MAX_UPLOAD_MB} MB limit."
+                    )
+
+                # Re-create a small UploadedFile-like object is unnecessary here;
+                # preserve the extracted text captured at submit time.
+                attachment_text = queued_file.get("text", "")
+                attachment_note += (
+                    f"\n\nAttached file: {queued_file['name']}\n"
+                    f"```\n{attachment_text}\n```"
+                )
+            except Exception:
+                attachment_note += "\n\nThe attached file could not be read."
+
+        if queued_image_name:
+            attachment_note += (
+                f"\n\nAn image named {queued_image_name} was attached. "
+                "Multimodal image analysis requires an additional vision call."
+            )
+
+        if queued_code_mode:
+            attachment_note += (
+                "\n\nUse code-focused mode. Provide executable examples, "
+                "validation, and concise explanations."
+            )
+
+        pending += attachment_note
+
+        if not st.session_state.current_conversation_id:
+            conversation = create_conversation(pending[:80])
+            st.session_state.current_conversation_id = conversation["id"]
+
+        conversation_id = st.session_state.current_conversation_id
+        save_message(conversation_id, "user", pending)
+        st.session_state.messages.append(
+            {"role": "user", "content": pending}
+        )
+
+        try:
+            current_usage = get_today_usage()
+            if current_usage >= DAILY_FREE_LIMIT and not is_admin:
+                raise RuntimeError(
+                    f"Daily limit reached ({DAILY_FREE_LIMIT}). "
+                    "Please try again tomorrow."
+                )
+
+            mode_for_request = selected_mode
+            model_for_request = st.session_state.selected_model
+            messages_for_request = [
+                dict(message) for message in st.session_state.messages
+            ]
+
+            st.session_state.generation_discard = False
+            st.session_state.generation_meta = {
+                "conversation_id": conversation_id,
+                "mode": mode_for_request,
+                "model": model_for_request,
+            }
+            st.session_state.generation_future = _generation_executor().submit(
+                generate_answer,
+                mode_for_request,
+                messages_for_request,
+                model_for_request,
+            )
+        except Exception as error:
+            answer = f"Unable to generate an answer: {error}"
+            save_message(conversation_id, "assistant", answer)
+            st.session_state.messages.append(
+                {"role": "assistant", "content": answer}
+            )
+
+        st.rerun()
+
+    # Polling card is deliberately rendered here, immediately after chat history
+    # and before both desktop and mobile composers.
+    _render_generation_status()
 
     # Desktop/tablet composer. This remains unchanged above 700 px.
     with st.container(key="composer_tools"):
@@ -636,11 +839,21 @@ if selected_page == "Home":
                 st.session_state.selected_model = desktop_selected_model
 
         with send_col:
-            desktop_submitted = st.button(
-                "➤",
-                key="composer_send",
-                use_container_width=True,
-            )
+            if _generation_active():
+                desktop_submitted = False
+                desktop_stop = st.button(
+                    "■",
+                    key="composer_stop",
+                    use_container_width=True,
+                    help="Stop generating",
+                )
+            else:
+                desktop_stop = False
+                desktop_submitted = st.button(
+                    "➤",
+                    key="composer_send",
+                    use_container_width=True,
+                )
 
         if desktop_uploaded_file:
             st.caption(f"📎 {desktop_uploaded_file.name}")
@@ -739,11 +952,21 @@ if selected_page == "Home":
                 st.session_state.selected_model = mobile_selected_model
 
         with mobile_send_col:
-            mobile_submitted = st.button(
-                "➤",
-                key="mobile_composer_send",
-                use_container_width=True,
-            )
+            if _generation_active():
+                mobile_submitted = False
+                mobile_stop = st.button(
+                    "■",
+                    key="mobile_composer_stop",
+                    use_container_width=True,
+                    help="Stop generating",
+                )
+            else:
+                mobile_stop = False
+                mobile_submitted = st.button(
+                    "➤",
+                    key="mobile_composer_send",
+                    use_container_width=True,
+                )
 
         if mobile_uploaded_file:
             st.caption(f"📎 {mobile_uploaded_file.name}")
@@ -756,6 +979,10 @@ if selected_page == "Home":
     uploaded_image = mobile_uploaded_image or desktop_uploaded_image
     code_mode = mobile_code_mode or desktop_code_mode
 
+    if desktop_stop or mobile_stop:
+        _stop_generation()
+        st.rerun()
+
     if desktop_submitted or mobile_submitted:
         cleaned_prompt = (
             mobile_prompt.strip()
@@ -764,94 +991,37 @@ if selected_page == "Home":
         )
 
         if cleaned_prompt:
-            st.session_state.voice_transcript = ""
-            queue_prompt(cleaned_prompt)
-            st.rerun()
+            if _generation_active():
+                st.warning("Stop the current response before sending another message.")
+            else:
+                selected_file = mobile_uploaded_file or desktop_uploaded_file
+                selected_image = mobile_uploaded_image or desktop_uploaded_image
+                selected_code_mode = mobile_code_mode or desktop_code_mode
+
+                if selected_file is not None:
+                    try:
+                        st.session_state.queued_uploaded_file = {
+                            "name": selected_file.name,
+                            "bytes": selected_file.getvalue(),
+                            "text": extract_uploaded_text(selected_file),
+                        }
+                    except Exception:
+                        st.session_state.queued_uploaded_file = {
+                            "name": selected_file.name,
+                            "bytes": selected_file.getvalue(),
+                            "text": "",
+                        }
+
+                st.session_state.queued_uploaded_image_name = (
+                    selected_image.name if selected_image is not None else None
+                )
+                st.session_state.queued_code_mode = selected_code_mode
+
+                st.session_state.voice_transcript = ""
+                queue_prompt(cleaned_prompt)
+                st.rerun()
         else:
             st.warning("Please type or dictate a message before sending.")
-
-    if st.session_state.pending_prompt:
-        pending = st.session_state.pending_prompt
-        st.session_state.pending_prompt = None
-        attachment_note = ""
-
-        if uploaded_file is not None:
-            try:
-                raw = uploaded_file.getvalue()
-
-                file_size_mb = len(raw) / (1024 * 1024)
-
-                if file_size_mb > MAX_UPLOAD_MB:
-                    raise ValueError(
-                        f"File exceeds the {MAX_UPLOAD_MB} MB limit."
-                    )
-
-                attachment_text = extract_uploaded_text(uploaded_file)
-                attachment_note += (
-                    f"\n\nAttached file: {uploaded_file.name}\n"
-                    f"```\n{attachment_text}\n```"
-                )
-            except Exception:
-                attachment_note += "\n\nThe attached file could not be read."
-
-        if uploaded_image is not None:
-            attachment_note += (
-                f"\n\nAn image named {uploaded_image.name} was attached. "
-                "Multimodal image analysis requires an additional vision call."
-            )
-
-        if code_mode:
-            attachment_note += (
-                "\n\nUse code-focused mode. Provide executable examples, "
-                "validation, and concise explanations."
-            )
-
-        pending += attachment_note
-
-        if not st.session_state.current_conversation_id:
-            conversation = create_conversation(pending[:80])
-            st.session_state.current_conversation_id = conversation["id"]
-
-        conversation_id = st.session_state.current_conversation_id
-        save_message(conversation_id, "user", pending)
-
-        st.session_state.messages.append(
-            {"role": "user", "content": pending}
-        )
-
-        with st.chat_message("user"):
-            st.markdown(pending)
-
-        with st.chat_message("assistant"):
-            with st.spinner("Generating answer..."):
-                try:
-                    current_usage = get_today_usage()
-
-                    if current_usage >= DAILY_FREE_LIMIT and not is_admin:
-                        raise RuntimeError(
-                            f"Daily limit reached ({DAILY_FREE_LIMIT}). "
-                            "Please try again tomorrow."
-                        )
-
-                    answer = generate_answer(
-                        selected_mode,
-                        st.session_state.messages,
-                        st.session_state.selected_model,
-                    )
-                    record_usage(
-                        selected_mode,
-                        st.session_state.selected_model,
-                    )
-                except Exception as error:
-                    answer = f"Unable to generate an answer: {error}"
-
-                st.markdown(answer)
-
-        save_message(conversation_id, "assistant", answer)
-        st.session_state.messages.append(
-            {"role": "assistant", "content": answer}
-        )
-        st.rerun()
 
 
 elif selected_page == "History":

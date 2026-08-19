@@ -5,9 +5,21 @@ APP_TITLE: Final = "PeerNet AI"
 LOGO_PATH: Final = "images/PeerNet Solutions.png"
 FAVICON_PATH: Final = "images/favicon.png"
 AI_LOGIN_IMAGE_PATH: Final = "images/Ai_think.png"
-DEFAULT_MODEL: Final = os.getenv("OPENAI_MODEL", "gpt-5-mini")
+GEMINI_DEFAULT_MODEL: Final = os.getenv(
+    "GEMINI_MODEL",
+    "gemini-3.6-flash",
+)
 
-_configured_models = [
+_gemini_models = [
+    item.strip()
+    for item in os.getenv(
+        "GEMINI_MODELS",
+        "gemini-3.6-flash,gemini-2.5-flash",
+    ).split(",")
+    if item.strip()
+]
+
+_openai_models = [
     item.strip()
     for item in os.getenv(
         "OPENAI_MODELS",
@@ -16,9 +28,18 @@ _configured_models = [
     if item.strip()
 ]
 
+DEFAULT_MODEL: Final = GEMINI_DEFAULT_MODEL
+
 MODEL_OPTIONS: Final = list(
-    dict.fromkeys([DEFAULT_MODEL, *_configured_models])
+    dict.fromkeys(
+        [
+            GEMINI_DEFAULT_MODEL,
+            *_gemini_models,
+            *_openai_models,
+        ]
+    )
 )
+
 SUPABASE_REDIRECT_URL: Final = os.getenv("SUPABASE_REDIRECT_URL", "http://localhost:8501")
 
 MODE_INSTRUCTIONS = {

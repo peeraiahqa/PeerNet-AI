@@ -5295,3 +5295,148 @@ div[data-testid="stElementContainer"]:has(
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* =========================================================
+   PEERNET AI — STOP BUTTON + COMPOSER INPUT HINT FIX
+   Only these two requested changes are applied.
+   ========================================================= */
+
+/* Hide "Press Enter to apply" and 0/4000 in composer inputs only. */
+.st-key-composer_tools [data-testid="InputInstructions"],
+.st-key-mobile_composer [data-testid="InputInstructions"],
+.st-key-composer_prompt [data-testid="InputInstructions"],
+.st-key-mobile_composer_prompt [data-testid="InputInstructions"] {
+    display:none !important;
+    visibility:hidden !important;
+    height:0 !important;
+    min-height:0 !important;
+    max-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+}
+
+.st-key-composer_tools div[data-testid="stTextInput"],
+.st-key-mobile_composer div[data-testid="stTextInput"] {
+    margin-bottom:0 !important;
+    padding-bottom:0 !important;
+}
+
+/* Desktop / laptop / tablet Stop button */
+[class*="st-key-composer_stop"] {
+    width:54px !important;
+    min-width:54px !important;
+    max-width:54px !important;
+    height:54px !important;
+    min-height:54px !important;
+    max-height:54px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:50% !important;
+}
+
+[class*="st-key-composer_stop"] button {
+    width:54px !important;
+    min-width:54px !important;
+    max-width:54px !important;
+    height:54px !important;
+    min-height:54px !important;
+    max-height:54px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    outline:0 !important;
+    border-radius:50% !important;
+    color:#ffffff !important;
+    -webkit-text-fill-color:#ffffff !important;
+    background:linear-gradient(145deg,#ef4444 0%,#e11d48 52%,#a21caf 100%) !important;
+    box-shadow:
+        0 10px 24px rgba(225,29,72,.30),
+        0 0 0 5px rgba(239,68,68,.09) !important;
+    font-size:1rem !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+}
+
+[class*="st-key-composer_stop"] button p {
+    margin:0 !important;
+    padding:0 !important;
+    color:#ffffff !important;
+    -webkit-text-fill-color:#ffffff !important;
+    font-size:1rem !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+}
+
+[class*="st-key-composer_stop"] button:hover {
+    color:#ffffff !important;
+    -webkit-text-fill-color:#ffffff !important;
+    filter:brightness(1.07) !important;
+}
+
+/* Mobile Stop button */
+@media screen and (max-width:700px) {
+    [class*="st-key-mobile_composer_stop"] {
+        width:48px !important;
+        min-width:48px !important;
+        max-width:48px !important;
+        height:48px !important;
+        min-height:48px !important;
+        max-height:48px !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        margin:0 !important;
+        padding:0 !important;
+        border-radius:50% !important;
+    }
+
+    [class*="st-key-mobile_composer_stop"] button {
+        width:48px !important;
+        min-width:48px !important;
+        max-width:48px !important;
+        height:48px !important;
+        min-height:48px !important;
+        max-height:48px !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        margin:0 !important;
+        padding:0 !important;
+        border:0 !important;
+        outline:0 !important;
+        border-radius:50% !important;
+        color:#ffffff !important;
+        -webkit-text-fill-color:#ffffff !important;
+        background:linear-gradient(145deg,#ef4444 0%,#e11d48 52%,#a21caf 100%) !important;
+        box-shadow:
+            0 9px 21px rgba(225,29,72,.28),
+            0 0 0 4px rgba(239,68,68,.08) !important;
+        font-size:.95rem !important;
+        font-weight:900 !important;
+        line-height:1 !important;
+    }
+
+    [class*="st-key-mobile_composer_stop"] button p {
+        margin:0 !important;
+        padding:0 !important;
+        color:#ffffff !important;
+        -webkit-text-fill-color:#ffffff !important;
+        font-size:.95rem !important;
+        font-weight:900 !important;
+        line-height:1 !important;
+    }
+}
+</style>
+        """
+    )
