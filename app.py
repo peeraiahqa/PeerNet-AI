@@ -800,7 +800,7 @@ if selected_page == "Home":
                 start_prompt="🎙",
                 stop_prompt="■",
                 just_once=True,
-                width="stretch",
+                use_container_width=True,
                 key="dictate_once",
             )
 
@@ -814,7 +814,7 @@ if selected_page == "Home":
                 start_prompt="▶",
                 stop_prompt="■",
                 just_once=False,
-                width="stretch",
+                use_container_width=True,
                 key="continuous_voice",
             )
 
@@ -913,7 +913,7 @@ if selected_page == "Home":
                 start_prompt="🎙",
                 stop_prompt="■",
                 just_once=True,
-                width="stretch",
+                use_container_width=True,
                 key="mobile_dictate_once",
             )
 
@@ -927,7 +927,7 @@ if selected_page == "Home":
                 start_prompt="▶",
                 stop_prompt="■",
                 just_once=False,
-                width="stretch",
+                use_container_width=True,
                 key="mobile_continuous_voice",
             )
 
