@@ -302,7 +302,7 @@ def authentication_page() -> None:
                 with st.form("login_form"):
                     email = st.text_input("Email", placeholder="name@example.com")
                     password = st.text_input("Password", type="password", placeholder="Enter your password")
-                    submitted = st.form_submit_button("Login →", use_container_width=True)
+                    submitted = st.form_submit_button("Login →", width="stretch")
                 if submitted:
                     try:
                         sign_in(email.strip(), password)
@@ -313,7 +313,7 @@ def authentication_page() -> None:
                         st.error(f"Unable to sign in: {error}")
                 with st.expander("Resend verification email"):
                     verification_email = st.text_input("Registered email", key="verification_email")
-                    if st.button("Resend verification", use_container_width=True):
+                    if st.button("Resend verification", width="stretch"):
                         try:
                             resend_verification(verification_email.strip())
                             st.success("Verification email sent.")
@@ -327,7 +327,7 @@ def authentication_page() -> None:
                     password = st.text_input("Password", type="password", key="register_password")
                     confirm_password = st.text_input("Confirm password", type="password")
                     accepted = st.checkbox("I agree to the Terms and Privacy Policy")
-                    submitted = st.form_submit_button("Create account", use_container_width=True)
+                    submitted = st.form_submit_button("Create account", width="stretch")
                 if submitted:
                     if not accepted: st.error("Please accept the Terms and Privacy Policy.")
                     elif password != confirm_password: st.error("Passwords do not match.")
@@ -340,7 +340,7 @@ def authentication_page() -> None:
                             st.error(f"Unable to register: {error}")
             with reset_tab:
                 reset_email = st.text_input("Email", key="reset_email")
-                if st.button("Send reset link", use_container_width=True):
+                if st.button("Send reset link", width="stretch"):
                     try:
                         send_password_reset(reset_email.strip())
                         st.success("Password-reset email sent. Follow the link in the email.")
@@ -350,7 +350,7 @@ def authentication_page() -> None:
         with st.container(border=True, key="auth_visual_card"):
             st.image(
                 AI_LOGIN_IMAGE_PATH,
-                use_container_width=True,
+                width="stretch",
             )
             st.markdown(
                 """
@@ -389,7 +389,7 @@ with st.sidebar:
     if st.button(
         "✨  New Chat",
         key="side_new_chat",
-        use_container_width=True,
+        width="stretch",
     ):
         st.session_state.messages = []
         st.session_state.current_conversation_id = None
@@ -402,27 +402,27 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    if st.button("⌂  Dashboard", key="side_dashboard", use_container_width=True):
+    if st.button("⌂  Dashboard", key="side_dashboard", width="stretch"):
         st.session_state.active_page = "Home"
         st.rerun()
 
-    if st.button("◴  Chat History", key="side_history", use_container_width=True):
+    if st.button("◴  Chat History", key="side_history", width="stretch"):
         st.session_state.active_page = "History"
         st.rerun()
 
-    if st.button("☆  Favorites", key="side_favorites", use_container_width=True):
+    if st.button("☆  Favorites", key="side_favorites", width="stretch"):
         st.session_state.active_page = "Favorites"
         st.rerun()
 
-    if st.button("🧰  AI Tools", key="side_tools", use_container_width=True):
+    if st.button("🧰  AI Tools", key="side_tools", width="stretch"):
         st.session_state.active_page = "Tools"
         st.rerun()
 
-    if st.button("⚙  Settings", key="side_settings", use_container_width=True):
+    if st.button("⚙  Settings", key="side_settings", width="stretch"):
         st.session_state.active_page = "Settings"
         st.rerun()
 
-    if st.button("ⓘ  About", key="side_about", use_container_width=True):
+    if st.button("ⓘ  About", key="side_about", width="stretch"):
         st.session_state.active_page = "About"
         st.rerun()
 
@@ -436,7 +436,7 @@ with st.sidebar:
                 if st.button(
                     f"💬  {title[:28]}",
                     key=f"side_recent_{conversation['id']}",
-                    use_container_width=True,
+                    width="stretch",
                 ):
                     messages = load_messages(conversation["id"])
                     st.session_state.current_conversation_id = conversation["id"]
@@ -461,7 +461,7 @@ with st.sidebar:
             if st.button(
                 label,
                 key=f"side_quick_tool_{index}",
-                use_container_width=True,
+                width="stretch",
             ):
                 st.session_state.pending_prompt = prompt_text
                 st.session_state.active_page = "Home"
@@ -530,7 +530,7 @@ with st.sidebar:
     if is_admin and st.button(
         "▦  Admin",
         key="side_admin",
-        use_container_width=True,
+        width="stretch",
     ):
         st.session_state.active_page = "Admin"
         st.rerun()
@@ -546,7 +546,7 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    if st.button("⇥  Logout", key="side_logout", use_container_width=True):
+    if st.button("⇥  Logout", key="side_logout", width="stretch"):
         sign_out()
         st.rerun()
 
@@ -621,7 +621,7 @@ if selected_page == "Home":
                     if st.button(
                         "⭐ Save",
                         key=f"favorite_{index}_{hash(message['content'])}",
-                        use_container_width=True,
+                        width="stretch",
                     ):
                         add_favorite("Saved AI response", message["content"])
                         st.success("Saved to Favorites.")
@@ -630,7 +630,7 @@ if selected_page == "Home":
                     if st.button(
                         "👍",
                         key=f"helpful_{index}_{hash(message['content'])}",
-                        use_container_width=True,
+                        width="stretch",
                     ):
                         save_feedback(
                             st.session_state.current_conversation_id,
@@ -643,7 +643,7 @@ if selected_page == "Home":
                     if st.button(
                         "👎",
                         key=f"not_helpful_{index}_{hash(message['content'])}",
-                        use_container_width=True,
+                        width="stretch",
                     ):
                         save_feedback(
                             st.session_state.current_conversation_id,
@@ -762,7 +762,7 @@ if selected_page == "Home":
         )
 
         with plus_col:
-            with st.popover("＋", use_container_width=True):
+            with st.popover("＋", width="stretch"):
                 desktop_uploaded_file = st.file_uploader(
                     "📎 Upload file",
                     type=[
@@ -800,7 +800,7 @@ if selected_page == "Home":
                 start_prompt="🎙",
                 stop_prompt="■",
                 just_once=True,
-                use_container_width=True,
+                width="stretch",
                 key="dictate_once",
             )
 
@@ -814,7 +814,7 @@ if selected_page == "Home":
                 start_prompt="▶",
                 stop_prompt="■",
                 just_once=False,
-                use_container_width=True,
+                width="stretch",
                 key="continuous_voice",
             )
 
@@ -844,7 +844,7 @@ if selected_page == "Home":
                 desktop_stop = st.button(
                     "■",
                     key="composer_stop",
-                    use_container_width=True,
+                    width="stretch",
                     help="Stop generating",
                 )
             else:
@@ -852,7 +852,7 @@ if selected_page == "Home":
                 desktop_submitted = st.button(
                     "➤",
                     key="composer_send",
-                    use_container_width=True,
+                    width="stretch",
                 )
 
         if desktop_uploaded_file:
@@ -886,7 +886,7 @@ if selected_page == "Home":
         )
 
         with mobile_plus_col:
-            with st.popover("＋", use_container_width=True):
+            with st.popover("＋", width="stretch"):
                 mobile_uploaded_file = st.file_uploader(
                     "📎 Upload file",
                     type=[
@@ -913,7 +913,7 @@ if selected_page == "Home":
                 start_prompt="🎙",
                 stop_prompt="■",
                 just_once=True,
-                use_container_width=True,
+                width="stretch",
                 key="mobile_dictate_once",
             )
 
@@ -927,7 +927,7 @@ if selected_page == "Home":
                 start_prompt="▶",
                 stop_prompt="■",
                 just_once=False,
-                use_container_width=True,
+                width="stretch",
                 key="mobile_continuous_voice",
             )
 
@@ -957,7 +957,7 @@ if selected_page == "Home":
                 mobile_stop = st.button(
                     "■",
                     key="mobile_composer_stop",
-                    use_container_width=True,
+                    width="stretch",
                     help="Stop generating",
                 )
             else:
@@ -965,7 +965,7 @@ if selected_page == "Home":
                 mobile_submitted = st.button(
                     "➤",
                     key="mobile_composer_send",
-                    use_container_width=True,
+                    width="stretch",
                 )
 
         if mobile_uploaded_file:
@@ -1055,7 +1055,7 @@ elif selected_page == "History":
                 if st.button(
                     "Rename",
                     key=f"rename_history_{conversation['id']}",
-                    use_container_width=True,
+                    width="stretch",
                 ):
                     rename_conversation(conversation["id"], new_title)
                     st.success("Conversation renamed.")
@@ -1073,7 +1073,7 @@ elif selected_page == "History":
                 if st.button(
                     "Open conversation",
                     key=f"open_history_{conversation['id']}",
-                    use_container_width=True,
+                    width="stretch",
                 ):
                     st.session_state.current_conversation_id = conversation["id"]
                     st.session_state.messages = [
@@ -1087,7 +1087,7 @@ elif selected_page == "History":
                 if st.button(
                     "Delete",
                     key=f"delete_history_{conversation['id']}",
-                    use_container_width=True,
+                    width="stretch",
                 ):
                     delete_conversation(conversation["id"])
                     st.rerun()
@@ -1140,7 +1140,7 @@ elif selected_page == "Tools":
                 if st.button(
                     "Open tool",
                     key=f"tool_{index}",
-                    use_container_width=True,
+                    width="stretch",
                 ):
                     st.session_state.pending_prompt = (
                         f"Use the {tool_name} workflow. "
@@ -1307,7 +1307,7 @@ elif selected_page == "Admin":
         metric_four.metric("Feedback entries", metrics["feedback"])
 
         st.subheader("Recent users")
-        st.dataframe(users, use_container_width=True)
+        st.dataframe(users, width="stretch")
 
 
 # Functional mobile navigation.
@@ -1315,12 +1315,12 @@ with st.container(key="mobile_nav"):
     mobile_cols = st.columns(5)
 
     with mobile_cols[0]:
-        if st.button("⌂\nHome", key="mobile_home", use_container_width=True):
+        if st.button("⌂\nHome", key="mobile_home", width="stretch"):
             st.session_state.active_page = "Home"
             st.rerun()
 
     with mobile_cols[1]:
-        if st.button("☵\nNew Chat", key="mobile_new", use_container_width=True):
+        if st.button("☵\nNew Chat", key="mobile_new", width="stretch"):
             st.session_state.messages = []
             st.session_state.current_conversation_id = None
             st.session_state.pending_prompt = None
@@ -1328,16 +1328,16 @@ with st.container(key="mobile_nav"):
             st.rerun()
 
     with mobile_cols[2]:
-        if st.button("◷\nHistory", key="mobile_history", use_container_width=True):
+        if st.button("◷\nHistory", key="mobile_history", width="stretch"):
             st.session_state.active_page = "History"
             st.rerun()
 
     with mobile_cols[3]:
-        if st.button("☆\nFavorites", key="mobile_favorites", use_container_width=True):
+        if st.button("☆\nFavorites", key="mobile_favorites", width="stretch"):
             st.session_state.active_page = "Favorites"
             st.rerun()
 
     with mobile_cols[4]:
-        if st.button("⚙\nSettings", key="mobile_settings", use_container_width=True):
+        if st.button("⚙\nSettings", key="mobile_settings", width="stretch"):
             st.session_state.active_page = "Settings"
             st.rerun()
