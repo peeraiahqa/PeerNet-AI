@@ -1,21 +1,38 @@
-MIT License
+﻿PeerNet AI Proprietary License
 
-Copyright (c) 2026 Peeraiah
+Copyright © 2026 PeerNet Solutions. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This licence applies to versions of PeerNet AI released under this
+proprietary licence. Versions previously released under another licence
+remain governed by the licence applicable to those versions.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+PeerNet AI, including its original source code, user interface, branding,
+assets and documentation, is proprietary to PeerNet Solutions.
+
+Permission is granted to authorized users to access and use the hosted
+application for learning, evaluation, demonstration and approved business
+purposes.
+
+You may not copy, redistribute, resell, sublicense, rebrand, commercially
+republish or create a competing product from this software without prior
+written permission from PeerNet Solutions.
+
+You may not remove or alter copyright, trademark, attribution or proprietary
+notices included with the software.
+
+Third-party libraries, frameworks and other components remain governed by
+their respective licences. Nothing in this licence limits rights granted
+directly by those third-party licences.
+
+PeerNet is an independent educational and technology platform. It is not
+affiliated with, sponsored by or endorsed by Cisco Systems, Inc. Cisco,
+Meraki and related names are trademarks of their respective owners.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT
+PERMITTED BY LAW, PEERNET SOLUTIONS SHALL NOT BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS USE.
+
+For licensing permission, contact PeerNet Solutions through the official
+contact information published at peernetsolutions.in.
