@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PeerNet connectivity monitor</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; overflow: hidden; font-family: Inter, system-ui, sans-serif; }
+    body { background: transparent; }
+    #offline-screen {
+      display: none;
+      min-height: 100vh;
+      width: 100%;
+      padding: clamp(18px, 4vw, 48px);
+      place-items: center;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(70,120,255,.18), transparent 34%),
+        radial-gradient(circle at 90% 88%, rgba(119,83,255,.16), transparent 30%),
+        linear-gradient(135deg, #eef5ff, #fbfcff 50%, #f3efff);
+    }
+    body.offline #offline-screen { display: grid; }
+    .offline-card {
+      width: min(1050px, 100%);
+      display: grid;
+      grid-template-columns: minmax(280px, .9fr) minmax(300px, 1.1fr);
+      align-items: center;
+      gap: clamp(22px, 5vw, 62px);
+      padding: clamp(30px, 5vw, 64px);
+      border: 1px solid rgba(69,113,255,.22);
+      border-radius: 30px;
+      background: rgba(248,251,255,.94);
+      box-shadow: 0 25px 75px rgba(30,64,175,.17);
+    }
+    .plug-stage { position: relative; min-height: 175px; display: flex; align-items: center; justify-content: center; }
+    .plug-side { position: absolute; top: 53px; width: calc(clamp(82px, 11vw, 150px) + 84px); height: 68px; }
+    .plug-side.male-side { right: calc(50% + 34px); animation: male-unplug 2.4s ease-in-out infinite; }
+    .plug-side.female-side { left: calc(50% + 34px); animation: female-unplug 2.4s ease-in-out infinite; }
+    .cable { position: absolute; top: 28px; width: clamp(82px, 11vw, 150px); height: 13px; border-radius: 999px; background: linear-gradient(#27375f,#101a36); }
+    .male-side .cable { left: 0; }
+    .female-side .cable { right: 0; }
+    .plug { position: absolute; top: 0; width: 88px; height: 68px; border: 4px solid #16254c; border-radius: 20px; background: linear-gradient(145deg,#4779ff,#7655ef); box-shadow: 0 13px 26px rgba(50,72,180,.28), inset 0 2px rgba(255,255,255,.35); }
+    .male-side .plug { right: 0; }
+    .female-side .plug { left: 0; }
+    .grip { position: absolute; top: 13px; width: 18px; height: 36px; border: solid rgba(255,255,255,.48); border-width: 0 2px; }
+    .male .grip { left: 15px; } .female .grip { right: 15px; }
+    .pin { position: absolute; left: 84px; width: 28px; height: 8px; border: 2px solid #744b16; border-radius: 0 5px 5px 0; background: linear-gradient(#ffd56b,#dc922e); }
+    .pin.top { top: 17px; } .pin.bottom { bottom: 17px; }
+    .socket { position: absolute; left: -3px; width: 18px; height: 11px; border-radius: 0 8px 8px 0; background: #111a34; }
+    .socket.top { top: 16px; } .socket.bottom { bottom: 16px; }
+    .break { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #ff4b67; color: white; font-size: 29px; font-weight: 900; box-shadow: 0 0 0 10px rgba(255,75,103,.12); animation: pulse 1.2s ease-in-out infinite; }
+    .spark { position: absolute; left: 50%; top: 25px; width: 6px; height: 18px; border-radius: 99px; background: #ff4b67; transform-origin: 50% 60px; }
+    .spark.one { transform: translateX(-50%) rotate(-34deg); } .spark.two { transform: translateX(-50%); } .spark.three { transform: translateX(-50%) rotate(34deg); }
+    .badge { display: inline-flex; padding: 8px 13px; border-radius: 999px; background: rgba(255,75,103,.1); color: #d62948; font-size: 11px; font-weight: 850; letter-spacing: .13em; }
+    h1 { margin: 15px 0 10px; color: #10204a; font-size: clamp(30px,4vw,48px); line-height: 1.05; }
+    p { max-width: 550px; margin: 0; color: #52617e; font-size: clamp(15px,2vw,18px); line-height: 1.65; }
+    .brand { display: block; margin-top: 20px; color: #246bfd; font-size: 13px; font-weight: 750; }
+    @keyframes male-unplug { 0%,100%{transform:translateX(-8px) rotate(-1deg)} 50%{transform:translateX(-20px) rotate(-3deg)} }
+    @keyframes female-unplug { 0%,100%{transform:translateX(8px) rotate(1deg)} 50%{transform:translateX(20px) rotate(3deg)} }
+    @keyframes pulse { 0%,100%{scale:.92} 50%{scale:1.06} }
+    @media (min-width: 701px) {
+      .plug-side { width: calc(clamp(62px, 6.5vw, 95px) + 84px); }
+      .cable { width: clamp(62px, 6.5vw, 95px); }
+    }
+    @media (max-width: 700px) {
+      #offline-screen { padding: 14px; }
+      .offline-card { grid-template-columns: 1fr; gap: 10px; padding: 28px 18px 34px; text-align: center; border-radius: 24px; }
+      .plug-stage { min-height: 150px; transform: scale(.86); }
+      p { margin-inline: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) { .plug-side, .break { animation: none !important; } }
+  </style>
+</head>
+<body>
+  <main id="offline-screen" role="alert" aria-live="assertive">
+    <section class="offline-card">
+      <div class="plug-stage" aria-hidden="true">
+        <span class="spark one"></span><span class="spark two"></span><span class="spark three"></span>
+        <span class="plug-side male-side">
+          <i class="cable"></i>
+          <span class="plug male"><i class="grip"></i><i class="pin top"></i><i class="pin bottom"></i></span>
+        </span>
+        <span class="break">×</span>
+        <span class="plug-side female-side">
+          <span class="plug female"><i class="socket top"></i><i class="socket bottom"></i><i class="grip"></i></span>
+          <i class="cable"></i>
+        </span>
+      </div>
+      <div>
+        <span class="badge">CONNECTION LOST</span>
+        <h1>No internet connection</h1>
+        <p>Your device is offline. Check Wi-Fi or your network cable. PeerNet AI will reconnect automatically when internet access returns.</p>
+        <span class="brand">PeerNet AI · PeerNet Solutions</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const notifyParent = (type, extra = {}) => {
+      window.parent.postMessage({ isStreamlitMessage: true, type, ...extra }, "*");
+    };
+
+    const desiredOfflineHeight = () => Math.max(620, Math.min(screen.availHeight || 760, 920));
+
+    const updateConnectivity = () => {
+      const offline = !navigator.onLine;
+      document.body.classList.toggle("offline", offline);
+      notifyParent("streamlit:setFrameHeight", { height: offline ? desiredOfflineHeight() : 0 });
+    };
+
+    notifyParent("streamlit:componentReady", { apiVersion: 1 });
+    window.addEventListener("offline", updateConnectivity);
+    window.addEventListener("online", updateConnectivity);
+    window.addEventListener("resize", updateConnectivity);
+    updateConnectivity();
+  </script>
+</body>
+</html>

@@ -7,6 +7,7 @@ from streamlit_mic_recorder import speech_to_text
 from dotenv import load_dotenv
 
 from ai_service import generate_answer
+from connectivity_component import render_connectivity_monitor
 from document_service import extract_uploaded_text
 from config import (
     AI_LOGIN_IMAGE_PATH,
@@ -67,6 +68,7 @@ st.set_page_config(
 
 load_dotenv()
 initialize_state()
+render_connectivity_monitor()
 
 THEME_OPTIONS = ["Light", "Dark", "Blue"]
 
