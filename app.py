@@ -281,19 +281,16 @@ def authentication_page() -> None:
     form_col, visual_col = st.columns([1, 1.05], gap="large")
     with form_col:
         with st.container(border=True):
-            # Desktop / laptop / tablet: preserve the current Streamlit logo layout.
-            with st.container(key="login_logo_desktop"):
-                _, logo_center, _ = st.columns([1, 1.25, 1])
-                with logo_center:
-                    st.image(LOGO_PATH, width=145)
-
-            # Phone only: raw HTML image so Streamlit column wrappers cannot
-            # pull the logo to the left.
-            mobile_logo_uri = _image_data_uri(LOGO_PATH)
+            # Use the original high-resolution logo data in both layouts.
+            # This prevents Streamlit from downscaling the PNG before browser zoom.
+            login_logo_uri = _image_data_uri(LOGO_PATH)
             st.markdown(
                 f"""
+                <div class="pn-desktop-login-logo">
+                    <img src="{login_logo_uri}" alt="PeerNet Solutions logo">
+                </div>
                 <div class="pn-mobile-login-logo">
-                    <img src="{mobile_logo_uri}" alt="PeerNet Solutions logo">
+                    <img src="{login_logo_uri}" alt="PeerNet Solutions logo">
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -342,7 +339,11 @@ def authentication_page() -> None:
                             st.error(f"Unable to register: {error}")
             with reset_tab:
                 reset_email = st.text_input("Email", key="reset_email")
-                if st.button("Send reset link", width="stretch"):
+                if st.button(
+                    "Send reset link",
+                    key="send_reset_link",
+                    width="stretch",
+                ):
                     try:
                         send_password_reset(reset_email.strip())
                         st.success("Password-reset email sent. Follow the link in the email.")
