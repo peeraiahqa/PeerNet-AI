@@ -900,15 +900,11 @@ if selected_page == "Home":
     # Phone-only mode control, synchronized with the sidebar selector.
     # CSS hides the entire container on tablet, laptop, and desktop.
     with st.container(key="mobile_assistant_mode"):
-        st.markdown(
-            '<div class="pn-mobile-mode-label">✨ Assistant mode</div>',
-            unsafe_allow_html=True,
-        )
         st.selectbox(
-            "Assistant mode",
+            "✨ Assistant mode",
             list(MODE_INSTRUCTIONS.keys()),
             key="mobile_assistant_mode_selector",
-            label_visibility="collapsed",
+            label_visibility="visible",
             help="Choose how PeerNet AI should structure its answers.",
             on_change=_sync_mode_from_mobile,
         )
