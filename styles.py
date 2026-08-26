@@ -6713,3 +6713,49 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* MOBILE NAV BOTTOM-CENTER PURPLE DOTS */
+@media screen and (max-width:700px) {
+    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button {
+        overflow:visible!important;
+    }
+
+    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button::after,
+    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button::after,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button::after,
+    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button::after,
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button::after {
+        content:""!important;
+        position:absolute!important;
+        display:block!important;
+        top:auto!important;
+        right:auto!important;
+        bottom:-6px!important;
+        left:50%!important;
+        width:8px!important;
+        height:8px!important;
+        margin:0!important;
+        padding:0!important;
+        border:2px solid rgba(255,255,255,.96)!important;
+        border-radius:50%!important;
+        background:#4c1d95!important;
+        box-shadow:
+            0 0 0 2px rgba(76,29,149,.16),
+            0 2px 9px rgba(76,29,149,.72)!important;
+        transform:translateX(-50%)!important;
+        pointer-events:none!important;
+        opacity:1!important;
+        z-index:20!important;
+    }
+}
+</style>
+        """
+    )
