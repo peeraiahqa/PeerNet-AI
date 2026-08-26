@@ -6534,3 +6534,62 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* MOBILE NAV HIGH-CONTRAST SHADE PALETTE */
+@media screen and (max-width:700px) {
+    /* Current page: deep blue-to-indigo for reliable white-text contrast. */
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"],
+    .st-key-mobile_nav button[kind="primary"] {
+        border-color:rgba(255,255,255,.66)!important;
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#075985 0%,#1d4ed8 48%,#5b21b6 100%)!important;
+        box-shadow:
+            0 12px 25px rgba(29,78,216,.34),
+            0 0 0 3px rgba(37,99,235,.11),
+            inset 0 1px 0 rgba(255,255,255,.38)!important;
+    }
+
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:hover,
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:focus,
+    .st-key-mobile_nav button[kind="primary"]:hover,
+    .st-key-mobile_nav button[kind="primary"]:focus {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#064d73 0%,#193fb4 48%,#4c1d95 100%)!important;
+    }
+
+    /* New Chat: separate violet-to-magenta action shade. */
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button {
+        border-color:rgba(255,255,255,.68)!important;
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#4338ca 0%,#7e22ce 54%,#be185d 100%)!important;
+        box-shadow:
+            0 14px 29px rgba(109,40,217,.37),
+            0 0 0 4px rgba(126,34,206,.10),
+            inset 0 1px 0 rgba(255,255,255,.40)!important;
+    }
+
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button:hover,
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button:focus {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#3730a3 0%,#6b21a8 54%,#9f1239 100%)!important;
+    }
+
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] *,
+    .st-key-mobile_nav button[kind="primary"] *,
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button * {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        opacity:1!important;
+    }
+}
+</style>
+        """
+    )
