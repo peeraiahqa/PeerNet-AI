@@ -5796,3 +5796,85 @@ div[data-testid="stButton"] > button:hover {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* AUTH BUTTON CLIPPING FIX — SCOPED */
+
+/* Let tab content determine the required card height. The columns still
+   stretch together, but neither form nor its action button can be clipped. */
+@media(min-width:901px) {
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    > [data-testid="column"]:first-child
+    > div[data-testid="stVerticalBlock"]
+    > div[data-testid="stVerticalBlockBorderWrapper"],
+    .st-key-auth_visual_card
+    > div[data-testid="stVerticalBlockBorderWrapper"] {
+        height:auto!important;
+        min-height:100%!important;
+        overflow:visible!important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    > [data-testid="column"]:first-child {
+        overflow:visible!important;
+    }
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stForm"],
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stForm"] > div {
+    overflow:visible!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stFormSubmitButton"] {
+    width:100%!important;
+    min-height:52px!important;
+    padding:2px 0 3px!important;
+    overflow:visible!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stFormSubmitButton"] > button {
+    width:100%!important;
+    min-height:48px!important;
+    height:auto!important;
+    margin:0!important;
+    padding:.72rem 1rem!important;
+    line-height:1.2!important;
+    overflow:visible!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stFormSubmitButton"] > button p {
+    margin:0!important;
+    line-height:1.2!important;
+}
+
+/* Dedicated verification action color. */
+.st-key-resend_verification button {
+    min-height:46px!important;
+    border:1px solid rgba(255,255,255,.58)!important;
+    border-radius:14px!important;
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+    background:linear-gradient(110deg,#059669 0%,#0ea5a8 48%,#0b78e3 100%)!important;
+    box-shadow:
+        0 12px 25px rgba(5,150,105,.22),
+        inset 0 1px 0 rgba(255,255,255,.38)!important;
+}
+
+.st-key-resend_verification button:hover {
+    transform:translateY(-2px);
+    background:linear-gradient(110deg,#047f5a 0%,#0c9296 48%,#086bc9 100%)!important;
+    box-shadow:
+        0 16px 31px rgba(5,150,105,.28),
+        0 0 0 4px rgba(14,165,168,.09)!important;
+}
+</style>
+        """
+    )

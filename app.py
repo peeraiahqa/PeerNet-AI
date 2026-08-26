@@ -312,7 +312,11 @@ def authentication_page() -> None:
                         st.error(f"Unable to sign in: {error}")
                 with st.expander("Resend verification email"):
                     verification_email = st.text_input("Registered email", key="verification_email")
-                    if st.button("Resend verification", width="stretch"):
+                    if st.button(
+                        "Resend verification",
+                        key="resend_verification",
+                        width="stretch",
+                    ):
                         try:
                             resend_verification(verification_email.strip())
                             st.success("Verification email sent.")
