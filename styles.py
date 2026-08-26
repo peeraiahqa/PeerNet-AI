@@ -6593,3 +6593,89 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* KEYED MOBILE ACTIVE STATES — THEME INDEPENDENT */
+@media screen and (max-width:700px) {
+    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button {
+        position:relative!important;
+        width:100%!important;
+        min-width:0!important;
+        min-height:53px!important;
+        height:53px!important;
+        margin:0!important;
+        padding:.24rem .04rem!important;
+        border:1px solid rgba(255,255,255,.64)!important;
+        border-radius:15px!important;
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#075985 0%,#1d4ed8 48%,#5b21b6 100%)!important;
+        box-shadow:
+            0 11px 24px rgba(29,78,216,.34),
+            0 0 0 3px rgba(37,99,235,.10),
+            inset 0 1px 0 rgba(255,255,255,.40)!important;
+        transform:translateY(-3px)!important;
+        opacity:1!important;
+        overflow:hidden!important;
+    }
+
+    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button *,
+    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button *,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button *,
+    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button * {
+        margin:0!important;
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:transparent!important;
+        text-shadow:0 1px 2px rgba(12,27,68,.30)!important;
+        font-weight:900!important;
+        opacity:1!important;
+    }
+
+    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button:hover,
+    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button:focus,
+    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button:hover,
+    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button:focus,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button:hover,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button:focus,
+    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button:hover,
+    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button:focus {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#064d73 0%,#193fb4 48%,#4c1d95 100%)!important;
+        transform:translateY(-4px)!important;
+    }
+
+    /* Explicitly neutralize Streamlit theme fills on inactive destinations. */
+    .st-key-mobile_nav [class*="st-key-mobile_home"]:not([class*="_active"]) button,
+    .st-key-mobile_nav [class*="st-key-mobile_history"]:not([class*="_active"]) button,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites"]:not([class*="_active"]) button,
+    .st-key-mobile_nav [class*="st-key-mobile_settings"]:not([class*="_active"]) button {
+        border-color:transparent!important;
+        color:#425574!important;
+        -webkit-text-fill-color:#425574!important;
+        background:transparent!important;
+        box-shadow:none!important;
+        transform:none!important;
+    }
+
+    .st-key-mobile_nav [class*="st-key-mobile_home"]:not([class*="_active"]) button *,
+    .st-key-mobile_nav [class*="st-key-mobile_history"]:not([class*="_active"]) button *,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites"]:not([class*="_active"]) button *,
+    .st-key-mobile_nav [class*="st-key-mobile_settings"]:not([class*="_active"]) button * {
+        color:#425574!important;
+        -webkit-text-fill-color:#425574!important;
+        background:transparent!important;
+        text-shadow:none!important;
+        opacity:1!important;
+    }
+}
+</style>
+        """
+    )
