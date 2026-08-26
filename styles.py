@@ -6679,3 +6679,37 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* MOBILE ACTIVE LOCATION DOT */
+@media screen and (max-width:700px) {
+    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button::after,
+    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button::after,
+    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button::after,
+    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button::after {
+        content:""!important;
+        position:absolute!important;
+        display:block!important;
+        top:7px!important;
+        right:8px!important;
+        width:7px!important;
+        height:7px!important;
+        margin:0!important;
+        padding:0!important;
+        border:2px solid rgba(255,255,255,.92)!important;
+        border-radius:50%!important;
+        background:#86efac!important;
+        box-shadow:
+            0 0 0 2px rgba(134,239,172,.18),
+            0 0 9px rgba(134,239,172,.90)!important;
+        transform:none!important;
+        pointer-events:none!important;
+        opacity:1!important;
+    }
+}
+</style>
+        """
+    )
