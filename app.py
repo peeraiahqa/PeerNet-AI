@@ -97,6 +97,22 @@ def _sync_theme_from_settings() -> None:
     st.session_state.sidebar_theme_selector = selected
 
 
+def _sync_mode_from_sidebar() -> None:
+    selected = st.session_state.get(
+        "assistant_mode_selector",
+        list(MODE_INSTRUCTIONS.keys())[0],
+    )
+    st.session_state.mobile_assistant_mode_selector = selected
+
+
+def _sync_mode_from_mobile() -> None:
+    selected = st.session_state.get(
+        "mobile_assistant_mode_selector",
+        list(MODE_INSTRUCTIONS.keys())[0],
+    )
+    st.session_state.assistant_mode_selector = selected
+
+
 active_theme = st.session_state.get("app_theme", "Light")
 apply_styles(active_theme)
 
@@ -182,8 +198,16 @@ if "generation_discard" not in st.session_state:
 if "assistant_mode_selector" not in st.session_state:
     st.session_state.assistant_mode_selector = list(MODE_INSTRUCTIONS.keys())[0]
 
+if "mobile_assistant_mode_selector" not in st.session_state:
+    st.session_state.mobile_assistant_mode_selector = (
+        st.session_state.assistant_mode_selector
+    )
+
 if "show_recent_chats" not in st.session_state:
     st.session_state.show_recent_chats = False
+
+if "mobile_nav_selection" not in st.session_state:
+    st.session_state.mobile_nav_selection = "Home"
 
 selected_mode = st.session_state.assistant_mode_selector
 
@@ -251,6 +275,21 @@ def _render_generation_status() -> None:
         with st.chat_message("assistant"):
             with st.spinner("Generating answer..."):
                 st.markdown("Generating answer...")
+
+
+def _mobile_navigate(page: str) -> None:
+    """Navigate from the phone bar before the main script renders."""
+    st.session_state.active_page = page
+    st.session_state.mobile_nav_selection = page
+
+
+def _mobile_new_chat() -> None:
+    """Start a blank chat while keeping New Chat visibly selected."""
+    st.session_state.messages = []
+    st.session_state.current_conversation_id = None
+    st.session_state.pending_prompt = None
+    st.session_state.active_page = "Home"
+    st.session_state.mobile_nav_selection = "New Chat"
 
 
 def submit_composer_prompt() -> None:
@@ -422,6 +461,7 @@ with st.sidebar:
         key="assistant_mode_selector",
         label_visibility="collapsed",
         help="Choose how PeerNet AI should structure its answers.",
+        on_change=_sync_mode_from_sidebar,
     )
 
     st.markdown(
@@ -875,6 +915,18 @@ if selected_page == "Home":
         if desktop_uploaded_image:
             st.caption(f"🖼️ {desktop_uploaded_image.name}")
 
+    # Phone-only mode control, synchronized with the sidebar selector.
+    # CSS hides the entire container on tablet, laptop, and desktop.
+    with st.container(key="mobile_assistant_mode"):
+        st.selectbox(
+            "✨ Assistant mode",
+            list(MODE_INSTRUCTIONS.keys()),
+            key="mobile_assistant_mode_selector",
+            label_visibility="visible",
+            help="Choose how PeerNet AI should structure its answers.",
+            on_change=_sync_mode_from_mobile,
+        )
+
     # Dedicated phone composer. CSS hides it on desktop and tablet.
     with st.container(key="mobile_composer"):
         mobile_prompt = st.text_input(
@@ -1325,33 +1377,56 @@ elif selected_page == "Admin":
 
 
 # Functional mobile navigation.
+# on_click callbacks run before Streamlit renders, avoiding a second rerun.
 with st.container(key="mobile_nav"):
     mobile_cols = st.columns(5)
+    mobile_selection = st.session_state.get("mobile_nav_selection", "Home")
 
     with mobile_cols[0]:
-        if st.button("⌂\nHome", key="mobile_home", width="stretch"):
-            st.session_state.active_page = "Home"
-            st.rerun()
+        st.button(
+            "⌂\nHome",
+            key="mobile_home",
+            width="stretch",
+            type="primary" if mobile_selection == "Home" else "secondary",
+            on_click=_mobile_navigate,
+            args=("Home",),
+        )
 
     with mobile_cols[1]:
-        if st.button("☵\nNew Chat", key="mobile_new", width="stretch"):
-            st.session_state.messages = []
-            st.session_state.current_conversation_id = None
-            st.session_state.pending_prompt = None
-            st.session_state.active_page = "Home"
-            st.rerun()
+        st.button(
+            "✦\nNew Chat",
+            key="mobile_new",
+            width="stretch",
+            type="primary" if mobile_selection == "New Chat" else "secondary",
+            on_click=_mobile_new_chat,
+        )
 
     with mobile_cols[2]:
-        if st.button("◷\nHistory", key="mobile_history", width="stretch"):
-            st.session_state.active_page = "History"
-            st.rerun()
+        st.button(
+            "◷\nHistory",
+            key="mobile_history",
+            width="stretch",
+            type="primary" if mobile_selection == "History" else "secondary",
+            on_click=_mobile_navigate,
+            args=("History",),
+        )
 
     with mobile_cols[3]:
-        if st.button("☆\nFavorites", key="mobile_favorites", width="stretch"):
-            st.session_state.active_page = "Favorites"
-            st.rerun()
+        st.button(
+            "☆\nFavorites",
+            key="mobile_favorites",
+            width="stretch",
+            type="primary" if mobile_selection == "Favorites" else "secondary",
+            on_click=_mobile_navigate,
+            args=("Favorites",),
+        )
 
     with mobile_cols[4]:
-        if st.button("⚙\nSettings", key="mobile_settings", width="stretch"):
-            st.session_state.active_page = "Settings"
-            st.rerun()
+        st.button(
+            "⚙\nSettings",
+            key="mobile_settings",
+            width="stretch",
+            type="primary" if mobile_selection == "Settings" else "secondary",
+            on_click=_mobile_navigate,
+            args=("Settings",),
+        )
