@@ -6113,3 +6113,76 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* MOBILE ASSISTANT MODE — PHONE ONLY */
+.st-key-mobile_assistant_mode {
+    display:none!important;
+}
+
+@media screen and (max-width:700px) {
+    .st-key-mobile_assistant_mode {
+        position:relative!important;
+        display:block!important;
+        width:100%!important;
+        margin:.35rem 0 .65rem!important;
+        padding:.62rem .72rem .72rem!important;
+        border:1px solid rgba(92,75,220,.22)!important;
+        border-radius:18px!important;
+        background:
+            radial-gradient(circle at 92% 8%,rgba(236,72,153,.17),transparent 34%),
+            linear-gradient(120deg,rgba(224,249,255,.94),rgba(233,239,255,.94) 52%,rgba(250,232,255,.92))!important;
+        box-shadow:
+            0 12px 27px rgba(53,79,163,.15),
+            inset 0 1px 0 rgba(255,255,255,.95)!important;
+        box-sizing:border-box!important;
+        overflow:visible!important;
+    }
+
+    .pn-mobile-mode-label {
+        margin:0 0 .42rem!important;
+        color:#254a7b!important;
+        font-size:.82rem!important;
+        font-weight:900!important;
+        letter-spacing:.025em!important;
+    }
+
+    .st-key-mobile_assistant_mode_selector {
+        width:100%!important;
+        margin:0!important;
+    }
+
+    .st-key-mobile_assistant_mode_selector
+    div[data-baseweb="select"] > div {
+        min-height:44px!important;
+        border:1px solid rgba(69,96,214,.30)!important;
+        border-radius:14px!important;
+        color:#17345f!important;
+        background:linear-gradient(110deg,#f0fdff 0%,#eef2ff 52%,#fdf0ff 100%)!important;
+        box-shadow:
+            0 9px 20px rgba(56,79,162,.13),
+            inset 0 1px 0 #fff!important;
+        font-size:.88rem!important;
+        font-weight:850!important;
+    }
+
+    .st-key-mobile_assistant_mode_selector
+    div[data-baseweb="select"] > div:focus-within {
+        border-color:rgba(91,75,220,.52)!important;
+        box-shadow:
+            0 11px 23px rgba(56,79,162,.17),
+            0 0 0 4px rgba(91,75,220,.08)!important;
+    }
+}
+
+@media screen and (min-width:701px) {
+    .st-key-mobile_assistant_mode {
+        display:none!important;
+    }
+}
+</style>
+        """
+    )
