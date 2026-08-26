@@ -1365,12 +1365,9 @@ with st.container(key="mobile_nav"):
     with mobile_cols[0]:
         if st.button(
             "⌂\nHome",
-            key=(
-                "mobile_home_active"
-                if selected_page == "Home"
-                else "mobile_home"
-            ),
+            key="mobile_home",
             width="stretch",
+            type="primary" if selected_page == "Home" else "secondary",
         ):
             st.session_state.active_page = "Home"
             st.rerun()
@@ -1390,12 +1387,9 @@ with st.container(key="mobile_nav"):
     with mobile_cols[2]:
         if st.button(
             "◷\nHistory",
-            key=(
-                "mobile_history_active"
-                if selected_page == "History"
-                else "mobile_history"
-            ),
+            key="mobile_history",
             width="stretch",
+            type="primary" if selected_page == "History" else "secondary",
         ):
             st.session_state.active_page = "History"
             st.rerun()
@@ -1403,12 +1397,9 @@ with st.container(key="mobile_nav"):
     with mobile_cols[3]:
         if st.button(
             "☆\nFavorites",
-            key=(
-                "mobile_favorites_active"
-                if selected_page == "Favorites"
-                else "mobile_favorites"
-            ),
+            key="mobile_favorites",
             width="stretch",
+            type="primary" if selected_page == "Favorites" else "secondary",
         ):
             st.session_state.active_page = "Favorites"
             st.rerun()
@@ -1416,12 +1407,9 @@ with st.container(key="mobile_nav"):
     with mobile_cols[4]:
         if st.button(
             "⚙\nSettings",
-            key=(
-                "mobile_settings_active"
-                if selected_page == "Settings"
-                else "mobile_settings"
-            ),
+            key="mobile_settings",
             width="stretch",
+            type="primary" if selected_page == "Settings" else "secondary",
         ):
             st.session_state.active_page = "Settings"
             st.rerun()
