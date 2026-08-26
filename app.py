@@ -413,6 +413,18 @@ with st.sidebar:
         st.rerun()
 
     st.markdown(
+        '<div class="pn-assistant-mode-label">Assistant mode</div>',
+        unsafe_allow_html=True,
+    )
+    selected_mode = st.selectbox(
+        "Assistant mode",
+        list(MODE_INSTRUCTIONS.keys()),
+        key="assistant_mode_selector",
+        label_visibility="collapsed",
+        help="Choose how PeerNet AI should structure its answers.",
+    )
+
+    st.markdown(
         '<div class="pn-side-section-label">WORKSPACE</div>',
         unsafe_allow_html=True,
     )
@@ -597,14 +609,6 @@ st.html(
 )
 
 if selected_page == "Home":
-    with st.container(key="assistant_mode_toolbar"):
-        selected_mode = st.selectbox(
-            "Assistant mode",
-            list(MODE_INSTRUCTIONS.keys()),
-            key="assistant_mode_selector",
-            help="Choose how PeerNet AI should structure its answers.",
-        )
-
     user_name = (
         profile.get("name")
         or profile.get("full_name")
