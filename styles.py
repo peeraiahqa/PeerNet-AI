@@ -6411,3 +6411,61 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* STRONG MOBILE ACTIVE-PAGE INDICATOR */
+@media screen and (max-width:700px) {
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"],
+    .st-key-mobile_nav button[kind="primary"] {
+        position:relative!important;
+        border:1px solid rgba(255,255,255,.62)!important;
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#06b6d4 0%,#2563eb 45%,#7c3aed 74%,#ec4899 100%)!important;
+        box-shadow:
+            0 11px 24px rgba(72,71,217,.30),
+            0 0 0 3px rgba(99,102,241,.08),
+            inset 0 1px 0 rgba(255,255,255,.40)!important;
+        transform:translateY(-3px)!important;
+        font-weight:900!important;
+    }
+
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] p,
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] span,
+    .st-key-mobile_nav button[kind="primary"] p,
+    .st-key-mobile_nav button[kind="primary"] span {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        font-weight:900!important;
+    }
+
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]::after,
+    .st-key-mobile_nav button[kind="primary"]::after {
+        content:"";
+        position:absolute;
+        left:50%;
+        bottom:4px;
+        width:5px;
+        height:5px;
+        border-radius:50%;
+        background:#ffffff;
+        box-shadow:0 0 8px rgba(255,255,255,.95);
+        transform:translateX(-50%);
+    }
+
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:hover,
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:focus,
+    .st-key-mobile_nav button[kind="primary"]:hover,
+    .st-key-mobile_nav button[kind="primary"]:focus {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#05a9c5 0%,#2059d8 45%,#6e30da 74%,#db3f8d 100%)!important;
+        transform:translateY(-4px)!important;
+    }
+}
+</style>
+        """
+    )
