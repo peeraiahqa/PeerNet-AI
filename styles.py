@@ -6033,3 +6033,83 @@ div[data-testid="stFormSubmitButton"] > button p {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* LOGOUT VISIBILITY FIX — ALL THEMES */
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] {
+    position:relative!important;
+    z-index:10!important;
+    width:100%!important;
+    margin:.8rem 0 .35rem!important;
+    padding:0!important;
+    background:transparent!important;
+    isolation:isolate!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"]
+div[data-testid="stButton"] {
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button {
+    position:relative!important;
+    z-index:11!important;
+    width:100%!important;
+    min-height:46px!important;
+    margin:0!important;
+    padding:.68rem 1rem!important;
+    border:1px solid rgba(255,255,255,.58)!important;
+    border-radius:14px!important;
+    opacity:1!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    background:linear-gradient(110deg,#f97316 0%,#ef4444 48%,#c026d3 100%)!important;
+    box-shadow:
+        0 12px 26px rgba(225,57,81,.28),
+        inset 0 1px 0 rgba(255,255,255,.42)!important;
+    font-weight:900!important;
+    line-height:1.2!important;
+    overflow:hidden!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button p,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button span,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button div {
+    position:relative!important;
+    z-index:12!important;
+    margin:0!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    background:transparent!important;
+    font-weight:900!important;
+    line-height:1.2!important;
+    opacity:1!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button:hover,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button:focus,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button:active {
+    border-color:rgba(255,255,255,.72)!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    background:linear-gradient(110deg,#ea6810 0%,#dd3841 48%,#ae20c0 100%)!important;
+    box-shadow:
+        0 16px 32px rgba(225,57,81,.34),
+        0 0 0 4px rgba(239,68,68,.10)!important;
+}
+
+/* Prevent the footer card from visually covering the action. */
+section[data-testid="stSidebar"] .pn-side-footer {
+    position:relative!important;
+    z-index:1!important;
+    margin-bottom:.35rem!important;
+}
+</style>
+        """
+    )
