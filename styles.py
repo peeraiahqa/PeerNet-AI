@@ -6469,3 +6469,68 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* MOBILE NAV CONTRAST FIX — EVERY THEME */
+@media screen and (max-width:700px) {
+    .st-key-mobile_nav {
+        color-scheme:light!important;
+    }
+
+    /* Inactive destinations: fixed dark-navy contrast on the light glass bar. */
+    .st-key-mobile_nav div[data-testid="stButton"] > button:not([data-testid="stBaseButton-primary"]):not([kind="primary"]),
+    .st-key-mobile_nav div[data-testid="stButton"] > button:not([data-testid="stBaseButton-primary"]):not([kind="primary"]) * {
+        color:#425574!important;
+        -webkit-text-fill-color:#425574!important;
+        text-shadow:none!important;
+    }
+
+    /* Active destination: override every nested theme-generated text layer. */
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"],
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] *,
+    .st-key-mobile_nav button[kind="primary"],
+    .st-key-mobile_nav button[kind="primary"] * {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        text-shadow:0 1px 2px rgba(20,35,92,.24)!important;
+        opacity:1!important;
+    }
+
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] > div,
+    .st-key-mobile_nav button[kind="primary"] > div {
+        background:transparent!important;
+    }
+
+    /* New Chat remains white regardless of the selected Streamlit theme. */
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button,
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button * {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        text-shadow:0 1px 2px rgba(20,35,92,.24)!important;
+        opacity:1!important;
+    }
+
+    .st-key-mobile_nav [class*="st-key-mobile_new"] button > div {
+        background:transparent!important;
+    }
+
+    /* The dot could overlap two-line labels on narrow phones. */
+    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]::after,
+    .st-key-mobile_nav button[kind="primary"]::after {
+        display:none!important;
+        content:none!important;
+    }
+
+    .st-key-mobile_nav div[data-testid="stButton"] > button,
+    .st-key-mobile_nav div[data-testid="stButton"] > button p {
+        line-height:1.22!important;
+        word-break:normal!important;
+        overflow-wrap:normal!important;
+    }
+}
+</style>
+        """
+    )
