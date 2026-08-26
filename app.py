@@ -206,6 +206,9 @@ if "mobile_assistant_mode_selector" not in st.session_state:
 if "show_recent_chats" not in st.session_state:
     st.session_state.show_recent_chats = False
 
+if "mobile_nav_selection" not in st.session_state:
+    st.session_state.mobile_nav_selection = "Home"
+
 selected_mode = st.session_state.assistant_mode_selector
 
 
@@ -272,6 +275,21 @@ def _render_generation_status() -> None:
         with st.chat_message("assistant"):
             with st.spinner("Generating answer..."):
                 st.markdown("Generating answer...")
+
+
+def _mobile_navigate(page: str) -> None:
+    """Navigate from the phone bar before the main script renders."""
+    st.session_state.active_page = page
+    st.session_state.mobile_nav_selection = page
+
+
+def _mobile_new_chat() -> None:
+    """Start a blank chat while keeping New Chat visibly selected."""
+    st.session_state.messages = []
+    st.session_state.current_conversation_id = None
+    st.session_state.pending_prompt = None
+    st.session_state.active_page = "Home"
+    st.session_state.mobile_nav_selection = "New Chat"
 
 
 def submit_composer_prompt() -> None:
@@ -1359,57 +1377,56 @@ elif selected_page == "Admin":
 
 
 # Functional mobile navigation.
+# on_click callbacks run before Streamlit renders, avoiding a second rerun.
 with st.container(key="mobile_nav"):
     mobile_cols = st.columns(5)
+    mobile_selection = st.session_state.get("mobile_nav_selection", "Home")
 
     with mobile_cols[0]:
-        if st.button(
+        st.button(
             "⌂\nHome",
             key="mobile_home",
             width="stretch",
-            type="primary" if selected_page == "Home" else "secondary",
-        ):
-            st.session_state.active_page = "Home"
-            st.rerun()
+            type="primary" if mobile_selection == "Home" else "secondary",
+            on_click=_mobile_navigate,
+            args=("Home",),
+        )
 
     with mobile_cols[1]:
-        if st.button(
+        st.button(
             "✦\nNew Chat",
             key="mobile_new",
             width="stretch",
-        ):
-            st.session_state.messages = []
-            st.session_state.current_conversation_id = None
-            st.session_state.pending_prompt = None
-            st.session_state.active_page = "Home"
-            st.rerun()
+            type="primary" if mobile_selection == "New Chat" else "secondary",
+            on_click=_mobile_new_chat,
+        )
 
     with mobile_cols[2]:
-        if st.button(
+        st.button(
             "◷\nHistory",
             key="mobile_history",
             width="stretch",
-            type="primary" if selected_page == "History" else "secondary",
-        ):
-            st.session_state.active_page = "History"
-            st.rerun()
+            type="primary" if mobile_selection == "History" else "secondary",
+            on_click=_mobile_navigate,
+            args=("History",),
+        )
 
     with mobile_cols[3]:
-        if st.button(
+        st.button(
             "☆\nFavorites",
             key="mobile_favorites",
             width="stretch",
-            type="primary" if selected_page == "Favorites" else "secondary",
-        ):
-            st.session_state.active_page = "Favorites"
-            st.rerun()
+            type="primary" if mobile_selection == "Favorites" else "secondary",
+            on_click=_mobile_navigate,
+            args=("Favorites",),
+        )
 
     with mobile_cols[4]:
-        if st.button(
+        st.button(
             "⚙\nSettings",
             key="mobile_settings",
             width="stretch",
-            type="primary" if selected_page == "Settings" else "secondary",
-        ):
-            st.session_state.active_page = "Settings"
-            st.rerun()
+            type="primary" if mobile_selection == "Settings" else "secondary",
+            on_click=_mobile_navigate,
+            args=("Settings",),
+        )
