@@ -179,6 +179,14 @@ if "selected_model" not in st.session_state:
 if "generation_discard" not in st.session_state:
     st.session_state.generation_discard = False
 
+if "assistant_mode_selector" not in st.session_state:
+    st.session_state.assistant_mode_selector = list(MODE_INSTRUCTIONS.keys())[0]
+
+if "show_recent_chats" not in st.session_state:
+    st.session_state.show_recent_chats = False
+
+selected_mode = st.session_state.assistant_mode_selector
+
 
 @st.cache_resource
 def _generation_executor() -> ThreadPoolExecutor:
@@ -434,12 +442,19 @@ with st.sidebar:
         # here is visible to the page router later in this same execution.
         st.session_state.active_page = "Settings"
 
-    if st.button("ⓘ  About", key="side_about", width="stretch"):
-        # The button interaction already reruns Streamlit once. Updating state
-        # here is visible to the page router later in this same execution.
-        st.session_state.active_page = "About"
+    recent_label = (
+        "⌄  Recent Chats"
+        if st.session_state.show_recent_chats
+        else "›  Recent Chats"
+    )
+    if st.button(recent_label, key="toggle_recent_chats", width="stretch"):
+        st.session_state.show_recent_chats = (
+            not st.session_state.show_recent_chats
+        )
 
-    with st.expander("◴  Recent Chats", expanded=False):
+    # Avoid a Supabase conversation query on every sidebar interaction.
+    # Fetch recent conversations only when the user opens this section.
+    if st.session_state.show_recent_chats:
         recent_conversations = list_conversations()[:4]
 
         if recent_conversations:
@@ -458,34 +473,8 @@ with st.sidebar:
                         for item in messages
                     ]
                     st.session_state.active_page = "Home"
-                    st.rerun()
         else:
             st.caption("No recent conversations yet.")
-
-    with st.expander("⚡  Quick AI Tools", expanded=False):
-        quick_tools = [
-            ("📄 PRD → Test Plan", "Create test cases and a test plan from my PRD."),
-            ("🐍 Generate Python", "Generate a Python network automation script."),
-            ("🌐 Network Config", "Review and validate my network configuration."),
-            ("🛡 Troubleshoot", "Help me troubleshoot a networking issue."),
-        ]
-
-        for index, (label, prompt_text) in enumerate(quick_tools):
-            if st.button(
-                label,
-                key=f"side_quick_tool_{index}",
-                width="stretch",
-            ):
-                st.session_state.pending_prompt = prompt_text
-                st.session_state.active_page = "Home"
-                st.rerun()
-
-    selected_mode = st.selectbox(
-        "Assistant mode",
-        list(MODE_INSTRUCTIONS.keys()),
-        label_visibility="collapsed",
-        key="assistant_mode_selector",
-    )
 
     usage_today = get_today_usage()
     usage_percent = min(
@@ -608,6 +597,14 @@ st.html(
 )
 
 if selected_page == "Home":
+    with st.container(key="assistant_mode_toolbar"):
+        selected_mode = st.selectbox(
+            "Assistant mode",
+            list(MODE_INSTRUCTIONS.keys()),
+            key="assistant_mode_selector",
+            help="Choose how PeerNet AI should structure its answers.",
+        )
+
     user_name = (
         profile.get("name")
         or profile.get("full_name")
