@@ -6575,3 +6575,44 @@ div[data-testid="stFormSubmitButton"] > button span {
     )
 
 
+
+
+    st.html(
+        """
+<style>
+/* MOBILE BROWSER SAFE-AREA LIFT */
+@media screen and (max-width:700px) {
+    /* Keep the floating bar above mobile browser controls and home indicators. */
+    .st-key-mobile_nav {
+        bottom:calc(16px + env(safe-area-inset-bottom, 0px))!important;
+    }
+
+    /* Preserve enough scroll space so page content is never hidden by the lift. */
+    .block-container {
+        padding-bottom:calc(7.1rem + env(safe-area-inset-bottom, 0px))!important;
+    }
+}
+
+/* iPhone browsers use WebKit and may report a zero safe-area inset while
+   their dynamic bottom toolbar is visible, so provide a small extra lift. */
+@supports (-webkit-touch-callout:none) {
+    @media screen and (max-width:700px) {
+        .st-key-mobile_nav {
+            bottom:calc(24px + env(safe-area-inset-bottom, 0px))!important;
+        }
+
+        .block-container {
+            padding-bottom:calc(7.6rem + env(safe-area-inset-bottom, 0px))!important;
+        }
+    }
+}
+
+/* Installed/PWA mode already exposes the real device safe area. */
+@media screen and (max-width:700px) and (display-mode:standalone) {
+    .st-key-mobile_nav {
+        bottom:calc(10px + env(safe-area-inset-bottom, 0px))!important;
+    }
+}
+</style>
+        """
+    )
