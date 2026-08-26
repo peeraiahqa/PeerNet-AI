@@ -6250,13 +6250,27 @@ section[data-testid="stSidebar"] .pn-side-footer {
     )
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     st.html(
         """
 <style>
-/* MODERN LIQUID-GLASS MOBILE NAV */
+/* CLEAN MOBILE GLASS NAV — STABLE */
 @media screen and (max-width:700px) {
     .block-container {
-        padding-bottom:calc(6.6rem + env(safe-area-inset-bottom))!important;
+        padding-bottom:calc(6rem + env(safe-area-inset-bottom))!important;
     }
 
     .st-key-mobile_nav {
@@ -6268,18 +6282,13 @@ section[data-testid="stSidebar"] .pn-side-footer {
         width:auto!important;
         max-width:none!important;
         margin:0!important;
-        padding:.44rem .42rem calc(.42rem + env(safe-area-inset-bottom))!important;
-        border:1px solid rgba(255,255,255,.72)!important;
-        border-radius:23px!important;
-        background:
-            radial-gradient(circle at 50% 0,rgba(137,92,246,.14),transparent 42%),
-            linear-gradient(135deg,rgba(255,255,255,.91),rgba(238,246,255,.86))!important;
-        box-shadow:
-            0 18px 46px rgba(25,60,125,.22),
-            0 3px 10px rgba(25,60,125,.10),
-            inset 0 1px 0 rgba(255,255,255,.98)!important;
-        backdrop-filter:blur(24px) saturate(155%)!important;
-        -webkit-backdrop-filter:blur(24px) saturate(155%)!important;
+        padding:.42rem .38rem calc(.40rem + env(safe-area-inset-bottom))!important;
+        border:1px solid rgba(188,208,237,.72)!important;
+        border-radius:22px!important;
+        background:rgba(248,251,255,.94)!important;
+        box-shadow:0 14px 34px rgba(30,64,125,.20)!important;
+        backdrop-filter:blur(22px) saturate(145%)!important;
+        -webkit-backdrop-filter:blur(22px) saturate(145%)!important;
         box-sizing:border-box!important;
         overflow:visible!important;
     }
@@ -6287,107 +6296,95 @@ section[data-testid="stSidebar"] .pn-side-footer {
     .st-key-mobile_nav [data-testid="stHorizontalBlock"] {
         display:grid!important;
         grid-template-columns:repeat(5,minmax(0,1fr))!important;
-        align-items:end!important;
-        gap:.2rem!important;
+        align-items:center!important;
+        gap:.14rem!important;
         width:100%!important;
         overflow:visible!important;
     }
 
-    .st-key-mobile_nav [data-testid="column"] {
-        width:100%!important;
-        min-width:0!important;
-        overflow:visible!important;
-    }
-
+    .st-key-mobile_nav [data-testid="column"],
     .st-key-mobile_nav div[data-testid="stButton"] {
         width:100%!important;
+        min-width:0!important;
         overflow:visible!important;
     }
 
     .st-key-mobile_nav div[data-testid="stButton"] > button {
         width:100%!important;
         min-width:0!important;
-        min-height:53px!important;
-        height:53px!important;
+        height:50px!important;
+        min-height:50px!important;
         margin:0!important;
-        padding:.24rem .04rem!important;
-        border:1px solid transparent!important;
-        border-radius:15px!important;
-        color:#64748b!important;
-        -webkit-text-fill-color:#64748b!important;
+        padding:.22rem .03rem!important;
+        border:0!important;
+        border-radius:14px!important;
+        color:#344968!important;
+        -webkit-text-fill-color:#344968!important;
         background:transparent!important;
         box-shadow:none!important;
+        transform:none!important;
         white-space:pre-line!important;
-        font-size:.66rem!important;
-        font-weight:780!important;
-        line-height:1.28!important;
-        transition:transform .2s ease,color .2s ease,background .2s ease,box-shadow .2s ease!important;
         overflow:hidden!important;
     }
 
-    .st-key-mobile_nav div[data-testid="stButton"] > button p {
-        margin:0!important;
-        color:inherit!important;
-        -webkit-text-fill-color:inherit!important;
-        white-space:pre-line!important;
-        font-size:.66rem!important;
+    .st-key-mobile_nav div[data-testid="stButton"] > button,
+    .st-key-mobile_nav div[data-testid="stButton"] > button * {
+        color:#344968!important;
+        -webkit-text-fill-color:#344968!important;
+        font-size:.64rem!important;
         font-weight:800!important;
-        line-height:1.28!important;
+        line-height:1.22!important;
+        text-shadow:none!important;
+        opacity:1!important;
     }
 
-    /* Active destination pill, driven by the existing active_page state. */
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] {
-        border-color:rgba(64,111,229,.18)!important;
-        color:#175fbf!important;
-        -webkit-text-fill-color:#175fbf!important;
-        background:linear-gradient(145deg,rgba(221,245,255,.96),rgba(231,235,255,.96),rgba(247,229,255,.94))!important;
-        box-shadow:
-            0 8px 19px rgba(52,91,181,.17),
-            inset 0 1px 0 #fff!important;
-        transform:translateY(-2px)!important;
-    }
-
-    /* New Chat is the elevated central action. */
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button {
-        min-height:59px!important;
-        height:59px!important;
-        margin-top:-12px!important;
-        border:1px solid rgba(255,255,255,.62)!important;
-        border-radius:18px!important;
+    /* Selected destination: compact dark-indigo pill, never theme-generated white. */
+    .st-key-mobile_nav div[data-testid="stButton"]
+    > button[data-testid="stBaseButton-primary"] {
+        border:1px solid rgba(255,255,255,.64)!important;
         color:#ffffff!important;
         -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#06b6d4 0%,#2563eb 45%,#7c3aed 72%,#ec4899 100%)!important;
-        box-shadow:
-            0 13px 27px rgba(72,71,217,.34),
-            0 0 0 4px rgba(99,102,241,.09),
-            inset 0 1px 0 rgba(255,255,255,.40)!important;
-        transform:translateY(-3px)!important;
+        background:linear-gradient(145deg,#075985,#1d4ed8 52%,#5b21b6)!important;
+        box-shadow:0 9px 20px rgba(29,78,216,.29)!important;
+    }
+
+    .st-key-mobile_nav div[data-testid="stButton"]
+    > button[data-testid="stBaseButton-primary"],
+    .st-key-mobile_nav div[data-testid="stButton"]
+    > button[data-testid="stBaseButton-primary"] * {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        text-shadow:0 1px 2px rgba(10,25,65,.25)!important;
         font-weight:900!important;
     }
 
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button p {
+    /* New Chat: the only elevated action. */
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"] > button {
+        height:56px!important;
+        min-height:56px!important;
+        margin-top:-10px!important;
+        border:1px solid rgba(255,255,255,.66)!important;
+        border-radius:17px!important;
         color:#ffffff!important;
         -webkit-text-fill-color:#ffffff!important;
-        font-weight:900!important;
-    }
-
-    .st-key-mobile_nav div[data-testid="stButton"] > button:hover,
-    .st-key-mobile_nav div[data-testid="stButton"] > button:focus {
-        color:#155ec3!important;
-        -webkit-text-fill-color:#155ec3!important;
-        background:rgba(226,240,255,.78)!important;
+        background:linear-gradient(145deg,#4338ca,#7e22ce 55%,#be185d)!important;
+        box-shadow:0 12px 25px rgba(109,40,217,.34)!important;
         transform:translateY(-2px)!important;
     }
 
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button:hover,
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button:focus {
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"] > button,
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"] > button * {
         color:#ffffff!important;
         -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#05a9c5 0%,#2059d8 45%,#6e30da 72%,#db3f8d 100%)!important;
-        transform:translateY(-5px)!important;
-        box-shadow:
-            0 16px 31px rgba(72,71,217,.39),
-            0 0 0 5px rgba(99,102,241,.10)!important;
+        font-weight:900!important;
+        text-shadow:0 1px 2px rgba(30,20,80,.28)!important;
+    }
+
+    .st-key-mobile_nav div[data-testid="stButton"] > button:hover {
+        filter:brightness(.96)!important;
     }
 }
 
@@ -6395,365 +6392,17 @@ section[data-testid="stSidebar"] .pn-side-footer {
     .st-key-mobile_nav {
         left:6px!important;
         right:6px!important;
-        padding-left:.28rem!important;
-        padding-right:.28rem!important;
+        padding-left:.25rem!important;
+        padding-right:.25rem!important;
     }
 
     .st-key-mobile_nav [data-testid="stHorizontalBlock"] {
-        gap:.08rem!important;
+        gap:.05rem!important;
     }
 
     .st-key-mobile_nav div[data-testid="stButton"] > button,
-    .st-key-mobile_nav div[data-testid="stButton"] > button p {
-        font-size:.60rem!important;
-    }
-}
-</style>
-        """
-    )
-
-
-    st.html(
-        """
-<style>
-/* STRONG MOBILE ACTIVE-PAGE INDICATOR */
-@media screen and (max-width:700px) {
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"],
-    .st-key-mobile_nav button[kind="primary"] {
-        position:relative!important;
-        border:1px solid rgba(255,255,255,.62)!important;
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#06b6d4 0%,#2563eb 45%,#7c3aed 74%,#ec4899 100%)!important;
-        box-shadow:
-            0 11px 24px rgba(72,71,217,.30),
-            0 0 0 3px rgba(99,102,241,.08),
-            inset 0 1px 0 rgba(255,255,255,.40)!important;
-        transform:translateY(-3px)!important;
-        font-weight:900!important;
-    }
-
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] p,
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] span,
-    .st-key-mobile_nav button[kind="primary"] p,
-    .st-key-mobile_nav button[kind="primary"] span {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        font-weight:900!important;
-    }
-
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]::after,
-    .st-key-mobile_nav button[kind="primary"]::after {
-        content:"";
-        position:absolute;
-        left:50%;
-        bottom:4px;
-        width:5px;
-        height:5px;
-        border-radius:50%;
-        background:#ffffff;
-        box-shadow:0 0 8px rgba(255,255,255,.95);
-        transform:translateX(-50%);
-    }
-
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:hover,
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:focus,
-    .st-key-mobile_nav button[kind="primary"]:hover,
-    .st-key-mobile_nav button[kind="primary"]:focus {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#05a9c5 0%,#2059d8 45%,#6e30da 74%,#db3f8d 100%)!important;
-        transform:translateY(-4px)!important;
-    }
-}
-</style>
-        """
-    )
-
-
-    st.html(
-        """
-<style>
-/* MOBILE NAV CONTRAST FIX — EVERY THEME */
-@media screen and (max-width:700px) {
-    .st-key-mobile_nav {
-        color-scheme:light!important;
-    }
-
-    /* Inactive destinations: fixed dark-navy contrast on the light glass bar. */
-    .st-key-mobile_nav div[data-testid="stButton"] > button:not([data-testid="stBaseButton-primary"]):not([kind="primary"]),
-    .st-key-mobile_nav div[data-testid="stButton"] > button:not([data-testid="stBaseButton-primary"]):not([kind="primary"]) * {
-        color:#425574!important;
-        -webkit-text-fill-color:#425574!important;
-        text-shadow:none!important;
-    }
-
-    /* Active destination: override every nested theme-generated text layer. */
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"],
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] *,
-    .st-key-mobile_nav button[kind="primary"],
-    .st-key-mobile_nav button[kind="primary"] * {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        text-shadow:0 1px 2px rgba(20,35,92,.24)!important;
-        opacity:1!important;
-    }
-
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] > div,
-    .st-key-mobile_nav button[kind="primary"] > div {
-        background:transparent!important;
-    }
-
-    /* New Chat remains white regardless of the selected Streamlit theme. */
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button * {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        text-shadow:0 1px 2px rgba(20,35,92,.24)!important;
-        opacity:1!important;
-    }
-
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button > div {
-        background:transparent!important;
-    }
-
-    /* The dot could overlap two-line labels on narrow phones. */
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]::after,
-    .st-key-mobile_nav button[kind="primary"]::after {
-        display:none!important;
-        content:none!important;
-    }
-
-    .st-key-mobile_nav div[data-testid="stButton"] > button,
-    .st-key-mobile_nav div[data-testid="stButton"] > button p {
-        line-height:1.22!important;
-        word-break:normal!important;
-        overflow-wrap:normal!important;
-    }
-}
-</style>
-        """
-    )
-
-
-    st.html(
-        """
-<style>
-/* MOBILE NAV HIGH-CONTRAST SHADE PALETTE */
-@media screen and (max-width:700px) {
-    /* Current page: deep blue-to-indigo for reliable white-text contrast. */
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"],
-    .st-key-mobile_nav button[kind="primary"] {
-        border-color:rgba(255,255,255,.66)!important;
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#075985 0%,#1d4ed8 48%,#5b21b6 100%)!important;
-        box-shadow:
-            0 12px 25px rgba(29,78,216,.34),
-            0 0 0 3px rgba(37,99,235,.11),
-            inset 0 1px 0 rgba(255,255,255,.38)!important;
-    }
-
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:hover,
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"]:focus,
-    .st-key-mobile_nav button[kind="primary"]:hover,
-    .st-key-mobile_nav button[kind="primary"]:focus {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#064d73 0%,#193fb4 48%,#4c1d95 100%)!important;
-    }
-
-    /* New Chat: separate violet-to-magenta action shade. */
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button {
-        border-color:rgba(255,255,255,.68)!important;
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#4338ca 0%,#7e22ce 54%,#be185d 100%)!important;
-        box-shadow:
-            0 14px 29px rgba(109,40,217,.37),
-            0 0 0 4px rgba(126,34,206,.10),
-            inset 0 1px 0 rgba(255,255,255,.40)!important;
-    }
-
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button:hover,
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button:focus {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#3730a3 0%,#6b21a8 54%,#9f1239 100%)!important;
-    }
-
-    .st-key-mobile_nav button[data-testid="stBaseButton-primary"] *,
-    .st-key-mobile_nav button[kind="primary"] *,
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button * {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        opacity:1!important;
-    }
-}
-</style>
-        """
-    )
-
-
-    st.html(
-        """
-<style>
-/* KEYED MOBILE ACTIVE STATES — THEME INDEPENDENT */
-@media screen and (max-width:700px) {
-    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button {
-        position:relative!important;
-        width:100%!important;
-        min-width:0!important;
-        min-height:53px!important;
-        height:53px!important;
-        margin:0!important;
-        padding:.24rem .04rem!important;
-        border:1px solid rgba(255,255,255,.64)!important;
-        border-radius:15px!important;
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#075985 0%,#1d4ed8 48%,#5b21b6 100%)!important;
-        box-shadow:
-            0 11px 24px rgba(29,78,216,.34),
-            0 0 0 3px rgba(37,99,235,.10),
-            inset 0 1px 0 rgba(255,255,255,.40)!important;
-        transform:translateY(-3px)!important;
-        opacity:1!important;
-        overflow:hidden!important;
-    }
-
-    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button *,
-    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button *,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button *,
-    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button * {
-        margin:0!important;
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:transparent!important;
-        text-shadow:0 1px 2px rgba(12,27,68,.30)!important;
-        font-weight:900!important;
-        opacity:1!important;
-    }
-
-    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button:hover,
-    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button:focus,
-    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button:hover,
-    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button:focus,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button:hover,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button:focus,
-    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button:hover,
-    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button:focus {
-        color:#ffffff!important;
-        -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#064d73 0%,#193fb4 48%,#4c1d95 100%)!important;
-        transform:translateY(-4px)!important;
-    }
-
-    /* Explicitly neutralize Streamlit theme fills on inactive destinations. */
-    .st-key-mobile_nav [class*="st-key-mobile_home"]:not([class*="_active"]) button,
-    .st-key-mobile_nav [class*="st-key-mobile_history"]:not([class*="_active"]) button,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites"]:not([class*="_active"]) button,
-    .st-key-mobile_nav [class*="st-key-mobile_settings"]:not([class*="_active"]) button {
-        border-color:transparent!important;
-        color:#425574!important;
-        -webkit-text-fill-color:#425574!important;
-        background:transparent!important;
-        box-shadow:none!important;
-        transform:none!important;
-    }
-
-    .st-key-mobile_nav [class*="st-key-mobile_home"]:not([class*="_active"]) button *,
-    .st-key-mobile_nav [class*="st-key-mobile_history"]:not([class*="_active"]) button *,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites"]:not([class*="_active"]) button *,
-    .st-key-mobile_nav [class*="st-key-mobile_settings"]:not([class*="_active"]) button * {
-        color:#425574!important;
-        -webkit-text-fill-color:#425574!important;
-        background:transparent!important;
-        text-shadow:none!important;
-        opacity:1!important;
-    }
-}
-</style>
-        """
-    )
-
-
-    st.html(
-        """
-<style>
-/* MOBILE ACTIVE LOCATION DOT */
-@media screen and (max-width:700px) {
-    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button::after,
-    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button::after,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button::after,
-    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button::after {
-        content:""!important;
-        position:absolute!important;
-        display:block!important;
-        top:7px!important;
-        right:8px!important;
-        width:7px!important;
-        height:7px!important;
-        margin:0!important;
-        padding:0!important;
-        border:2px solid rgba(255,255,255,.92)!important;
-        border-radius:50%!important;
-        background:#86efac!important;
-        box-shadow:
-            0 0 0 2px rgba(134,239,172,.18),
-            0 0 9px rgba(134,239,172,.90)!important;
-        transform:none!important;
-        pointer-events:none!important;
-        opacity:1!important;
-    }
-}
-</style>
-        """
-    )
-
-
-    st.html(
-        """
-<style>
-/* MOBILE NAV BOTTOM-CENTER PURPLE DOTS */
-@media screen and (max-width:700px) {
-    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button,
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button {
-        overflow:visible!important;
-    }
-
-    .st-key-mobile_nav [class*="st-key-mobile_home_active"] button::after,
-    .st-key-mobile_nav [class*="st-key-mobile_history_active"] button::after,
-    .st-key-mobile_nav [class*="st-key-mobile_favorites_active"] button::after,
-    .st-key-mobile_nav [class*="st-key-mobile_settings_active"] button::after,
-    .st-key-mobile_nav [class*="st-key-mobile_new"] button::after {
-        content:""!important;
-        position:absolute!important;
-        display:block!important;
-        top:auto!important;
-        right:auto!important;
-        bottom:-6px!important;
-        left:50%!important;
-        width:8px!important;
-        height:8px!important;
-        margin:0!important;
-        padding:0!important;
-        border:2px solid rgba(255,255,255,.96)!important;
-        border-radius:50%!important;
-        background:#4c1d95!important;
-        box-shadow:
-            0 0 0 2px rgba(76,29,149,.16),
-            0 2px 9px rgba(76,29,149,.72)!important;
-        transform:translateX(-50%)!important;
-        pointer-events:none!important;
-        opacity:1!important;
-        z-index:20!important;
+    .st-key-mobile_nav div[data-testid="stButton"] > button * {
+        font-size:.58rem!important;
     }
 }
 </style>
