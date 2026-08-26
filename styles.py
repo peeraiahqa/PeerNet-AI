@@ -6445,3 +6445,42 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* NEW CHAT SELECTED STATE */
+@media screen and (max-width:700px) {
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"]
+    > button[data-testid="stBaseButton-primary"] {
+        border-color:#a5f3fc!important;
+        box-shadow:
+            0 14px 29px rgba(29,78,216,.39),
+            0 0 0 3px rgba(103,232,249,.62),
+            inset 0 1px 0 rgba(255,255,255,.46)!important;
+        filter:brightness(1.06)!important;
+    }
+
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"]
+    > button[data-testid="stBaseButton-primary"]::after {
+        content:""!important;
+        position:absolute!important;
+        display:block!important;
+        left:50%!important;
+        bottom:4px!important;
+        width:18px!important;
+        height:3px!important;
+        border:0!important;
+        border-radius:999px!important;
+        background:#a5f3fc!important;
+        box-shadow:0 0 8px rgba(165,243,252,.90)!important;
+        transform:translateX(-50%)!important;
+        pointer-events:none!important;
+    }
+}
+</style>
+        """
+    )
