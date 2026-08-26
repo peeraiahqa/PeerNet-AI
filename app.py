@@ -97,6 +97,22 @@ def _sync_theme_from_settings() -> None:
     st.session_state.sidebar_theme_selector = selected
 
 
+def _sync_mode_from_sidebar() -> None:
+    selected = st.session_state.get(
+        "assistant_mode_selector",
+        list(MODE_INSTRUCTIONS.keys())[0],
+    )
+    st.session_state.mobile_assistant_mode_selector = selected
+
+
+def _sync_mode_from_mobile() -> None:
+    selected = st.session_state.get(
+        "mobile_assistant_mode_selector",
+        list(MODE_INSTRUCTIONS.keys())[0],
+    )
+    st.session_state.assistant_mode_selector = selected
+
+
 active_theme = st.session_state.get("app_theme", "Light")
 apply_styles(active_theme)
 
@@ -181,6 +197,11 @@ if "generation_discard" not in st.session_state:
 
 if "assistant_mode_selector" not in st.session_state:
     st.session_state.assistant_mode_selector = list(MODE_INSTRUCTIONS.keys())[0]
+
+if "mobile_assistant_mode_selector" not in st.session_state:
+    st.session_state.mobile_assistant_mode_selector = (
+        st.session_state.assistant_mode_selector
+    )
 
 if "show_recent_chats" not in st.session_state:
     st.session_state.show_recent_chats = False
@@ -422,6 +443,7 @@ with st.sidebar:
         key="assistant_mode_selector",
         label_visibility="collapsed",
         help="Choose how PeerNet AI should structure its answers.",
+        on_change=_sync_mode_from_sidebar,
     )
 
     st.markdown(
@@ -874,6 +896,22 @@ if selected_page == "Home":
 
         if desktop_uploaded_image:
             st.caption(f"🖼️ {desktop_uploaded_image.name}")
+
+    # Phone-only mode control, synchronized with the sidebar selector.
+    # CSS hides the entire container on tablet, laptop, and desktop.
+    with st.container(key="mobile_assistant_mode"):
+        st.markdown(
+            '<div class="pn-mobile-mode-label">✨ Assistant mode</div>',
+            unsafe_allow_html=True,
+        )
+        st.selectbox(
+            "Assistant mode",
+            list(MODE_INSTRUCTIONS.keys()),
+            key="mobile_assistant_mode_selector",
+            label_visibility="collapsed",
+            help="Choose how PeerNet AI should structure its answers.",
+            on_change=_sync_mode_from_mobile,
+        )
 
     # Dedicated phone composer. CSS hides it on desktop and tablet.
     with st.container(key="mobile_composer"):
