@@ -5878,3 +5878,238 @@ div[data-testid="stFormSubmitButton"] > button p {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* SIDEBAR COLOR ENHANCEMENTS — SCOPED */
+
+.pn-assistant-mode-label {
+    margin:.8rem .3rem .35rem!important;
+    color:#34517d!important;
+    font-size:.76rem!important;
+    font-weight:850!important;
+    letter-spacing:.055em!important;
+    text-transform:uppercase!important;
+}
+
+.pn-side-section-label {
+    display:flex!important;
+    align-items:center!important;
+    width:fit-content!important;
+    margin:1.05rem .2rem .55rem!important;
+    padding:.45rem .82rem!important;
+    border:1px solid rgba(93,75,225,.18)!important;
+    border-radius:999px!important;
+    color:#294873!important;
+    background:linear-gradient(105deg,rgba(8,145,178,.13),rgba(37,99,235,.12),rgba(217,70,239,.11))!important;
+    box-shadow:0 8px 19px rgba(61,86,166,.10),inset 0 1px 0 rgba(255,255,255,.82)!important;
+    font-size:.84rem!important;
+    font-weight:900!important;
+    letter-spacing:.085em!important;
+}
+
+/* Assistant-mode and Theme selectors use the same colorful glass control. */
+.st-key-assistant_mode_selector div[data-baseweb="select"] > div,
+.st-key-sidebar_theme_selector div[data-baseweb="select"] > div {
+    min-height:45px!important;
+    border:1px solid rgba(74,98,219,.25)!important;
+    border-radius:14px!important;
+    color:#17345f!important;
+    background:
+        linear-gradient(110deg,rgba(224,249,255,.96),rgba(233,239,255,.96) 52%,rgba(250,232,255,.94))!important;
+    box-shadow:
+        0 10px 22px rgba(58,79,165,.13),
+        inset 0 1px 0 rgba(255,255,255,.95)!important;
+    font-size:.92rem!important;
+    font-weight:800!important;
+}
+
+.st-key-assistant_mode_selector div[data-baseweb="select"] > div:hover,
+.st-key-sidebar_theme_selector div[data-baseweb="select"] > div:hover {
+    border-color:rgba(91,73,221,.42)!important;
+    box-shadow:
+        0 13px 26px rgba(58,79,165,.17),
+        0 0 0 4px rgba(92,75,220,.07)!important;
+}
+
+/* Make Today's Usage a noticeable liquid-glass status card. */
+.pn-side-usage-card {
+    position:relative!important;
+    overflow:hidden!important;
+    margin-top:.9rem!important;
+    padding:1rem!important;
+    border:1px solid rgba(74,116,225,.24)!important;
+    border-radius:18px!important;
+    color:#17345f!important;
+    background:
+        radial-gradient(circle at 90% 5%,rgba(217,70,239,.18),transparent 36%),
+        linear-gradient(135deg,rgba(224,249,255,.94),rgba(233,239,255,.94) 54%,rgba(250,232,255,.91))!important;
+    box-shadow:
+        0 14px 31px rgba(45,78,160,.16),
+        inset 0 1px 0 rgba(255,255,255,.96)!important;
+}
+
+.pn-side-usage-card::after {
+    content:"";
+    position:absolute;
+    width:76px;
+    height:76px;
+    right:-26px;
+    bottom:-34px;
+    border-radius:50%;
+    background:rgba(14,165,233,.14);
+    pointer-events:none;
+}
+
+.pn-side-usage-head strong {
+    font-size:.91rem!important;
+    font-weight:900!important;
+}
+
+.pn-side-usage-head span {
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-width:42px!important;
+    padding:.25rem .48rem!important;
+    border-radius:999px!important;
+    color:#fff!important;
+    background:linear-gradient(110deg,#0891b2,#2563eb,#9333ea)!important;
+    box-shadow:0 6px 14px rgba(37,99,235,.22)!important;
+    font-weight:900!important;
+}
+
+.pn-side-progress {
+    height:9px!important;
+    border-radius:999px!important;
+    background:rgba(255,255,255,.72)!important;
+    box-shadow:inset 0 1px 3px rgba(36,63,119,.12)!important;
+}
+
+.pn-side-progress span {
+    border-radius:999px!important;
+    background:linear-gradient(90deg,#06b6d4,#2563eb,#8b5cf6,#ec4899)!important;
+    box-shadow:0 0 12px rgba(91,92,230,.32)!important;
+}
+
+.pn-side-usage-card small {
+    color:#526887!important;
+    font-weight:700!important;
+}
+
+/* Dedicated high-contrast logout action. */
+.st-key-side_logout button {
+    min-height:46px!important;
+    border:1px solid rgba(255,255,255,.55)!important;
+    border-radius:14px!important;
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+    background:linear-gradient(110deg,#f97316 0%,#ef4444 48%,#c026d3 100%)!important;
+    box-shadow:
+        0 12px 26px rgba(225,57,81,.24),
+        inset 0 1px 0 rgba(255,255,255,.38)!important;
+    font-weight:900!important;
+}
+
+.st-key-side_logout button:hover {
+    transform:translateY(-2px)!important;
+    filter:saturate(1.08)!important;
+    box-shadow:
+        0 16px 32px rgba(225,57,81,.30),
+        0 0 0 4px rgba(239,68,68,.08)!important;
+}
+
+@media(max-width:600px) {
+    .pn-side-section-label {
+        font-size:.79rem!important;
+    }
+
+    .pn-side-usage-card {
+        padding:.85rem!important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* LOGOUT VISIBILITY FIX — ALL THEMES */
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] {
+    position:relative!important;
+    z-index:10!important;
+    width:100%!important;
+    margin:.8rem 0 .35rem!important;
+    padding:0!important;
+    background:transparent!important;
+    isolation:isolate!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"]
+div[data-testid="stButton"] {
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button {
+    position:relative!important;
+    z-index:11!important;
+    width:100%!important;
+    min-height:46px!important;
+    margin:0!important;
+    padding:.68rem 1rem!important;
+    border:1px solid rgba(255,255,255,.58)!important;
+    border-radius:14px!important;
+    opacity:1!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    background:linear-gradient(110deg,#f97316 0%,#ef4444 48%,#c026d3 100%)!important;
+    box-shadow:
+        0 12px 26px rgba(225,57,81,.28),
+        inset 0 1px 0 rgba(255,255,255,.42)!important;
+    font-weight:900!important;
+    line-height:1.2!important;
+    overflow:hidden!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button p,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button span,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button div {
+    position:relative!important;
+    z-index:12!important;
+    margin:0!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    background:transparent!important;
+    font-weight:900!important;
+    line-height:1.2!important;
+    opacity:1!important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button:hover,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button:focus,
+section[data-testid="stSidebar"] [class*="st-key-side_logout"] button:active {
+    border-color:rgba(255,255,255,.72)!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    background:linear-gradient(110deg,#ea6810 0%,#dd3841 48%,#ae20c0 100%)!important;
+    box-shadow:
+        0 16px 32px rgba(225,57,81,.34),
+        0 0 0 4px rgba(239,68,68,.10)!important;
+}
+
+/* Prevent the footer card from visually covering the action. */
+section[data-testid="stSidebar"] .pn-side-footer {
+    position:relative!important;
+    z-index:1!important;
+    margin-bottom:.35rem!important;
+}
+</style>
+        """
+    )
