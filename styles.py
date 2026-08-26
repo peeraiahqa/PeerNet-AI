@@ -6408,3 +6408,40 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* NEW CHAT INDIGO PALETTE ONLY */
+@media screen and (max-width:700px) {
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"] > button {
+        border-color:rgba(255,255,255,.66)!important;
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#075985 0%,#1d4ed8 52%,#5b21b6 100%)!important;
+        box-shadow:
+            0 13px 27px rgba(29,78,216,.35),
+            0 0 0 4px rgba(37,99,235,.09),
+            inset 0 1px 0 rgba(255,255,255,.40)!important;
+    }
+
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"] > button:hover,
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"] > button:focus {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+        background:linear-gradient(145deg,#064d73 0%,#193fb4 52%,#4c1d95 100%)!important;
+    }
+
+    .st-key-mobile_nav [data-testid="column"]:nth-child(2)
+    div[data-testid="stButton"] > button * {
+        color:#ffffff!important;
+        -webkit-text-fill-color:#ffffff!important;
+    }
+}
+</style>
+        """
+    )
