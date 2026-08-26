@@ -6484,3 +6484,92 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* FINAL AUTH SUBMIT VISIBILITY FIX */
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stTabs"],
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stTabs"] > div,
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[role="tabpanel"],
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-baseweb="tab-panel"] {
+    overflow:visible!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[role="tabpanel"],
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-baseweb="tab-panel"] {
+    padding-bottom:.8rem!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stForm"] {
+    box-sizing:border-box!important;
+    padding:1rem 1rem 1.35rem!important;
+    overflow:visible!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stElementContainer"]:has(div[data-testid="stFormSubmitButton"]),
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stFormSubmitButton"] {
+    display:block!important;
+    width:100%!important;
+    min-height:58px!important;
+    height:auto!important;
+    margin:.35rem 0 0!important;
+    padding:3px 0 5px!important;
+    box-sizing:border-box!important;
+    overflow:visible!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stFormSubmitButton"] > button {
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-height:48px!important;
+    height:48px!important;
+    margin:0!important;
+    padding:.65rem 1rem!important;
+    border-radius:15px!important;
+    box-sizing:border-box!important;
+    overflow:visible!important;
+    transform:none!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stFormSubmitButton"] > button p,
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+div[data-testid="stFormSubmitButton"] > button span {
+    display:block!important;
+    margin:0!important;
+    padding:0!important;
+    line-height:1.2!important;
+    overflow:visible!important;
+}
+
+@media(max-width:600px) {
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    div[data-testid="stForm"] {
+        padding:.9rem .85rem 1.3rem!important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    div[data-testid="stElementContainer"]:has(div[data-testid="stFormSubmitButton"]),
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    div[data-testid="stFormSubmitButton"] {
+        min-height:60px!important;
+        padding-bottom:7px!important;
+    }
+}
+</style>
+        """
+    )
