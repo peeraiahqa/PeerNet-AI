@@ -6368,8 +6368,8 @@ section[data-testid="stSidebar"] .pn-side-footer {
         border-radius:17px!important;
         color:#ffffff!important;
         -webkit-text-fill-color:#ffffff!important;
-        background:linear-gradient(145deg,#4338ca,#7e22ce 55%,#be185d)!important;
-        box-shadow:0 12px 25px rgba(109,40,217,.34)!important;
+        background:linear-gradient(145deg,#075985 0%,#1d4ed8 52%,#5b21b6 100%)!important;
+        box-shadow:0 13px 27px rgba(29,78,216,.35)!important;
         transform:translateY(-2px)!important;
     }
 
