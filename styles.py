@@ -6186,3 +6186,65 @@ section[data-testid="stSidebar"] .pn-side-footer {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* MOBILE MODE LABEL LAYOUT FIX */
+@media screen and (max-width:700px) {
+    .st-key-mobile_assistant_mode {
+        padding:.78rem .75rem .75rem!important;
+        overflow:visible!important;
+    }
+
+    .st-key-mobile_assistant_mode
+    div[data-testid="stSelectbox"] {
+        display:flex!important;
+        flex-direction:column!important;
+        gap:.42rem!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        overflow:visible!important;
+    }
+
+    .st-key-mobile_assistant_mode
+    div[data-testid="stSelectbox"] > label,
+    .st-key-mobile_assistant_mode
+    label[data-testid="stWidgetLabel"] {
+        position:static!important;
+        display:flex!important;
+        width:100%!important;
+        height:auto!important;
+        min-height:18px!important;
+        margin:0!important;
+        padding:0 .15rem!important;
+        color:#254a7b!important;
+        font-size:.82rem!important;
+        font-weight:900!important;
+        line-height:1.25!important;
+        opacity:1!important;
+        transform:none!important;
+        overflow:visible!important;
+    }
+
+    .st-key-mobile_assistant_mode
+    div[data-testid="stSelectbox"] > label p,
+    .st-key-mobile_assistant_mode
+    label[data-testid="stWidgetLabel"] p {
+        margin:0!important;
+        color:#254a7b!important;
+        font-size:.82rem!important;
+        font-weight:900!important;
+        line-height:1.25!important;
+    }
+
+    .st-key-mobile_assistant_mode_selector {
+        margin:0!important;
+        padding:0!important;
+    }
+}
+</style>
+        """
+    )
