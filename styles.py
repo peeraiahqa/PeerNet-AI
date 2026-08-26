@@ -5440,3 +5440,245 @@ div[data-testid="stElementContainer"]:has(
 </style>
         """
     )
+
+
+    # Modern liquid-glass login treatment.
+    # Every layout rule is scoped to the authentication row so dashboard,
+    # simulator, connectivity monitor, and authenticated pages are untouched.
+    st.html(
+        """
+<style>
+/* PEERNET AUTH — MODERN LIQUID GLASS (SCOPED) */
+.pn-auth-title {
+    position:relative;
+    z-index:1;
+    max-width:920px;
+    margin:.35rem auto 1.15rem;
+    padding:.7rem 1rem;
+    isolation:isolate;
+}
+
+.pn-auth-title::before,
+.pn-auth-title::after {
+    content:"";
+    position:fixed;
+    z-index:-1;
+    border-radius:999px;
+    pointer-events:none;
+    filter:blur(10px);
+    opacity:.62;
+    animation:pn-liquid-float 13s ease-in-out infinite alternate;
+}
+
+.pn-auth-title::before {
+    width:clamp(220px,31vw,470px);
+    height:clamp(220px,31vw,470px);
+    top:4vh;
+    left:-9vw;
+    background:radial-gradient(circle at 35% 35%,
+        rgba(0,198,255,.34),rgba(37,99,235,.16) 45%,transparent 72%);
+}
+
+.pn-auth-title::after {
+    width:clamp(250px,34vw,520px);
+    height:clamp(250px,34vw,520px);
+    right:-10vw;
+    bottom:-11vh;
+    background:radial-gradient(circle at 45% 42%,
+        rgba(236,72,153,.24),rgba(124,58,237,.18) 48%,transparent 73%);
+    animation-delay:-5s;
+}
+
+.pn-auth-title h1 {
+    text-shadow:0 8px 28px rgba(37,99,235,.10);
+}
+
+.pn-auth-title p {
+    margin:.45rem auto 0;
+    max-width:720px;
+    font-weight:600;
+    letter-spacing:.005em;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card) {
+    position:relative;
+    z-index:1;
+    gap:clamp(1rem,2.2vw,2rem)!important;
+    padding:clamp(.35rem,1vw,.8rem);
+    border:1px solid rgba(255,255,255,.72);
+    border-radius:32px;
+    background:
+        linear-gradient(135deg,rgba(255,255,255,.44),rgba(237,246,255,.20));
+    box-shadow:
+        0 26px 70px rgba(30,76,145,.14),
+        inset 0 1px 0 rgba(255,255,255,.92);
+    backdrop-filter:blur(22px) saturate(145%);
+    -webkit-backdrop-filter:blur(22px) saturate(145%);
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stVerticalBlockBorderWrapper"],
+.st-key-auth_visual_card
+> div[data-testid="stVerticalBlockBorderWrapper"] {
+    border:1px solid rgba(255,255,255,.74)!important;
+    border-radius:27px!important;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.78),rgba(238,247,255,.48))!important;
+    box-shadow:
+        0 20px 48px rgba(20,75,150,.13),
+        inset 0 1px 0 rgba(255,255,255,.96)!important;
+    backdrop-filter:blur(24px) saturate(150%)!important;
+    -webkit-backdrop-filter:blur(24px) saturate(150%)!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stTabs"] {
+    padding:.28rem;
+    border:1px solid rgba(113,151,221,.19);
+    border-radius:17px;
+    background:rgba(225,239,255,.48);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stTabs"] button {
+    border-radius:13px!important;
+    transition:transform .2s ease,background .2s ease,box-shadow .2s ease;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stTabs"] button[aria-selected="true"] {
+    color:#075fc7!important;
+    background:rgba(255,255,255,.86)!important;
+    box-shadow:0 8px 22px rgba(35,91,177,.13),inset 0 1px 0 #fff;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stForm"] {
+    border:1px solid rgba(255,255,255,.78)!important;
+    border-radius:20px!important;
+    background:rgba(255,255,255,.48)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.92)!important;
+    backdrop-filter:blur(16px)!important;
+    -webkit-backdrop-filter:blur(16px)!important;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stTextInput"] input {
+    min-height:48px;
+    border:1px solid rgba(84,132,215,.22)!important;
+    border-radius:14px!important;
+    background:rgba(255,255,255,.66)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.96);
+    transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stTextInput"] input:focus {
+    border-color:rgba(37,99,235,.56)!important;
+    box-shadow:0 0 0 4px rgba(37,99,235,.11),inset 0 1px 0 #fff!important;
+    transform:translateY(-1px);
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stFormSubmitButton"] > button,
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stButton"] > button {
+    min-height:48px;
+    border:1px solid rgba(255,255,255,.52)!important;
+    border-radius:15px!important;
+    color:#fff!important;
+    background:linear-gradient(110deg,#0876f9 0%,#6554f2 50%,#d83ebd 100%)!important;
+    box-shadow:
+        0 13px 28px rgba(78,75,224,.25),
+        inset 0 1px 0 rgba(255,255,255,.38)!important;
+    transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
+}
+
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stFormSubmitButton"] > button:hover,
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+> [data-testid="column"]:first-child
+div[data-testid="stButton"] > button:hover {
+    transform:translateY(-2px);
+    filter:saturate(1.08);
+    box-shadow:
+        0 17px 34px rgba(78,75,224,.31),
+        0 0 0 4px rgba(101,84,242,.08)!important;
+}
+
+.st-key-auth_visual_card .pn-auth-image-copy {
+    padding:0 1rem 1rem;
+}
+
+.st-key-auth_visual_card .pn-auth-pills span {
+    border:1px solid rgba(255,255,255,.78)!important;
+    background:rgba(255,255,255,.62)!important;
+    box-shadow:0 7px 18px rgba(43,89,158,.09),inset 0 1px 0 #fff;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:transform .2s ease,box-shadow .2s ease;
+}
+
+.st-key-auth_visual_card .pn-auth-pills span:hover {
+    transform:translateY(-2px);
+    box-shadow:0 11px 23px rgba(43,89,158,.14),inset 0 1px 0 #fff;
+}
+
+@keyframes pn-liquid-float {
+    0% { transform:translate3d(0,0,0) scale(1); }
+    55% { transform:translate3d(3vw,2vh,0) scale(1.07); }
+    100% { transform:translate3d(-1vw,5vh,0) scale(.96); }
+}
+
+@media(max-width:900px) {
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card) {
+        padding:.45rem;
+        border-radius:25px;
+    }
+}
+
+@media(max-width:600px) {
+    .pn-auth-title {
+        margin:.1rem auto .65rem;
+        padding:.35rem .45rem;
+    }
+
+    .pn-auth-title h1 {
+        font-size:clamp(1.85rem,9vw,2.4rem);
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card) {
+        gap:.8rem!important;
+        padding:.2rem;
+        border-radius:22px;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    > [data-testid="column"]:first-child
+    div[data-testid="stVerticalBlockBorderWrapper"],
+    .st-key-auth_visual_card
+    > div[data-testid="stVerticalBlockBorderWrapper"] {
+        border-radius:21px!important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .pn-auth-title::before,
+    .pn-auth-title::after {
+        animation:none!important;
+    }
+}
+</style>
+        """
+    )
