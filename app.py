@@ -410,28 +410,34 @@ with st.sidebar:
     )
 
     if st.button("⌂  Dashboard", key="side_dashboard", width="stretch"):
+        # The button interaction already reruns Streamlit once. Updating state
+        # here is visible to the page router later in this same execution.
         st.session_state.active_page = "Home"
-        st.rerun()
 
     if st.button("◴  Chat History", key="side_history", width="stretch"):
+        # The button interaction already reruns Streamlit once. Updating state
+        # here is visible to the page router later in this same execution.
         st.session_state.active_page = "History"
-        st.rerun()
 
     if st.button("☆  Favorites", key="side_favorites", width="stretch"):
+        # The button interaction already reruns Streamlit once. Updating state
+        # here is visible to the page router later in this same execution.
         st.session_state.active_page = "Favorites"
-        st.rerun()
 
     if st.button("🧰  AI Tools", key="side_tools", width="stretch"):
+        # The button interaction already reruns Streamlit once. Updating state
+        # here is visible to the page router later in this same execution.
         st.session_state.active_page = "Tools"
-        st.rerun()
 
     if st.button("⚙  Settings", key="side_settings", width="stretch"):
+        # The button interaction already reruns Streamlit once. Updating state
+        # here is visible to the page router later in this same execution.
         st.session_state.active_page = "Settings"
-        st.rerun()
 
     if st.button("ⓘ  About", key="side_about", width="stretch"):
+        # The button interaction already reruns Streamlit once. Updating state
+        # here is visible to the page router later in this same execution.
         st.session_state.active_page = "About"
-        st.rerun()
 
     with st.expander("◴  Recent Chats", expanded=False):
         recent_conversations = list_conversations()[:4]
