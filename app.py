@@ -1363,12 +1363,21 @@ with st.container(key="mobile_nav"):
     mobile_cols = st.columns(5)
 
     with mobile_cols[0]:
-        if st.button("⌂\nHome", key="mobile_home", width="stretch"):
+        if st.button(
+            "⌂\nHome",
+            key="mobile_home",
+            width="stretch",
+            type="primary" if selected_page == "Home" else "secondary",
+        ):
             st.session_state.active_page = "Home"
             st.rerun()
 
     with mobile_cols[1]:
-        if st.button("☵\nNew Chat", key="mobile_new", width="stretch"):
+        if st.button(
+            "✦\nNew Chat",
+            key="mobile_new",
+            width="stretch",
+        ):
             st.session_state.messages = []
             st.session_state.current_conversation_id = None
             st.session_state.pending_prompt = None
@@ -1376,16 +1385,31 @@ with st.container(key="mobile_nav"):
             st.rerun()
 
     with mobile_cols[2]:
-        if st.button("◷\nHistory", key="mobile_history", width="stretch"):
+        if st.button(
+            "◷\nHistory",
+            key="mobile_history",
+            width="stretch",
+            type="primary" if selected_page == "History" else "secondary",
+        ):
             st.session_state.active_page = "History"
             st.rerun()
 
     with mobile_cols[3]:
-        if st.button("☆\nFavorites", key="mobile_favorites", width="stretch"):
+        if st.button(
+            "☆\nFavorites",
+            key="mobile_favorites",
+            width="stretch",
+            type="primary" if selected_page == "Favorites" else "secondary",
+        ):
             st.session_state.active_page = "Favorites"
             st.rerun()
 
     with mobile_cols[4]:
-        if st.button("⚙\nSettings", key="mobile_settings", width="stretch"):
+        if st.button(
+            "⚙\nSettings",
+            key="mobile_settings",
+            width="stretch",
+            type="primary" if selected_page == "Settings" else "secondary",
+        ):
             st.session_state.active_page = "Settings"
             st.rerun()
