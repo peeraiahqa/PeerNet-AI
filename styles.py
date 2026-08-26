@@ -5682,3 +5682,117 @@ div[data-testid="stButton"] > button:hover {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* PEERNET AUTH ENHANCEMENTS — SCOPED */
+
+/* Light network-node pattern behind the two login cards. */
+[data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    border-radius:32px;
+    pointer-events:none;
+    opacity:.38;
+    background-image:
+        radial-gradient(circle at 8% 18%,rgba(29,120,236,.56) 0 3px,transparent 4px),
+        radial-gradient(circle at 22% 76%,rgba(124,58,237,.42) 0 3px,transparent 4px),
+        radial-gradient(circle at 44% 27%,rgba(0,184,219,.44) 0 3px,transparent 4px),
+        radial-gradient(circle at 63% 82%,rgba(37,99,235,.40) 0 3px,transparent 4px),
+        radial-gradient(circle at 82% 20%,rgba(216,62,189,.36) 0 3px,transparent 4px),
+        radial-gradient(circle at 94% 68%,rgba(0,184,219,.40) 0 3px,transparent 4px),
+        linear-gradient(26deg,transparent 18%,rgba(77,135,224,.13) 18.15%,rgba(77,135,224,.13) 18.35%,transparent 18.5%),
+        linear-gradient(151deg,transparent 31%,rgba(114,92,225,.11) 31.15%,rgba(114,92,225,.11) 31.35%,transparent 31.5%),
+        linear-gradient(62deg,transparent 67%,rgba(0,174,220,.10) 67.15%,rgba(0,174,220,.10) 67.35%,transparent 67.5%);
+}
+
+/* Keep the form and visual columns exactly the same height on wider screens. */
+@media(min-width:901px) {
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    > [data-testid="column"] {
+        align-self:stretch!important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    > [data-testid="column"]
+    > div[data-testid="stVerticalBlock"] {
+        height:100%!important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)
+    > [data-testid="column"]:first-child
+    > div[data-testid="stVerticalBlock"]
+    > div[data-testid="stVerticalBlockBorderWrapper"],
+    .st-key-auth_visual_card
+    > div[data-testid="stVerticalBlockBorderWrapper"] {
+        min-height:100%!important;
+        height:100%!important;
+        box-sizing:border-box!important;
+    }
+}
+
+/* Full-resolution source logo: same artwork and visual size, sharper on zoom. */
+.pn-desktop-login-logo {
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto .55rem;
+    padding:.15rem 0 0;
+    text-align:center;
+}
+
+.pn-desktop-login-logo img {
+    display:block;
+    width:145px;
+    max-width:145px;
+    height:auto;
+    margin:0 auto;
+    object-fit:contain;
+    image-rendering:auto;
+}
+
+.st-key-send_reset_link button {
+    border:1px solid rgba(255,255,255,.56)!important;
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+    background:linear-gradient(110deg,#0891b2 0%,#0b78e3 52%,#6d4bea 100%)!important;
+    box-shadow:
+        0 13px 27px rgba(11,120,227,.25),
+        inset 0 1px 0 rgba(255,255,255,.38)!important;
+}
+
+.st-key-send_reset_link button:hover {
+    background:linear-gradient(110deg,#0787a7 0%,#086ed2 52%,#6240dc 100%)!important;
+    box-shadow:
+        0 17px 33px rgba(11,120,227,.31),
+        0 0 0 4px rgba(11,120,227,.09)!important;
+}
+
+@media(max-width:600px) {
+    .pn-desktop-login-logo {
+        display:none!important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-auth_visual_card)::before {
+        border-radius:22px;
+        opacity:.27;
+    }
+}
+
+@media(min-width:601px) {
+    .pn-desktop-login-logo {
+        display:flex!important;
+    }
+
+    .pn-mobile-login-logo {
+        display:none!important;
+    }
+}
+</style>
+        """
+    )
