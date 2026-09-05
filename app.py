@@ -1274,41 +1274,43 @@ elif selected_page == "Settings":
     st.write(f"Current mode: `{selected_mode}`")
     st.write(f"Model: `{st.session_state.selected_model}`")
 
-    st.subheader("Appearance")
+    # Mobile keeps Theme in Settings; desktop uses the sidebar selector.
+    with st.container(key="mobile_settings_theme"):
+        st.subheader("Appearance")
 
-    # Use our own label instead of Streamlit's native selectbox label.
-    # This guarantees readable contrast in Light, Dark, and Blue themes.
-    current_theme = st.session_state.get("app_theme", "Light")
+        # Use our own label instead of Streamlit's native selectbox label.
+        # This guarantees readable contrast in Light, Dark, and Blue themes.
+        current_theme = st.session_state.get("app_theme", "Light")
 
-    theme_label_colors = {
-        # Applied identically on mobile, tablet, laptop and desktop.
-        "Light": "#0b1e49",  # dark navy
-        "Dark": "#ffffff",   # white / maximum contrast
-        "Blue": "#0b2f63",   # dark navy
-    }
+        theme_label_colors = {
+            # Applied identically on mobile, tablet, laptop and desktop.
+            "Light": "#0b1e49",  # dark navy
+            "Dark": "#ffffff",   # white / maximum contrast
+            "Blue": "#0b2f63",   # dark navy
+        }
 
-    theme_label_color = theme_label_colors.get(
-        current_theme,
-        "#0b1e49",
-    )
+        theme_label_color = theme_label_colors.get(
+            current_theme,
+            "#0b1e49",
+        )
 
-    st.markdown(
-        f"""
-        <div class="pn-settings-theme-label"
-             style="color:{theme_label_color} !important;">
-            Theme
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        st.markdown(
+            f"""
+            <div class="pn-settings-theme-label"
+                 style="color:{theme_label_color} !important;">
+                Theme
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    st.selectbox(
-        "Theme",
-        THEME_OPTIONS,
-        key="settings_theme_selector",
-        on_change=_sync_theme_from_settings,
-        label_visibility="collapsed",
-    )
+        st.selectbox(
+            "Theme",
+            THEME_OPTIONS,
+            key="settings_theme_selector",
+            on_change=_sync_theme_from_settings,
+            label_visibility="collapsed",
+        )
 
     st.divider()
     st.subheader("Account")
