@@ -681,12 +681,12 @@ with st.sidebar:
         st.session_state.active_page = "Admin"
         st.rerun()
 
-    if st.button("⇥  Logout", key="side_logout", width="stretch"):
+    if st.button("Logout", key="side_logout", width="stretch"):
         sign_out()
         st.rerun()
 
     if st.button(
-        "⚠  Delete Account",
+        "Delete Account",
         key="side_delete_account",
         width="stretch",
     ):
