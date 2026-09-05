@@ -7005,9 +7005,16 @@ div[data-testid="stFormSubmitButton"] > button span {
     st.html(
         """
 <style>
-/* Settings Logout is mobile-only; desktop uses the sidebar action. */
+/* Keep duplicated sidebar/Settings controls responsive. */
 @media(min-width:701px) {
-    .st-key-mobile_settings_logout {
+    .st-key-mobile_settings_logout,
+    .st-key-mobile_settings_theme {
+        display:none!important;
+    }
+}
+
+@media(max-width:700px) {
+    .st-key-desktop_sidebar_theme {
         display:none!important;
     }
 }
