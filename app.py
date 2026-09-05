@@ -943,7 +943,6 @@ if selected_page == "Home":
 
         with send_col:
             if _generation_active():
-                desktop_submitted = False
                 desktop_stop = st.button(
                     "■",
                     key="composer_stop",
@@ -1069,7 +1068,6 @@ if selected_page == "Home":
 
         with mobile_send_col:
             if _generation_active():
-                mobile_submitted = False
                 mobile_stop = st.button(
                     "■",
                     key="mobile_composer_stop",
