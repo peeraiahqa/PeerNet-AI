@@ -641,37 +641,39 @@ with st.sidebar:
         """
     )
 
-    # Custom sidebar Theme label with explicit contrast by active theme.
-    sidebar_theme_name = st.session_state.get("app_theme", "Light")
+    # Desktop uses the sidebar Theme; mobile uses Settings.
+    with st.container(key="desktop_sidebar_theme"):
+        # Custom sidebar Theme label with explicit contrast by active theme.
+        sidebar_theme_name = st.session_state.get("app_theme", "Light")
 
-    sidebar_theme_label_colors = {
-        "Light": "#0b1e49",  # dark navy
-        "Dark": "#ffffff",   # white
-        "Blue": "#0b2f63",   # dark navy
-    }
+        sidebar_theme_label_colors = {
+            "Light": "#0b1e49",  # dark navy
+            "Dark": "#ffffff",   # white
+            "Blue": "#0b2f63",   # dark navy
+        }
 
-    sidebar_theme_label_color = sidebar_theme_label_colors.get(
-        sidebar_theme_name,
-        "#0b1e49",
-    )
+        sidebar_theme_label_color = sidebar_theme_label_colors.get(
+            sidebar_theme_name,
+            "#0b1e49",
+        )
 
-    st.markdown(
-        f"""
-        <div class="pn-sidebar-theme-label"
-             style="color:{sidebar_theme_label_color} !important;">
-            Theme
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        st.markdown(
+            f"""
+            <div class="pn-sidebar-theme-label"
+                 style="color:{sidebar_theme_label_color} !important;">
+                Theme
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    theme_choice = st.selectbox(
-        "Theme",
-        THEME_OPTIONS,
-        key="sidebar_theme_selector",
-        on_change=_sync_theme_from_sidebar,
-        label_visibility="collapsed",
-    )
+        theme_choice = st.selectbox(
+            "Theme",
+            THEME_OPTIONS,
+            key="sidebar_theme_selector",
+            on_change=_sync_theme_from_sidebar,
+            label_visibility="collapsed",
+        )
 
     if is_admin and st.button(
         "▦  Admin",
@@ -1274,51 +1276,55 @@ elif selected_page == "Settings":
     st.write(f"Current mode: `{selected_mode}`")
     st.write(f"Model: `{st.session_state.selected_model}`")
 
-    st.subheader("Appearance")
+    # Mobile keeps Theme in Settings; desktop uses the sidebar selector.
+    with st.container(key="mobile_settings_theme"):
+        st.subheader("Appearance")
 
-    # Use our own label instead of Streamlit's native selectbox label.
-    # This guarantees readable contrast in Light, Dark, and Blue themes.
-    current_theme = st.session_state.get("app_theme", "Light")
+        # Use our own label instead of Streamlit's native selectbox label.
+        # This guarantees readable contrast in Light, Dark, and Blue themes.
+        current_theme = st.session_state.get("app_theme", "Light")
 
-    theme_label_colors = {
-        # Applied identically on mobile, tablet, laptop and desktop.
-        "Light": "#0b1e49",  # dark navy
-        "Dark": "#ffffff",   # white / maximum contrast
-        "Blue": "#0b2f63",   # dark navy
-    }
+        theme_label_colors = {
+            # Applied identically on mobile, tablet, laptop and desktop.
+            "Light": "#0b1e49",  # dark navy
+            "Dark": "#ffffff",   # white / maximum contrast
+            "Blue": "#0b2f63",   # dark navy
+        }
 
-    theme_label_color = theme_label_colors.get(
-        current_theme,
-        "#0b1e49",
-    )
+        theme_label_color = theme_label_colors.get(
+            current_theme,
+            "#0b1e49",
+        )
 
-    st.markdown(
-        f"""
-        <div class="pn-settings-theme-label"
-             style="color:{theme_label_color} !important;">
-            Theme
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        st.markdown(
+            f"""
+            <div class="pn-settings-theme-label"
+                 style="color:{theme_label_color} !important;">
+                Theme
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    st.selectbox(
-        "Theme",
-        THEME_OPTIONS,
-        key="settings_theme_selector",
-        on_change=_sync_theme_from_settings,
-        label_visibility="collapsed",
-    )
+        st.selectbox(
+            "Theme",
+            THEME_OPTIONS,
+            key="settings_theme_selector",
+            on_change=_sync_theme_from_settings,
+            label_visibility="collapsed",
+        )
 
     st.divider()
     st.subheader("Account")
 
-    if st.button(
-        "🚪 Logout",
-        key="settings_logout",
-    ):
-        sign_out()
-        st.rerun()
+    # Mobile keeps Logout in Settings; desktop uses the sidebar action.
+    with st.container(key="mobile_settings_logout"):
+        if st.button(
+            "🚪 Logout",
+            key="settings_logout",
+        ):
+            sign_out()
+            st.rerun()
 
     with st.form("profile_form"):
         full_name = st.text_input(

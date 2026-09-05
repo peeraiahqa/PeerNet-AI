@@ -7000,3 +7000,24 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* Keep duplicated sidebar/Settings controls responsive. */
+@media(min-width:701px) {
+    .st-key-mobile_settings_logout,
+    .st-key-mobile_settings_theme {
+        display:none!important;
+    }
+}
+
+@media(max-width:700px) {
+    .st-key-desktop_sidebar_theme {
+        display:none!important;
+    }
+}
+</style>
+        """
+    )
