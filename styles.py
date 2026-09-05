@@ -6662,6 +6662,7 @@ div[data-testid="stFormSubmitButton"] > button span {
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent!important;
+    -webkit-text-fill-color:transparent!important;
     font-size:1.34rem;
     font-weight:900;
     letter-spacing:.02em;
@@ -6702,6 +6703,11 @@ div[data-testid="stFormSubmitButton"] > button span {
 
 .pn-side-footer {
     margin-top:.85rem!important;
+    padding:.58rem .5rem!important;
+    border:1px solid rgba(99,102,241,.18)!important;
+    border-radius:14px!important;
+    background:rgba(255,255,255,.86)!important;
+    box-shadow:0 6px 16px rgba(15,23,42,.08)!important;
     text-align:center!important;
 }
 
