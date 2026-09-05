@@ -6889,3 +6889,44 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* FINAL DESKTOP SIDEBAR ACTION ALIGNMENT */
+@media(min-width:701px) {
+    [data-testid="stSidebar"] [class*="st-key-side_logout"] button,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        min-height:44px!important;
+        padding:.62rem 1rem!important;
+        text-align:center!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_logout"] button p,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button p {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        color:#FFFFFF!important;
+        font-weight:850!important;
+        line-height:1.2!important;
+        text-align:center!important;
+        white-space:nowrap!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_logout"] button span,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button span {
+        color:#FFFFFF!important;
+    }
+}
+</style>
+        """
+    )
