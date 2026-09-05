@@ -6650,3 +6650,86 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* ACCOUNT DELETION + SIDEBAR BRANDING */
+.pn-sidebar-brand-title {
+    margin:-.15rem 0 .75rem;
+    background:linear-gradient(90deg,#176BFF 0%,#6236FF 52%,#D62FB4 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent!important;
+    font-size:1.34rem;
+    font-weight:900;
+    letter-spacing:.02em;
+    line-height:1.2;
+    text-align:center;
+}
+
+.st-key-side_delete_account button,
+.st-key-mobile_delete_account_button button,
+.st-key-confirm_permanent_account_deletion button {
+    background:linear-gradient(135deg,#DC2626 0%,#B91C1C 52%,#7F1D1D 100%)!important;
+    border:1px solid rgba(254,202,202,.72)!important;
+    color:#FFFFFF!important;
+    font-weight:800!important;
+    box-shadow:0 8px 20px rgba(127,29,29,.28)!important;
+}
+
+.st-key-side_delete_account button *,
+.st-key-mobile_delete_account_button button *,
+.st-key-confirm_permanent_account_deletion button * {
+    color:#FFFFFF!important;
+}
+
+.st-key-side_delete_account button:hover,
+.st-key-mobile_delete_account_button button:hover,
+.st-key-confirm_permanent_account_deletion button:hover {
+    filter:brightness(1.08)!important;
+    border-color:#FECACA!important;
+}
+
+.st-key-confirm_permanent_account_deletion button:disabled {
+    background:#64748B!important;
+    border-color:#94A3B8!important;
+    color:#F8FAFC!important;
+    box-shadow:none!important;
+    opacity:.72!important;
+}
+
+.pn-side-footer {
+    margin-top:.85rem!important;
+    text-align:center!important;
+}
+
+.pn-side-footer span,
+.pn-side-footer small {
+    display:block!important;
+    color:#334155!important;
+    font-weight:650!important;
+    line-height:1.45!important;
+}
+
+.pn-side-footer small {
+    margin-top:.22rem!important;
+    font-size:.68rem!important;
+}
+
+@media(max-width:700px) {
+    .st-key-side_delete_account,
+    .pn-sidebar-brand-title {
+        display:none!important;
+    }
+}
+
+@media(min-width:701px) {
+    .st-key-mobile_delete_account {
+        display:none!important;
+    }
+}
+</style>
+        """
+    )
