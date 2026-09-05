@@ -6930,3 +6930,73 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* ABSOLUTE FINAL SIDEBAR ACTION OVERRIDE */
+@media(min-width:701px) {
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_logout"]
+    div[data-testid="stButton"] > button,
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stButton"] > button {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        padding:.65rem 1rem!important;
+        text-align:center!important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_logout"]
+    div[data-testid="stMarkdownContainer"],
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stMarkdownContainer"] {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        text-align:center!important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_logout"]
+    div[data-testid="stMarkdownContainer"] > p,
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stMarkdownContainer"] > p {
+        display:block!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        color:#FFFFFF!important;
+        -webkit-text-fill-color:#FFFFFF!important;
+        font-weight:850!important;
+        line-height:1.2!important;
+        text-align:center!important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stButton"] > button {
+        background:linear-gradient(
+            135deg,
+            #EF4444 0%,
+            #BE185D 48%,
+            #6D28D9 100%
+        )!important;
+        border:1px solid rgba(255,255,255,.58)!important;
+        color:#FFFFFF!important;
+        opacity:1!important;
+    }
+}
+</style>
+        """
+    )
