@@ -28,6 +28,7 @@ from supabase_service import (
     create_admin_client,
     create_conversation,
     delete_conversation,
+    delete_current_account,
     delete_favorite,
     list_conversations,
     list_favorites,
@@ -481,6 +482,44 @@ if not st.session_state.get("authenticated"):
     st.stop()
 
 
+@st.dialog("Permanently delete your account?")
+def render_delete_account_dialog() -> None:
+    st.error(
+        "This action cannot be undone. Your profile, conversations, messages, "
+        "favorites, feedback, usage history, and account access will be "
+        "permanently deleted."
+    )
+    st.markdown(
+        """
+        **Before continuing:**
+
+        - All PeerNet AI data associated with this account will be removed.
+        - You will be signed out immediately.
+        - The account cannot be recovered after deletion.
+        """
+    )
+    confirmation = st.text_input(
+        "Type DELETE to confirm",
+        key="delete_account_confirmation",
+        placeholder="DELETE",
+    )
+    confirmed = confirmation.strip() == "DELETE"
+
+    if st.button(
+        "Permanently Delete Account",
+        key="confirm_permanent_account_deletion",
+        type="primary",
+        width="stretch",
+        disabled=not confirmed,
+    ):
+        try:
+            delete_current_account()
+            st.session_state.account_deleted_notice = True
+            st.rerun()
+        except Exception as error:
+            st.error(f"Unable to delete the account: {error}")
+
+
 profile = st.session_state.get("profile") or load_profile()
 user_email = st.session_state.get("user_email", "").lower()
 is_admin = user_email in admin_emails()
@@ -638,20 +677,26 @@ with st.sidebar:
         st.session_state.active_page = "Admin"
         st.rerun()
 
+    if st.button("⇥  Logout", key="side_logout", width="stretch"):
+        sign_out()
+        st.rerun()
+
+    if st.button(
+        "⚠  Delete Account",
+        key="side_delete_account",
+        width="stretch",
+    ):
+        render_delete_account_dialog()
+
     st.markdown(
         """
         <div class="pn-side-footer">
-            <strong>PeerNet AI</strong>
             <span>🚀 Powered by PeerNet Solutions</span>
-            <small>© 2026 PeerNet Solutions</small>
+            <small>© 2026 PeerNet Solutions. All rights reserved.</small>
         </div>
         """,
         unsafe_allow_html=True,
     )
-
-    if st.button("⇥  Logout", key="side_logout", width="stretch"):
-        sign_out()
-        st.rerun()
 
 selected_page = st.session_state.get("active_page", "Home")
 
@@ -1321,6 +1366,19 @@ elif selected_page == "Settings":
                 st.success("Password updated.")
             except Exception as error:
                 st.error(f"Unable to update password: {error}")
+
+    with st.container(key="mobile_delete_account"):
+        st.divider()
+        st.subheader("Danger Zone")
+        st.warning(
+            "Deleting your account is permanent and cannot be undone."
+        )
+        if st.button(
+            "⚠  Delete Account",
+            key="mobile_delete_account_button",
+            width="stretch",
+        ):
+            render_delete_account_dialog()
 
 
 elif selected_page == "About":
