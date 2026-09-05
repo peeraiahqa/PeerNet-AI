@@ -390,7 +390,7 @@ def authentication_page() -> None:
         st.markdown(
             """
             <div class="pn-auth-license">
-                © 2026 PeerNet Solutions. All rights reserved. Proprietary License.
+                © 2026 PeerNet Solutions. All rights reserved.
             </div>
             """,
             unsafe_allow_html=True,
