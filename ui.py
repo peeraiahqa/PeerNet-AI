@@ -82,11 +82,6 @@ def render_sidebar_profile(profile: dict) -> None:
     initial = _user_initial(profile)
 
     st.image(LOGO_PATH, width=145)
-    st.html(
-        """
-        <div class="pn-sidebar-brand-title">PeerNet AI</div>
-        """
-    )
 
     st.html(
         textwrap.dedent(
