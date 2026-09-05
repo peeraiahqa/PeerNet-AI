@@ -7000,3 +7000,17 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* Settings Logout is mobile-only; desktop uses the sidebar action. */
+@media(min-width:701px) {
+    .st-key-mobile_settings_logout {
+        display:none!important;
+    }
+}
+</style>
+        """
+    )
