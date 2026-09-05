@@ -389,7 +389,23 @@ def authentication_page() -> None:
                         st.error(f"Unable to send reset email: {error}")
         st.markdown(
             """
-            <div class="pn-auth-license">
+            <div class="pn-auth-license" style="
+                display:block;
+                width:max-content;
+                max-width:100%;
+                box-sizing:border-box;
+                margin:.7rem auto 0;
+                padding:.42rem .78rem;
+                border:1px solid rgba(99,102,241,.24);
+                border-radius:999px;
+                background:rgba(255,255,255,.82);
+                color:#334155;
+                box-shadow:0 6px 18px rgba(15,23,42,.08);
+                font-size:.76rem;
+                font-weight:600;
+                line-height:1.35;
+                text-align:center;
+            ">
                 © 2026 PeerNet Solutions. All rights reserved.
             </div>
             """,
