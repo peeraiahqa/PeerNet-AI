@@ -6724,6 +6724,56 @@ div[data-testid="stFormSubmitButton"] > button span {
     font-size:.68rem!important;
 }
 
+/* DESKTOP DELETE CONTROL: isolate it from sidebar theme overrides. */
+@media(min-width:701px) {
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] {
+        display:block!important;
+        margin:.5rem 0 .2rem!important;
+        padding:3px!important;
+        border:1px solid rgba(248,113,113,.82)!important;
+        border-radius:15px!important;
+        background:rgba(127,29,29,.14)!important;
+        box-shadow:0 7px 20px rgba(127,29,29,.22)!important;
+        overflow:visible!important;
+        opacity:1!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        min-height:44px!important;
+        background:linear-gradient(135deg,#EF4444 0%,#B91C1C 48%,#6B1520 100%)!important;
+        border:1px solid #FCA5A5!important;
+        border-radius:11px!important;
+        color:#FFFFFF!important;
+        opacity:1!important;
+        filter:none!important;
+        text-shadow:0 1px 2px rgba(0,0,0,.38)!important;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.2)!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button p,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button span,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button svg {
+        color:#FFFFFF!important;
+        fill:currentColor!important;
+        font-weight:900!important;
+        opacity:1!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button:hover,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button:focus,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button:active {
+        background:linear-gradient(135deg,#DC2626 0%,#991B1B 52%,#450A0A 100%)!important;
+        border-color:#FECACA!important;
+        color:#FFFFFF!important;
+        filter:none!important;
+        transform:translateY(-1px)!important;
+    }
+}
+
 @media(max-width:700px) {
     .st-key-side_delete_account,
     .pn-sidebar-brand-title {
