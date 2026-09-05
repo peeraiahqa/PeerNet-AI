@@ -6616,3 +6616,37 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* LOGIN-PAGE LICENCE */
+.pn-auth-license {
+    width:fit-content;
+    max-width:100%;
+    margin:.7rem auto 0;
+    padding:.42rem .78rem;
+    border:1px solid rgba(99,102,241,.24);
+    border-radius:999px;
+    background:rgba(255,255,255,.82);
+    color:#334155!important;
+    box-shadow:0 6px 18px rgba(15,23,42,.08);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    font-size:.76rem;
+    font-weight:600;
+    line-height:1.35;
+    text-align:center;
+}
+
+@media(max-width:600px) {
+    .pn-auth-license {
+        width:100%;
+        border-radius:14px;
+        font-size:.7rem;
+    }
+}
+</style>
+        """
+    )
