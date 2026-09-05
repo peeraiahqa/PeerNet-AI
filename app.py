@@ -4,6 +4,7 @@ import mimetypes
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from streamlit_mic_recorder import speech_to_text
+from st_keyup import st_keyup
 from dotenv import load_dotenv
 
 from ai_service import generate_answer
@@ -501,10 +502,10 @@ def render_delete_account_dialog() -> None:
         - The account cannot be recovered after deletion.
         """
     )
-    confirmation = st.text_input(
+    confirmation = st_keyup(
         "Type DELETE to confirm",
         key="delete_account_confirmation",
-        placeholder="DELETE",
+        debounce=0,
     )
     confirmed = confirmation.strip() == "DELETE"
 
