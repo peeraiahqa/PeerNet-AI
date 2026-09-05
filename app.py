@@ -362,6 +362,9 @@ def authentication_page() -> None:
         """<div class="pn-auth-title"><h1>Welcome to <span>PeerNet AI</span></h1><p>Secure networking, automation, troubleshooting, and interview preparation.</p></div>""",
         unsafe_allow_html=True,
     )
+    if st.session_state.pop("account_deleted_notice", False):
+        st.success("Your PeerNet AI account was permanently deleted.")
+
     form_col, visual_col = st.columns([1, 1.05], gap="large")
     with form_col:
         with st.container(border=True):
