@@ -6650,3 +6650,353 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* ACCOUNT DELETION + SIDEBAR BRANDING */
+.pn-sidebar-brand-title {
+    margin:-.15rem 0 .75rem;
+    background:linear-gradient(90deg,#176BFF 0%,#6236FF 52%,#D62FB4 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent!important;
+    -webkit-text-fill-color:transparent!important;
+    font-size:1.34rem;
+    font-weight:900;
+    letter-spacing:.02em;
+    line-height:1.2;
+    text-align:center;
+}
+
+.st-key-side_delete_account button,
+.st-key-mobile_delete_account_button button,
+.st-key-confirm_permanent_account_deletion button {
+    background:linear-gradient(135deg,#DC2626 0%,#B91C1C 52%,#7F1D1D 100%)!important;
+    border:1px solid rgba(254,202,202,.72)!important;
+    color:#FFFFFF!important;
+    font-weight:800!important;
+    box-shadow:0 8px 20px rgba(127,29,29,.28)!important;
+}
+
+.st-key-side_delete_account button *,
+.st-key-mobile_delete_account_button button *,
+.st-key-confirm_permanent_account_deletion button * {
+    color:#FFFFFF!important;
+}
+
+.st-key-side_delete_account button:hover,
+.st-key-mobile_delete_account_button button:hover,
+.st-key-confirm_permanent_account_deletion button:hover {
+    filter:brightness(1.08)!important;
+    border-color:#FECACA!important;
+}
+
+.st-key-confirm_permanent_account_deletion button:disabled {
+    background:#64748B!important;
+    border-color:#94A3B8!important;
+    color:#F8FAFC!important;
+    box-shadow:none!important;
+    opacity:.72!important;
+}
+
+.pn-side-footer {
+    margin-top:.85rem!important;
+    padding:.58rem .5rem!important;
+    border:1px solid rgba(99,102,241,.18)!important;
+    border-radius:14px!important;
+    background:rgba(255,255,255,.86)!important;
+    box-shadow:0 6px 16px rgba(15,23,42,.08)!important;
+    text-align:center!important;
+}
+
+.pn-side-footer span,
+.pn-side-footer small {
+    display:block!important;
+    color:#334155!important;
+    font-weight:650!important;
+    line-height:1.45!important;
+}
+
+.pn-side-footer small {
+    margin-top:.22rem!important;
+    font-size:.68rem!important;
+}
+
+/* DESKTOP DELETE CONTROL: isolate it from sidebar theme overrides. */
+@media(min-width:701px) {
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] {
+        display:block!important;
+        margin:.5rem 0 .2rem!important;
+        padding:3px!important;
+        border:1px solid rgba(248,113,113,.82)!important;
+        border-radius:15px!important;
+        background:rgba(127,29,29,.14)!important;
+        box-shadow:0 7px 20px rgba(127,29,29,.22)!important;
+        overflow:visible!important;
+        opacity:1!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        min-height:44px!important;
+        background:linear-gradient(135deg,#EF4444 0%,#B91C1C 48%,#6B1520 100%)!important;
+        border:1px solid #FCA5A5!important;
+        border-radius:11px!important;
+        color:#FFFFFF!important;
+        opacity:1!important;
+        filter:none!important;
+        text-shadow:0 1px 2px rgba(0,0,0,.38)!important;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.2)!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button p,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button span,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button svg {
+        color:#FFFFFF!important;
+        fill:currentColor!important;
+        font-weight:900!important;
+        opacity:1!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button:hover,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button:focus,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button:active {
+        background:linear-gradient(135deg,#DC2626 0%,#991B1B 52%,#450A0A 100%)!important;
+        border-color:#FECACA!important;
+        color:#FFFFFF!important;
+        filter:none!important;
+        transform:translateY(-1px)!important;
+    }
+}
+
+@media(max-width:700px) {
+    .st-key-side_delete_account,
+    .pn-sidebar-brand-title {
+        display:none!important;
+    }
+}
+
+@media(min-width:701px) {
+    .st-key-mobile_delete_account {
+        display:none!important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* FINAL GLASS ACCOUNT-DELETION TREATMENT */
+.st-key-side_delete_account,
+.st-key-mobile_delete_account_button {
+    padding:4px!important;
+    border:1px solid rgba(244,114,182,.72)!important;
+    border-radius:16px!important;
+    background:
+        linear-gradient(135deg,rgba(239,68,68,.22),rgba(124,58,237,.2)),
+        rgba(255,255,255,.12)!important;
+    box-shadow:
+        0 10px 28px rgba(127,29,29,.22),
+        inset 0 1px 0 rgba(255,255,255,.3)!important;
+    backdrop-filter:blur(16px) saturate(145%)!important;
+    -webkit-backdrop-filter:blur(16px) saturate(145%)!important;
+    opacity:1!important;
+}
+
+.st-key-side_delete_account button,
+.st-key-mobile_delete_account_button button {
+    background:linear-gradient(
+        135deg,
+        rgba(239,68,68,.96) 0%,
+        rgba(190,24,93,.96) 48%,
+        rgba(109,40,217,.96) 100%
+    )!important;
+    border:1px solid rgba(255,255,255,.46)!important;
+    border-radius:12px!important;
+    color:#FFFFFF!important;
+    font-weight:900!important;
+    text-shadow:0 1px 3px rgba(0,0,0,.45)!important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.28),
+        0 7px 18px rgba(126,34,206,.24)!important;
+    opacity:1!important;
+}
+
+.st-key-side_delete_account button *,
+.st-key-mobile_delete_account_button button *,
+.st-key-confirm_permanent_account_deletion button * {
+    color:#FFFFFF!important;
+    opacity:1!important;
+}
+
+/* Typing DELETE changes disabled=false, activating this glow automatically. */
+.st-key-confirm_permanent_account_deletion button:not(:disabled) {
+    background:linear-gradient(
+        135deg,
+        #EF4444 0%,
+        #DB2777 45%,
+        #7C3AED 100%
+    )!important;
+    border:1px solid #FBCFE8!important;
+    color:#FFFFFF!important;
+    font-weight:900!important;
+    opacity:1!important;
+    animation:pn-delete-ready-glow 1.65s ease-in-out infinite!important;
+}
+
+.st-key-confirm_permanent_account_deletion button:disabled {
+    background:rgba(100,116,139,.78)!important;
+    border:1px solid rgba(203,213,225,.5)!important;
+    color:#F8FAFC!important;
+    box-shadow:none!important;
+    opacity:.7!important;
+    animation:none!important;
+}
+
+@keyframes pn-delete-ready-glow {
+    0%,100% {
+        box-shadow:
+            0 0 0 1px rgba(251,207,232,.6),
+            0 8px 22px rgba(190,24,93,.32),
+            0 0 18px rgba(124,58,237,.3)!important;
+        transform:translateY(0);
+    }
+    50% {
+        box-shadow:
+            0 0 0 3px rgba(251,207,232,.82),
+            0 12px 34px rgba(190,24,93,.5),
+            0 0 30px rgba(124,58,237,.52)!important;
+        transform:translateY(-1px);
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .st-key-confirm_permanent_account_deletion button:not(:disabled) {
+        animation:none!important;
+        box-shadow:
+            0 0 0 3px rgba(251,207,232,.82),
+            0 10px 28px rgba(124,58,237,.46)!important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* FINAL DESKTOP SIDEBAR ACTION ALIGNMENT */
+@media(min-width:701px) {
+    [data-testid="stSidebar"] [class*="st-key-side_logout"] button,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        min-height:44px!important;
+        padding:.62rem 1rem!important;
+        text-align:center!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_logout"] button p,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button p {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        color:#FFFFFF!important;
+        font-weight:850!important;
+        line-height:1.2!important;
+        text-align:center!important;
+        white-space:nowrap!important;
+    }
+
+    [data-testid="stSidebar"] [class*="st-key-side_logout"] button span,
+    [data-testid="stSidebar"] [class*="st-key-side_delete_account"] button span {
+        color:#FFFFFF!important;
+    }
+}
+</style>
+        """
+    )
+
+
+    st.html(
+        """
+<style>
+/* ABSOLUTE FINAL SIDEBAR ACTION OVERRIDE */
+@media(min-width:701px) {
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_logout"]
+    div[data-testid="stButton"] > button,
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stButton"] > button {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        padding:.65rem 1rem!important;
+        text-align:center!important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_logout"]
+    div[data-testid="stMarkdownContainer"],
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stMarkdownContainer"] {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        text-align:center!important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_logout"]
+    div[data-testid="stMarkdownContainer"] > p,
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stMarkdownContainer"] > p {
+        display:block!important;
+        width:100%!important;
+        margin:0!important;
+        padding:0!important;
+        color:#FFFFFF!important;
+        -webkit-text-fill-color:#FFFFFF!important;
+        font-weight:850!important;
+        line-height:1.2!important;
+        text-align:center!important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[class*="st-key-side_delete_account"]
+    div[data-testid="stButton"] > button {
+        background:linear-gradient(
+            135deg,
+            #EF4444 0%,
+            #BE185D 48%,
+            #6D28D9 100%
+        )!important;
+        border:1px solid rgba(255,255,255,.58)!important;
+        color:#FFFFFF!important;
+        opacity:1!important;
+    }
+}
+</style>
+        """
+    )

@@ -96,6 +96,25 @@ def sign_out() -> None:
         clear_auth_state()
 
 
+def delete_current_account() -> None:
+    """Permanently delete the signed-in user and all cascading account data."""
+    user_id = st.session_state.get("user_id")
+    if not user_id:
+        raise RuntimeError("No signed-in account was found.")
+
+    admin_client = create_admin_client()
+    if not admin_client:
+        raise RuntimeError(
+            "Account deletion is temporarily unavailable. "
+            "Please contact PeerNet Solutions support."
+        )
+
+    # All PeerNet AI user tables reference auth.users with ON DELETE CASCADE.
+    # Deleting the authenticated user removes their associated application data.
+    admin_client.auth.admin.delete_user(user_id)
+    clear_auth_state()
+
+
 def send_password_reset(email: str) -> None:
     get_client().auth.reset_password_for_email(
         email,
