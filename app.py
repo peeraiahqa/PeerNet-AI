@@ -1313,12 +1313,14 @@ elif selected_page == "Settings":
     st.divider()
     st.subheader("Account")
 
-    if st.button(
-        "🚪 Logout",
-        key="settings_logout",
-    ):
-        sign_out()
-        st.rerun()
+    # Mobile keeps Logout in Settings; desktop uses the sidebar action.
+    with st.container(key="mobile_settings_logout"):
+        if st.button(
+            "🚪 Logout",
+            key="settings_logout",
+        ):
+            sign_out()
+            st.rerun()
 
     with st.form("profile_form"):
         full_name = st.text_input(
