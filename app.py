@@ -291,23 +291,60 @@ def _mobile_new_chat() -> None:
     st.session_state.mobile_nav_selection = "New Chat"
 
 
-def submit_composer_prompt() -> None:
-    prompt_value = st.session_state.get("composer_prompt", "").strip()
+def _submit_composer(source: str) -> None:
+    """Queue one prompt from Enter or Send, ignoring duplicate UI events."""
+    is_mobile = source == "mobile"
+    prompt_key = "mobile_composer_prompt" if is_mobile else "composer_prompt"
+    file_key = "mobile_chat_attachment" if is_mobile else "chat_attachment"
+    image_key = "mobile_chat_image" if is_mobile else "chat_image"
+    code_key = "mobile_chat_code_mode" if is_mobile else "chat_code_mode"
+    prompt_value = st.session_state.get(prompt_key, "").strip()
 
-    if prompt_value:
-        st.session_state.voice_transcript = ""
-        queue_prompt(prompt_value)
-        st.session_state.composer_prompt = ""
+    # A click can also commit the text input and fire its on_change callback.
+    # Once one event has queued the prompt, ignore the second event.
+    if (
+        not prompt_value
+        or st.session_state.get("pending_prompt")
+        or _generation_active()
+    ):
+        return
+
+    selected_file = st.session_state.get(file_key)
+    selected_image = st.session_state.get(image_key)
+
+    if selected_file is not None:
+        try:
+            st.session_state.queued_uploaded_file = {
+                "name": selected_file.name,
+                "bytes": selected_file.getvalue(),
+                "text": extract_uploaded_text(selected_file),
+            }
+        except Exception:
+            st.session_state.queued_uploaded_file = {
+                "name": selected_file.name,
+                "bytes": selected_file.getvalue(),
+                "text": "",
+            }
+    else:
+        st.session_state.pop("queued_uploaded_file", None)
+
+    st.session_state.queued_uploaded_image_name = (
+        selected_image.name if selected_image is not None else None
+    )
+    st.session_state.queued_code_mode = bool(st.session_state.get(code_key, False))
+    st.session_state.voice_transcript = ""
+    queue_prompt(prompt_value)
+
+    # Clear immediately so a second callback from the same interaction is a no-op.
+    st.session_state[prompt_key] = ""
+
+
+def submit_composer_prompt() -> None:
+    _submit_composer("desktop")
 
 
 def submit_mobile_composer_prompt() -> None:
-    """Submit the dedicated mobile composer when Enter is pressed."""
-    prompt_value = st.session_state.get("mobile_composer_prompt", "").strip()
-
-    if prompt_value:
-        st.session_state.voice_transcript = ""
-        queue_prompt(prompt_value)
-        st.session_state.mobile_composer_prompt = ""
+    _submit_composer("mobile")
 
 
 
@@ -915,10 +952,11 @@ if selected_page == "Home":
                 )
             else:
                 desktop_stop = False
-                desktop_submitted = st.button(
+                st.button(
                     "➤",
                     key="composer_send",
                     width="stretch",
+                    on_click=submit_composer_prompt,
                 )
 
         if desktop_uploaded_file:
@@ -1040,10 +1078,11 @@ if selected_page == "Home":
                 )
             else:
                 mobile_stop = False
-                mobile_submitted = st.button(
+                st.button(
                     "➤",
                     key="mobile_composer_send",
                     width="stretch",
+                    on_click=submit_mobile_composer_prompt,
                 )
 
         if mobile_uploaded_file:
@@ -1052,54 +1091,9 @@ if selected_page == "Home":
         if mobile_uploaded_image:
             st.caption(f"🖼️ {mobile_uploaded_image.name}")
 
-    # Use whichever composer supplied an attachment or option.
-    uploaded_file = mobile_uploaded_file or desktop_uploaded_file
-    uploaded_image = mobile_uploaded_image or desktop_uploaded_image
-    code_mode = mobile_code_mode or desktop_code_mode
-
     if desktop_stop or mobile_stop:
         _stop_generation()
         st.rerun()
-
-    if desktop_submitted or mobile_submitted:
-        cleaned_prompt = (
-            mobile_prompt.strip()
-            if mobile_submitted
-            else desktop_prompt.strip()
-        )
-
-        if cleaned_prompt:
-            if _generation_active():
-                st.warning("Stop the current response before sending another message.")
-            else:
-                selected_file = mobile_uploaded_file or desktop_uploaded_file
-                selected_image = mobile_uploaded_image or desktop_uploaded_image
-                selected_code_mode = mobile_code_mode or desktop_code_mode
-
-                if selected_file is not None:
-                    try:
-                        st.session_state.queued_uploaded_file = {
-                            "name": selected_file.name,
-                            "bytes": selected_file.getvalue(),
-                            "text": extract_uploaded_text(selected_file),
-                        }
-                    except Exception:
-                        st.session_state.queued_uploaded_file = {
-                            "name": selected_file.name,
-                            "bytes": selected_file.getvalue(),
-                            "text": "",
-                        }
-
-                st.session_state.queued_uploaded_image_name = (
-                    selected_image.name if selected_image is not None else None
-                )
-                st.session_state.queued_code_mode = selected_code_mode
-
-                st.session_state.voice_transcript = ""
-                queue_prompt(cleaned_prompt)
-                st.rerun()
-        else:
-            st.warning("Please type or dictate a message before sending.")
 
 
 elif selected_page == "History":
