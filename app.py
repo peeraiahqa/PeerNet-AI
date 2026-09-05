@@ -33,7 +33,6 @@ from supabase_service import (
     list_favorites,
     load_messages,
     load_profile,
-    resend_verification,
     save_message,
     send_password_reset,
     sign_in,
@@ -357,18 +356,6 @@ def authentication_page() -> None:
                         st.rerun()
                     except Exception as error:
                         st.error(f"Unable to sign in: {error}")
-                with st.expander("Resend verification email"):
-                    verification_email = st.text_input("Registered email", key="verification_email")
-                    if st.button(
-                        "Resend verification",
-                        key="resend_verification",
-                        width="stretch",
-                    ):
-                        try:
-                            resend_verification(verification_email.strip())
-                            st.success("Verification email sent.")
-                        except Exception as error:
-                            st.error(f"Unable to resend verification: {error}")
             with register_tab:
                 with st.form("register_form"):
                     full_name = st.text_input("Full name")
@@ -400,6 +387,15 @@ def authentication_page() -> None:
                         st.success("Password-reset email sent. Follow the link in the email.")
                     except Exception as error:
                         st.error(f"Unable to send reset email: {error}")
+        st.markdown(
+            """
+            <div class="pn-auth-license">
+                © 2026 PeerNet Solutions. All rights reserved.
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     with visual_col:
         with st.container(border=True, key="auth_visual_card"):
             st.image(
