@@ -1384,12 +1384,12 @@ elif selected_page == "Settings":
         st.divider()
         st.subheader("Support & Contact")
         st.markdown(
-            """
-            <a class="pn-contact-email pn-mobile-contact-email"
-               href="mailto:info@peernetsolutions.in">
-                ✉ info@peernetsolutions.in
-            </a>
-            """,
+            '<a class="pn-contact-email pn-mobile-contact-email" '
+            'href="mailto:info@peernetsolutions.in">'
+            '<span class="pn-contact-icon">✉</span>'
+            '<span class="pn-contact-address">info@peernetsolutions.in</span>'
+            '<span class="pn-contact-arrow">›</span>'
+            '</a>',
             unsafe_allow_html=True,
         )
 
