@@ -7068,10 +7068,49 @@ div[data-testid="stFormSubmitButton"] > button span {
 }
 
 .pn-mobile-contact-email {
+    display:grid!important;
+    grid-template-columns:34px minmax(0,1fr) 20px!important;
+    align-items:center!important;
+    gap:.65rem!important;
+    width:100%!important;
     max-width:430px!important;
-    min-height:46px!important;
+    min-height:52px!important;
     margin:.3rem 0 .7rem!important;
+    padding:.48rem .65rem!important;
     font-size:.88rem!important;
+}
+
+.pn-mobile-contact-email .pn-contact-icon {
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:34px!important;
+    height:34px!important;
+    border:1px solid rgba(255,255,255,.62)!important;
+    border-radius:10px!important;
+    background:linear-gradient(135deg,#22D3EE,#6366F1)!important;
+    color:#FFFFFF!important;
+    -webkit-text-fill-color:#FFFFFF!important;
+    box-shadow:0 5px 12px rgba(79,70,229,.22)!important;
+}
+
+.pn-mobile-contact-email .pn-contact-address {
+    min-width:0!important;
+    color:#164E8A!important;
+    -webkit-text-fill-color:#164E8A!important;
+    font-weight:800!important;
+    line-height:1.25!important;
+    text-align:left!important;
+    overflow-wrap:anywhere!important;
+}
+
+.pn-mobile-contact-email .pn-contact-arrow {
+    color:#4F46E5!important;
+    -webkit-text-fill-color:#4F46E5!important;
+    font-size:1.45rem!important;
+    font-weight:900!important;
+    line-height:1!important;
+    text-align:center!important;
 }
 
 @media(min-width:701px) {
