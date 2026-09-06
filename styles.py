@@ -7121,3 +7121,68 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* NATIVE MOBILE CONTACT BUTTON — KEEP CONTENT IN ONE CONTROL */
+@media(max-width:700px) {
+    .st-key-mobile_support_contact [data-testid="stLinkButton"],
+    .st-key-mobile_support_contact [data-testid="stLinkButton"] > a {
+        width:100%!important;
+    }
+
+    .st-key-mobile_support_contact [data-testid="stLinkButton"] > a {
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        gap:.55rem!important;
+        min-height:50px!important;
+        padding:.65rem .8rem!important;
+        border:1px solid rgba(59,130,246,.48)!important;
+        border-radius:13px!important;
+        background:
+            linear-gradient(135deg,rgba(34,211,238,.2),rgba(99,102,241,.18)),
+            rgba(255,255,255,.82)!important;
+        color:#164E8A!important;
+        -webkit-text-fill-color:#164E8A!important;
+        font-size:.88rem!important;
+        font-weight:850!important;
+        line-height:1.2!important;
+        text-align:center!important;
+        text-decoration:none!important;
+        box-shadow:
+            0 8px 20px rgba(37,99,235,.15),
+            inset 0 1px 0 rgba(255,255,255,.55)!important;
+        backdrop-filter:blur(14px) saturate(145%)!important;
+        -webkit-backdrop-filter:blur(14px) saturate(145%)!important;
+    }
+
+    .st-key-mobile_support_contact [data-testid="stLinkButton"] > a p,
+    .st-key-mobile_support_contact [data-testid="stLinkButton"] > a span,
+    .st-key-mobile_support_contact [data-testid="stLinkButton"] > a svg {
+        margin:0!important;
+        color:#164E8A!important;
+        -webkit-text-fill-color:#164E8A!important;
+        fill:currentColor!important;
+        font-weight:850!important;
+        text-align:center!important;
+    }
+
+    .st-key-mobile_support_contact [data-testid="stLinkButton"] > a:hover,
+    .st-key-mobile_support_contact [data-testid="stLinkButton"] > a:focus {
+        border-color:#60A5FA!important;
+        background:
+            linear-gradient(135deg,rgba(34,211,238,.3),rgba(124,58,237,.26)),
+            rgba(255,255,255,.92)!important;
+        color:#0F3F78!important;
+        -webkit-text-fill-color:#0F3F78!important;
+        box-shadow:
+            0 10px 24px rgba(79,70,229,.22),
+            0 0 0 3px rgba(96,165,250,.12)!important;
+    }
+}
+</style>
+        """
+    )
