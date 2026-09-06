@@ -698,6 +698,9 @@ with st.sidebar:
         """
         <div class="pn-side-footer">
             <span>🚀 Powered by PeerNet Solutions</span>
+            <a class="pn-contact-email" href="mailto:info@peernetsolutions.in">
+                ✉ info@peernetsolutions.in
+            </a>
             <small>© 2026 PeerNet Solutions. All rights reserved.</small>
         </div>
         """,
@@ -1376,6 +1379,19 @@ elif selected_page == "Settings":
                 st.success("Password updated.")
             except Exception as error:
                 st.error(f"Unable to update password: {error}")
+
+    with st.container(key="mobile_support_contact"):
+        st.divider()
+        st.subheader("Support & Contact")
+        st.markdown(
+            """
+            <a class="pn-contact-email pn-mobile-contact-email"
+               href="mailto:info@peernetsolutions.in">
+                ✉ info@peernetsolutions.in
+            </a>
+            """,
+            unsafe_allow_html=True,
+        )
 
     with st.container(key="mobile_delete_account"):
         st.divider()
