@@ -7021,3 +7021,64 @@ div[data-testid="stFormSubmitButton"] > button span {
 </style>
         """
     )
+
+
+    st.html(
+        """
+<style>
+/* CONTACT EMAIL — DESKTOP SIDEBAR + MOBILE SETTINGS */
+.pn-contact-email {
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    box-sizing:border-box!important;
+    margin:.42rem 0!important;
+    padding:.42rem .55rem!important;
+    border:1px solid rgba(59,130,246,.34)!important;
+    border-radius:11px!important;
+    background:
+        linear-gradient(135deg,rgba(34,211,238,.16),rgba(99,102,241,.15)),
+        rgba(255,255,255,.78)!important;
+    color:#164E8A!important;
+    -webkit-text-fill-color:#164E8A!important;
+    font-size:.73rem!important;
+    font-weight:800!important;
+    line-height:1.25!important;
+    text-align:center!important;
+    text-decoration:none!important;
+    box-shadow:
+        0 6px 16px rgba(37,99,235,.12),
+        inset 0 1px 0 rgba(255,255,255,.46)!important;
+    backdrop-filter:blur(12px) saturate(140%)!important;
+    -webkit-backdrop-filter:blur(12px) saturate(140%)!important;
+}
+
+.pn-contact-email:hover,
+.pn-contact-email:focus {
+    border-color:#60A5FA!important;
+    background:
+        linear-gradient(135deg,rgba(34,211,238,.28),rgba(124,58,237,.24)),
+        rgba(255,255,255,.9)!important;
+    color:#0F3F78!important;
+    -webkit-text-fill-color:#0F3F78!important;
+    box-shadow:
+        0 9px 22px rgba(79,70,229,.2),
+        0 0 0 3px rgba(96,165,250,.12)!important;
+}
+
+.pn-mobile-contact-email {
+    max-width:430px!important;
+    min-height:46px!important;
+    margin:.3rem 0 .7rem!important;
+    font-size:.88rem!important;
+}
+
+@media(min-width:701px) {
+    .st-key-mobile_support_contact {
+        display:none!important;
+    }
+}
+</style>
+        """
+    )
