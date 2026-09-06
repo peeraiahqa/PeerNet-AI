@@ -1383,14 +1383,11 @@ elif selected_page == "Settings":
     with st.container(key="mobile_support_contact"):
         st.divider()
         st.subheader("Support & Contact")
-        st.markdown(
-            '<a class="pn-contact-email pn-mobile-contact-email" '
-            'href="mailto:info@peernetsolutions.in">'
-            '<span class="pn-contact-icon">✉</span>'
-            '<span class="pn-contact-address">info@peernetsolutions.in</span>'
-            '<span class="pn-contact-arrow">›</span>'
-            '</a>',
-            unsafe_allow_html=True,
+        st.link_button(
+            "info@peernetsolutions.in",
+            "mailto:info@peernetsolutions.in",
+            icon=":material/mail:",
+            width="stretch",
         )
 
     with st.container(key="mobile_delete_account"):
